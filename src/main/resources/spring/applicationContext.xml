@@ -10,8 +10,11 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan
-            base-package="com.neuralnoise.map.web"/>
+    <context:component-scan base-package="com.neuralnoise.map.model"/>
+    
+    <context:component-scan base-package="com.neuralnoise.map.service"/>
+
+    <context:component-scan base-package="com.neuralnoise.map.web"/>
 
      <!-- enables scanning for @Transactional annotations -->
     <tx:annotation-driven />

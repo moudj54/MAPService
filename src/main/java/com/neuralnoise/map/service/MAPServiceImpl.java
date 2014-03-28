@@ -11,14 +11,12 @@ import com.neuralnoise.map.model.domain.Event;
 @Service
 public class MAPServiceImpl implements MAPService {
 
-	private EventRepository eventRepository;
-	
 	public MAPServiceImpl() { }
 
 	@Override
     @Transactional(readOnly = true)
 	public Collection<Event> findEvents() throws DataAccessException {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 

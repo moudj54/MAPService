@@ -70,6 +70,7 @@
 	</properties>
 
 	<dependencies>
+	
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.core</artifactId>
@@ -105,6 +106,7 @@
 			<version>${jaxb-impl.version}</version>
 			<scope>provided</scope>
 		</dependency>
+	
 		<!-- SPRING, SPRING, SPRINGITY SPRING -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
@@ -130,6 +132,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 		</dependency>
+	
 		<!-- used for EhCacheCacheManager -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -157,9 +160,6 @@
 			<version>${spring-framework.version}</version>
 		</dependency>
 
-
-		<!-- Database connection pool See here for more details on commons-dbcp 
-			versus tomcat-jdbc: http://blog.ippon.fr/2013/03/13/improving-the-performance-of-the-spring-petclinic-sample-application-part-3-of-5/ -->
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
@@ -215,7 +215,7 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- For MySql only -->
+		<!-- For MySQL only -->
 		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
 			<version>${mysql.version}</version> </dependency> -->
 		<!-- HIBERNATE -->
@@ -246,6 +246,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+	
 		<!-- Webjars (static dependencies distributed as JAR files) -->
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -276,6 +277,7 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+	
 		<!-- used by Spring MVC Test framework -->
 		<dependency>
 			<groupId>org.hamcrest</groupId>
@@ -296,7 +298,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-
 		<!-- Dandelion -->
 		<dependency>
 			<groupId>com.github.dandelion</groupId>
@@ -313,7 +314,6 @@
 			<artifactId>datatables-servlet2</artifactId>
 			<version>${dandelion.datatables.version}</version>
 		</dependency>
-
 
 	</dependencies>
 
@@ -356,21 +356,19 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<!-- Maven plugin versions are mentioned in order to guarantee the build 
-		reproducibility in the long term -->
-	<build>
+	<build>		
 		<finalName>MAPService</finalName>
 		<defaultGoal>install</defaultGoal>
+		
 		<testResources>
 			<testResource>
-				<!-- declared explicitly so Spring config files can be placed next to 
-					their corresponding JUnit test class (see example with ValidatorTests) -->
 				<directory>${project.basedir}/src/test/java</directory>
 			</testResource>
 			<testResource>
 				<directory>${project.basedir}/src/test/resources</directory>
 			</testResource>
 		</testResources>
+		
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -451,6 +449,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		
 	</build>
 
 </project>

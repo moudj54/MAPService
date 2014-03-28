@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-  <classpathentry kind="src" path="src/test/java" output="target/test-classes"/>
-  <classpathentry kind="src" path="src/test/resources" output="target/test-classes" excluding="**/*.java"/>
   <classpathentry kind="src" path="src/main/java" including="**/*.*|**/*.java"/>
   <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
@@ -22,7 +20,7 @@
       <attribute value="jar:file:/home/pasquale/.m2/repository/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
-  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="var" path="M2_REPO/org/jadira/usertype/usertype.core/3.1.0.CR10/usertype.core-3.1.0.CR10.jar" sourcepath="M2_REPO/org/jadira/usertype/usertype.core/3.1.0.CR10/usertype.core-3.1.0.CR10-sources.jar">
     <attributes>
       <attribute value="jar:file:/home/pasquale/.m2/repository/org/jadira/usertype/usertype.core/3.1.0.CR10/usertype.core-3.1.0.CR10-javadoc.jar!/" name="javadoc_location"/>

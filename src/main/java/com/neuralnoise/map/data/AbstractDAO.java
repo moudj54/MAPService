@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +14,9 @@ import com.google.common.base.Preconditions;
 @Repository
 public abstract class AbstractDAO<T extends Serializable> {
  
-    private Class<T> clazz;
+    protected final Class<T> clazz;
     
-    @PersistenceContext
+	@PersistenceContext
     private EntityManager entityManager;
  
     public AbstractDAO(final Class<T> clazzToSet) {

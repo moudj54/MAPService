@@ -30,4 +30,9 @@ public class PizzaController {
     public @ResponseBody Pizza lookupMemberById(@PathVariable("id") Long id) {
         return pizzaDAO.getById(id);
     }
+    
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<Pizza> lookupMemberById(@PathVariable("name") String name) {
+        return pizzaDAO.findByName(name);
+    }
 }

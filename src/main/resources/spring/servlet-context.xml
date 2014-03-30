@@ -17,10 +17,6 @@
 	<context:component-scan base-package="com.neuralnoise.map" />
 	<context:annotation-config />
 
-	<bean id="jdbcPropertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-		p:location="classpath:project.properties" />
-
 	<!-- JDBC Data Source. -->
 	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver"></property>
@@ -62,13 +58,7 @@
         <property name="persistenceUnitName" value="entityManager"/>
     </bean>
 
-	<!-- Hibernate Transaction Manager -->
-<!--	
-	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="mySessionFactory" />
-	</bean>
--->
-
+	<!-- JPA Transaction Manager -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>

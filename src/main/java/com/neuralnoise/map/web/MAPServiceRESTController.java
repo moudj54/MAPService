@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class MAPServiceController {
+public class MAPServiceRESTController {
 
 	private static final String template = "Ciao, %s!";
 	private final AtomicLong counter = new AtomicLong();
 
-	public class Message {
+	public static class Message {
 		private final long id;
 		private final String content;
 

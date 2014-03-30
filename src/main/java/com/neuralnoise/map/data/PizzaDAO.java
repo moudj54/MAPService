@@ -2,25 +2,30 @@ package com.neuralnoise.map.data;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.neuralnoise.map.model.Pizza;
 
 @Repository
-@SuppressWarnings({ "unchecked", "rawtypes" })
+@Transactional
 public class PizzaDAO {
-	@Autowired
-	private SessionFactory sessionFactory;
+	
+	protected EntityManager em;
 
-	@Transactional
-	public List<Pizza> findAll() {
-		Session session = sessionFactory.getCurrentSession();
-		List pizzas = session.createQuery("from Pizza").list();
-		return pizzas;
+	public EntityManager getEntityManager() {
+		return em;
 	}
+
+	@PersistenceContext
+	public void setEntityManager(EntityManager entityManager) {
+		this.em = entityManager;
+	}
+    
+    public List<Pizza> findAll() {
+    	return em.createQuery("from Pizza2").getResultList();
+    }
 }

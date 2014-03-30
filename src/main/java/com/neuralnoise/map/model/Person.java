@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 public class Person extends BaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Person.class);
-	
+
 	@Column(name = "first_name")
 	@NotEmpty
 	protected String firstName;
@@ -38,7 +38,7 @@ public class Person extends BaseEntity {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	public Contact getContact() {
 		return contact;
 	}
@@ -46,5 +46,5 @@ public class Person extends BaseEntity {
 	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
-	
+
 }

@@ -9,5 +9,5 @@ import com.neuralnoise.map.model.domain.Event;
 public interface MAPService {
 
 	public Collection<Event> findEvents() throws DataAccessException;
-	
+
 }

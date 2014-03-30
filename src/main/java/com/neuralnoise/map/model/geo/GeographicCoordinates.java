@@ -11,16 +11,16 @@ import com.neuralnoise.map.model.BaseEntity;
 
 @MappedSuperclass
 public class GeographicCoordinates extends BaseEntity {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(GeographicCoordinates.class);
-	
-    @Column(name = "latitude")
-    @NotEmpty
-    protected Long latitude;
+
+	@Column(name = "latitude")
+	@NotEmpty
+	protected Long latitude;
 
 	@Column(name = "longitude")
-    @NotEmpty
-    protected Long longitude;
+	@NotEmpty
+	protected Long longitude;
 
 	public Long getLatitude() {
 		return latitude;
@@ -29,13 +29,13 @@ public class GeographicCoordinates extends BaseEntity {
 	public void setLatitude(Long latitude) {
 		this.latitude = latitude;
 	}
-	
-    public Long getLongitude() {
+
+	public Long getLongitude() {
 		return longitude;
 	}
 
 	public void setLongitude(Long longitude) {
 		this.longitude = longitude;
 	}
-	
+
 }

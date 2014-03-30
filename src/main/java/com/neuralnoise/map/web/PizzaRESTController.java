@@ -17,9 +17,11 @@ public class PizzaRESTController {
 	@Autowired
 	private PizzaDAO pizzaDAO;
 
-	//@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	// @RequestMapping(method = RequestMethod.GET, produces =
+	// "application/json")
 	@RequestMapping("/pizza")
-	public @ResponseBody List<Pizza> list(Model model) {
+	public @ResponseBody
+	List<Pizza> list(Model model) {
 		List<Pizza> pizzas = pizzaDAO.findAll();
 		model.addAttribute("pizzas", pizzas);
 		return pizzas;

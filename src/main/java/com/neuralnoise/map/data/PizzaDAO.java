@@ -13,7 +13,7 @@ import com.neuralnoise.map.model.Pizza;
 @Repository
 @Transactional
 public class PizzaDAO {
-	
+
 	protected EntityManager em;
 
 	public EntityManager getEntityManager() {
@@ -24,8 +24,8 @@ public class PizzaDAO {
 	public void setEntityManager(EntityManager entityManager) {
 		this.em = entityManager;
 	}
-    
-    public List<Pizza> findAll() {
-    	return em.createQuery("from Pizza").getResultList();
-    }
+
+	public List<Pizza> findAll() {
+		return em.createQuery("from Pizza").getResultList();
+	}
 }

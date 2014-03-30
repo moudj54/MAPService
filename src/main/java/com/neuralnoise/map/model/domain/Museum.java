@@ -9,5 +9,5 @@ import org.slf4j.LoggerFactory;
 public class Museum extends DomainEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Museum.class);
-	
+
 }

@@ -12,19 +12,19 @@ import org.slf4j.LoggerFactory;
 
 @MappedSuperclass
 public class Event extends DomainEntity {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(Event.class);
-    
-    @Column(name = "description")
-    protected String description;
+
+	@Column(name = "description")
+	protected String description;
 
 	@Temporal(TemporalType.DATE)
-    @Column(name="start_date")
-    protected Calendar startDate;
-    
-    @Temporal(TemporalType.DATE)
-    @Column(name="end_date")
-    protected Calendar endDate;
+	@Column(name = "start_date")
+	protected Calendar startDate;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "end_date")
+	protected Calendar endDate;
 
 	public String getDescription() {
 		return description;
@@ -49,5 +49,5 @@ public class Event extends DomainEntity {
 	public void setEndDate(Calendar endDate) {
 		this.endDate = endDate;
 	}
-    
+
 }

@@ -12,17 +12,17 @@ import com.neuralnoise.map.model.BaseEntity;
 public class Address extends BaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Address.class);
-	
+
 	@Column(name = "street")
 	protected String street;
-	
+
 	@Column(name = "postal_code")
 	protected String postalCode;
-	
+
 	@Column(name = "city")
 	protected String city;
-	
+
 	@Column(name = "country")
 	protected String country;
-	
+
 }

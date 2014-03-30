@@ -10,23 +10,23 @@ import org.slf4j.LoggerFactory;
 
 @MappedSuperclass
 public class BaseEntity {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(BaseEntity.class);
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	protected Integer id;
 
-    public Integer getId() {
-        return id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public boolean isNew() {
-        return (this.id == null);
-    }
+	public Integer getId() {
+		return id;
+	}
+
+	public boolean isNew() {
+		return (this.id == null);
+	}
 
 }

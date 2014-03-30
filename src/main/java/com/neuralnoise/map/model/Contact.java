@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory;
 public class Contact extends BaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Contact.class);
-	
+
 	@Column(name = "email")
 	protected String email;
-	
+
 	@Column(name = "phone")
 	protected String phone;
 
@@ -24,7 +24,7 @@ public class Contact extends BaseEntity {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getPhone() {
 		return this.phone;
 	}
@@ -32,5 +32,5 @@ public class Contact extends BaseEntity {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
 }

@@ -14,7 +14,7 @@ import com.neuralnoise.map.model.NamedEntity;
 public class DomainEntity extends NamedEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(DomainEntity.class);
-	
+
 	@Column(name = "contact")
 	@NotEmpty
 	protected Contact contact;
@@ -26,5 +26,5 @@ public class DomainEntity extends NamedEntity {
 	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
-	
+
 }

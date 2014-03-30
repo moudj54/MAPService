@@ -36,5 +36,5 @@ public class MAPServiceRESTController {
 	Message hello(@RequestParam(value = "name", required = false, defaultValue = "World") String name) {
 		return new Message(counter.incrementAndGet(), String.format(template, name));
 	}
-	
+
 }

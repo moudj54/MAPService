@@ -9,7 +9,5 @@ import org.slf4j.LoggerFactory;
 public class Artisan extends DomainEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Artisan.class);
-	
-	
-	
+
 }

@@ -26,6 +26,6 @@ public class PizzaDAO {
 	}
     
     public List<Pizza> findAll() {
-    	return em.createQuery("from Pizza2").getResultList();
+    	return em.createQuery("from Pizza").getResultList();
     }
 }

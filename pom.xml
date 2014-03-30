@@ -61,6 +61,9 @@
 		<!-- Guava -->
 		<guava.version>16.0.1</guava.version>
 
+		<!-- Apache Commons -->
+		<commons.version>3.2</commons.version>
+
 		<!-- Web dependencies -->
 		<webjars-bootstrap.version>2.3.0</webjars-bootstrap.version>
 		<webjars-jquery-ui.version>1.10.3</webjars-jquery-ui.version>
@@ -221,6 +224,13 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
+		</dependency>
+
+		<!-- Apache Commons -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons.version}</version>
 		</dependency>
 
 		<!-- Databases - Uses HSQL by default -->

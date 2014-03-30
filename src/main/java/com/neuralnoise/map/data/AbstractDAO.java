@@ -32,9 +32,10 @@ public abstract class AbstractDAO<T extends Serializable> {
         return getEntityManager().createQuery("from " + clazz.getName()).getResultList();
     }
  
-    public void create(final T entity) {
+    public T create(final T entity) {
         Preconditions.checkNotNull(entity);
         getEntityManager().persist(entity);
+        return entity;
     }
  
     public T update(final T entity) {

@@ -2,7 +2,13 @@ package com.neuralnoise.map.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,12 +16,16 @@ import org.slf4j.LoggerFactory;
 public class Contact extends BaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Contact.class);
-
+	
 	@Column(name = "email")
+    @NotEmpty(message = "Email address cannot be empty")
+    @Email(message = "Invalid email address, e.g. valid email address: example@gmail.com")
 	protected String email;
 
-	@Column(name = "phone")
-	protected String phone;
+    @Size(min = 10, max = 12)
+    @Digits(fraction = 0, integer = 12, message = "Incorrect Format, valid e.g. 121212121212")
+    @Column(name = "phone_number")
+	protected String phoneNumber;
 
 	public String getEmail() {
 		return this.email;
@@ -25,12 +35,12 @@ public class Contact extends BaseEntity {
 		this.email = email;
 	}
 
-	public String getPhone() {
-		return this.phone;
+	public String getPhoneNumber() {
+		return this.phoneNumber;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 }

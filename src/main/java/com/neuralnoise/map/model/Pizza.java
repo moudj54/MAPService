@@ -1,5 +1,7 @@
 package com.neuralnoise.map.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,7 +9,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "pizza")
-public class Pizza {
+public class Pizza implements Serializable {
+
+	private static final long serialVersionUID = -973560154087622826L;
 
 	@Id
 	@GeneratedValue

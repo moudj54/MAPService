@@ -1,9 +1,5 @@
 package com.neuralnoise.map.data;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -12,20 +8,10 @@ import com.neuralnoise.map.model.Pizza;
 
 @Repository
 @Transactional
-public class PizzaDAO {
+public class PizzaDAO extends AbstractDAO<Pizza> {
 
-	protected EntityManager em;
-
-	public EntityManager getEntityManager() {
-		return em;
+	public PizzaDAO() {
+		super(Pizza.class);
 	}
-
-	@PersistenceContext
-	public void setEntityManager(EntityManager entityManager) {
-		this.em = entityManager;
-	}
-
-	public List<Pizza> findAll() {
-		return em.createQuery("from Pizza").getResultList();
-	}
+	
 }

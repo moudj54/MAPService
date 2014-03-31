@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,9 +29,9 @@ public class PizzaController {
 	@Autowired
 	private PizzaDAO pizzaDAO;
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public Pizza create(@RequestBody Pizza pizza) {
+	public Pizza create(@ModelAttribute Pizza pizza) {
 		log.info("Creating new pizza {}", pizza);
 		return pizzaDAO.create(pizza);
 	}
@@ -51,7 +52,7 @@ public class PizzaController {
 		return pizza;
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void update(@PathVariable("id") Long id, @RequestBody Pizza pizza) {
 		log.info("Updating pizza with id {} with {}", id, pizza);
@@ -63,12 +64,12 @@ public class PizzaController {
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable("id") Long id) {
 		log.info("Deleting pizza with id {}", id);
-		pizzaDAO.delete(id);
+		pizzaDAO.deleteById(id);
 	}
 
 	@RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<Pizza> lookupMemberById(@PathVariable("name") String name) {
+	List<Pizza> lookupByName(@PathVariable("name") String name) {
 		return pizzaDAO.findByName(name);
 	}
 

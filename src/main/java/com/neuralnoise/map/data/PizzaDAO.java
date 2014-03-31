@@ -18,15 +18,10 @@ public class PizzaDAO extends AbstractDAO<Pizza> {
 		super(Pizza.class);
 	}
 
+	@Transactional
 	public List<Pizza> findByName(String name) {
 		Query query = getEntityManager().createQuery("from " + clazz.getName() + " p where p.name = :name");
 		return query.setParameter("name", name).getResultList();
 	}
 
-	public void delete(Long id) {
-		Pizza pizza = getById(id);
-		Preconditions.checkState(pizza != null);
-		delete(pizza);
-	}
-	
 }

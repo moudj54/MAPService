@@ -76,7 +76,12 @@
 		<mysql.version>5.1.22</mysql.version>
 		<postgresql.version>9.1-901.jdbc4</postgresql.version>
 		<jackson.version>1.8.5</jackson.version>
-
+		
+		<!-- GeoLocation -->
+		<httpclient.version>4.0</httpclient.version>
+		<nominatim.version>1.0</nominatim.version>
+		<geocoder.version>0.15</geocoder.version>
+		
 	</properties>
 
 	<dependencies>
@@ -253,14 +258,12 @@
 			<version>${commons.version}</version>
 		</dependency>
 
-		<!-- Databases - Uses HSQL by default -->
-
+		<!-- DBMS -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>${dbcp.version}</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.hsqldb</groupId>
@@ -274,6 +277,25 @@
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+
+		<!-- GeoLocation -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+            
+		<dependency>
+			<groupId>fr.dudie</groupId>
+			<artifactId>nominatim-api</artifactId>
+			<version>${nominatim.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.geocoder-java</groupId>
+			<artifactId>geocoder-java</artifactId>
+			<version>${geocoder.version}</version>
 		</dependency>
 
 		<!-- HIBERNATE -->

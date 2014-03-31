@@ -2,9 +2,9 @@ package com.neuralnoise.map.web;
 
 import java.util.List;
 
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.neuralnoise.map.data.PizzaDAO;
 import com.neuralnoise.map.model.Pizza;
+import com.neuralnoise.map.service.PizzaService;
 
 @Controller
 @RequestMapping("/pizza")
@@ -26,28 +27,31 @@ public class PizzaController {
 
 	private static final Logger log = LoggerFactory.getLogger(PizzaController.class);
 
-	@Autowired
+	//@Autowired
 	private PizzaDAO pizzaDAO;
 
+	@Autowired
+	private PizzaService pizzaService;
+	
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public Pizza create(@ModelAttribute Pizza pizza) {
 		log.info("Creating new pizza {}", pizza);
-		return pizzaDAO.create(pizza);
+		return pizzaService.create(pizza);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Pizza> list() {
 		log.info("Listing pizzas");
-		return pizzaDAO.getAll();
+		return pizzaService.getAll();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	Pizza read(@PathVariable("id") Long id) {
 		log.info("Reading pizza with id {}", id);
-		Pizza pizza = pizzaDAO.getById(id);
+		Pizza pizza = pizzaService.getById(id);
 		Validate.isTrue(pizza != null, "Unable to find pizza with id: " + id);
 		return pizza;
 	}
@@ -57,20 +61,20 @@ public class PizzaController {
 	public void update(@PathVariable("id") Long id, @RequestBody Pizza pizza) {
 		log.info("Updating pizza with id {} with {}", id, pizza);
 		Validate.isTrue(id == pizza.getId(), "id doesn't match URL pizza's Id: " + pizza.getId());
-		pizzaDAO.update(pizza);
+		pizzaService.update(pizza);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable("id") Long id) {
 		log.info("Deleting pizza with id {}", id);
-		pizzaDAO.deleteById(id);
+		pizzaService.deleteById(id);
 	}
 
 	@RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Pizza> lookupByName(@PathVariable("name") String name) {
-		return pizzaDAO.findByName(name);
+		return pizzaService.findByName(name);
 	}
 
 	@ExceptionHandler(IllegalArgumentException.class)

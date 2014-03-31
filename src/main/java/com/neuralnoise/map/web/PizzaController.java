@@ -21,7 +21,7 @@ import com.neuralnoise.map.data.PizzaDAO;
 import com.neuralnoise.map.model.Pizza;
 
 @Controller
-@RequestMapping("/pizzas")
+@RequestMapping("/pizza")
 public class PizzaController {
 
 	private static final Logger log = LoggerFactory.getLogger(PizzaController.class);

@@ -15,7 +15,7 @@ public class Address extends BaseEntity {
 
 	@Column(name = "street")
 	protected String street;
-
+	
 	@Column(name = "postal_code")
 	protected String postalCode;
 
@@ -25,4 +25,13 @@ public class Address extends BaseEntity {
 	@Column(name = "country")
 	protected String country;
 
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	
 }

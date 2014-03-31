@@ -27,6 +27,12 @@ public class GeographicCoordinates extends BaseEntity {
 	@Column(name = "address")
 	protected String address;
 
+	public GeographicCoordinates(Double latitude, Double longitude, String address) {
+		this.setLatitude(latitude);
+		this.setLongitude(longitude);
+		this.setAddress(address);
+	}
+	
 	public Double getLatitude() {
 		return latitude;
 	}

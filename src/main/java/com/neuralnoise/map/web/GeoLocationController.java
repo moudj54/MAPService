@@ -20,16 +20,16 @@ public class GeoLocationController {
 	@Autowired
 	private GeoLocationService geoLocationService;
 	
-	@RequestMapping(value = "/nominatim/{address}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/nominatim/{name}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<GeographicCoordinates> lookupByNameN(@PathVariable("address") String address) throws IOException {
-		return geoLocationService.lookupNominatim(address);
+	List<GeographicCoordinates> lookupByNameN(@PathVariable("name") String name) throws IOException {
+		return geoLocationService.lookupNominatim(name);
 	}
 
-	@RequestMapping(value = "/google/{address}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/google/{name}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<GeographicCoordinates> lookupByNameG(@PathVariable("address") String address) throws IOException {
-		return geoLocationService.lookupGoogle(address);
+	List<GeographicCoordinates> lookupByNameG(@PathVariable("name") String name) throws IOException {
+		return geoLocationService.lookupGoogle(name);
 	}
 	
 }

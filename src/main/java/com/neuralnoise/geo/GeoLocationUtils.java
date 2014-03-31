@@ -48,10 +48,7 @@ public class GeoLocationUtils {
 			double dlat = addr.getLatitude();
 			double dlong = addr.getLongitude();
 
-			GeographicCoordinates gc = new GeographicCoordinates();
-			gc.setLatitude(dlat);
-			gc.setLongitude(dlong);
-			gc.setAddress(formatted);
+			GeographicCoordinates gc = new GeographicCoordinates(dlat, dlong, formatted);
 			
 			gcs.add(gc);
 		}
@@ -73,11 +70,7 @@ public class GeoLocationUtils {
 			LatLng latlng = geometry.getLocation();
 			String formatted = result.getFormattedAddress();
 
-			GeographicCoordinates gc = new GeographicCoordinates();
-			gc.setLatitude(latlng.getLat().doubleValue());
-			gc.setLongitude(latlng.getLng().doubleValue());
-			gc.setAddress(formatted);
-			
+			GeographicCoordinates gc = new GeographicCoordinates(latlng.getLat().doubleValue(), latlng.getLng().doubleValue(), formatted);
 			gcs.add(gc);
 		}
 		

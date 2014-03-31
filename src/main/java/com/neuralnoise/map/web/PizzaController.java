@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.neuralnoise.map.data.PizzaDAO;
 import com.neuralnoise.map.model.Pizza;
 import com.neuralnoise.map.service.PizzaService;
 
@@ -26,9 +25,6 @@ import com.neuralnoise.map.service.PizzaService;
 public class PizzaController {
 
 	private static final Logger log = LoggerFactory.getLogger(PizzaController.class);
-
-	//@Autowired
-	private PizzaDAO pizzaDAO;
 
 	@Autowired
 	private PizzaService pizzaService;

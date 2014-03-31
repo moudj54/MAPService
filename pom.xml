@@ -79,7 +79,7 @@
 		
 		<!-- GeoLocation -->
 		<httpclient.version>4.0</httpclient.version>
-		<nominatim.version>1.0</nominatim.version>
+		<nominatim.version>2.0.2</nominatim.version>
 		<geocoder.version>0.15</geocoder.version>
 		
 	</properties>

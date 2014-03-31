@@ -2,7 +2,6 @@ package com.neuralnoise.geo;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -16,23 +15,23 @@ import com.google.code.geocoder.model.GeocoderGeometry;
 import com.google.code.geocoder.model.GeocoderRequest;
 import com.google.code.geocoder.model.GeocoderResult;
 import com.google.code.geocoder.model.LatLng;
+import com.google.common.collect.Lists;
 import com.neuralnoise.map.model.geo.GeographicCoordinates;
 
 import fr.dudie.nominatim.client.JsonNominatimClient;
 import fr.dudie.nominatim.model.Address;
 
-public class GeoUtils {
+public class GeoLocationUtils {
 
 	private static final String PROPS_PATH = "/nominatim-client.properties";
 
-	private GeoUtils() {
-	}
+	private GeoLocationUtils() { }
 
-	public static GeographicCoordinates queryNominatim(String address, String language) throws IOException {
+	public static List<GeographicCoordinates> queryNominatim(String address, String language) throws IOException {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		Properties props = new Properties();
-		final InputStream in = GeoUtils.class.getResourceAsStream(PROPS_PATH);
+		final InputStream in = GeoLocationUtils.class.getResourceAsStream(PROPS_PATH);
 		props.load(in);
 
 		String baseUrl = props.getProperty("nominatim.server.url");
@@ -41,45 +40,48 @@ public class GeoUtils {
 		JsonNominatimClient nominatimClient = new JsonNominatimClient(httpClient, email);
 		List<Address> addresses = nominatimClient.search(address);
 
-		GeographicCoordinates gc = null;
-		Iterator<Address> it = addresses.iterator();
+		List<GeographicCoordinates> gcs = Lists.newLinkedList();
 
-		if (it.hasNext()) {
-			Address addr = it.next();
+		for (Address addr : addresses) {
 			String formatted = addr.getDisplayName();
 			
-			long llat = addr.getLatitudeE6();
-			long llong = addr.getLongitudeE6();
+			double dlat = addr.getLatitude();
+			double dlong = addr.getLongitude();
 
-			gc = new GeographicCoordinates();
-			gc.setLatitude(llat);
-			gc.setLongitude(llong);
+			GeographicCoordinates gc = new GeographicCoordinates();
+			gc.setLatitude(dlat);
+			gc.setLongitude(dlong);
+			gc.setAddress(formatted);
+			
+			gcs.add(gc);
 		}
 
-		return gc;
+		return gcs;
 	}
 
-	public static GeographicCoordinates queryGoogle(String address, String language) {
+	public static List<GeographicCoordinates> queryGoogle(String address, String language) {
 		Geocoder geocoder = new Geocoder();
 		GeocoderRequestBuilder builder = new GeocoderRequestBuilder().setAddress(address).setLanguage(language);
 		
 		GeocoderRequest request = builder.getGeocoderRequest();
 		GeocodeResponse response = geocoder.geocode(request);
 
-		GeographicCoordinates gc = null;
+		List<GeographicCoordinates> gcs = Lists.newLinkedList();
 
-		Iterator<GeocoderResult> it = response.getResults().iterator();
-		if (it.hasNext()) {
-			GeocoderResult result = it.next();
+		for (GeocoderResult result : response.getResults()) {
 			GeocoderGeometry geometry = result.getGeometry();
 			LatLng latlng = geometry.getLocation();
 			String formatted = result.getFormattedAddress();
 
-			gc = new GeographicCoordinates();
-			gc.setLatitude(latlng.getLat().longValue());
-			gc.setLongitude(latlng.getLng().longValue());
+			GeographicCoordinates gc = new GeographicCoordinates();
+			gc.setLatitude(latlng.getLat().doubleValue());
+			gc.setLongitude(latlng.getLng().doubleValue());
+			gc.setAddress(formatted);
+			
+			gcs.add(gc);
 		}
-		return gc;
+		
+		return gcs;
 	}
 
 }

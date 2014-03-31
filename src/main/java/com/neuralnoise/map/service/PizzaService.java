@@ -8,16 +8,16 @@ import com.neuralnoise.map.model.Pizza;
 
 public interface PizzaService {
 
-	Pizza getById(Long id) throws DataAccessException;
+	public Pizza getById(Long id) throws DataAccessException;
 
-	Pizza create(Pizza pizza);
+	public Pizza create(Pizza pizza);
 
-	List<Pizza> getAll();
+	public List<Pizza> getAll();
 
-	void update(Pizza pizza);
+	public void update(Pizza pizza);
 
-	void deleteById(Long id);
+	public void deleteById(Long id);
 
-	List<Pizza> findByName(String name);
+	public List<Pizza> findByName(String name);
 
 }

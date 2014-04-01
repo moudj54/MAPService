@@ -11,7 +11,7 @@ import com.neuralnoise.map.model.Pizza;
 
 @Repository
 @Transactional
-public class PizzaDAO extends AbstractDAO<Pizza> {
+public class PizzaDAO extends AbstractDAO<Pizza, Long> {
 
 	public PizzaDAO() {
 		super(Pizza.class);

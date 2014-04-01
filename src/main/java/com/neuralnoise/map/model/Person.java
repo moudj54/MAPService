@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 public class Person extends BaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Person.class);
+	
+	private static final long serialVersionUID = -4056475834771838454L;
 
 	@Column(name = "first_name")
 	@NotEmpty

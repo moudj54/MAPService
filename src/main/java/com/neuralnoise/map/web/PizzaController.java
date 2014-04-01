@@ -1,6 +1,7 @@
 package com.neuralnoise.map.web;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -88,4 +90,32 @@ public class PizzaController {
 		log.error(ex.getMessage(), ex);
 		return ex.getMessage();
 	}
+	
+	private static final String template = "Ciao, %s!";
+	private final AtomicLong counter = new AtomicLong();
+
+	public static class Message {
+		private final long id;
+		private final String content;
+
+		public Message(long id, String content) {
+			this.id = id;
+			this.content = content;
+		}
+
+		public long getId() {
+			return id;
+		}
+
+		public String getContent() {
+			return content;
+		}
+	}
+
+	@RequestMapping("/hello")
+	public @ResponseBody
+	Message hello(@RequestParam(value = "name", required = false, defaultValue = "World") String name) {
+		return new Message(counter.incrementAndGet(), String.format(template, name));
+	}
+	
 }

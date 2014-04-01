@@ -2,6 +2,8 @@ package com.neuralnoise.map.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ import com.neuralnoise.map.model.Pizza;
 @Service
 public class PizzaServiceImpl implements PizzaService {
 
+	private static final Logger log = LoggerFactory.getLogger(PizzaServiceImpl.class);
+	
 	@Autowired
 	private PizzaDAO pizzaDAO;
 	

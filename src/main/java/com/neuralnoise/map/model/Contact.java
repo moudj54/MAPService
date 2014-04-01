@@ -15,6 +15,8 @@ public class Contact extends BaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Contact.class);
 	
+	private static final long serialVersionUID = 2961146264024085913L;
+	
 	@Column(name = "email")
     @NotEmpty(message = "Email address cannot be empty")
     @Email(message = "Invalid email address, e.g. valid email address: example@gmail.com")

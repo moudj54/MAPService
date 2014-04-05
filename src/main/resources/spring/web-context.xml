@@ -9,6 +9,55 @@
                            http://www.springframework.org/schema/context 
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="classpath:/META-INF/spring/web/web-security-context.xml"/>
+	<!-- JDBC Data Source. -->
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.postgresql.Driver"></property>
+		<property name="url" value="jdbc:postgresql://127.0.0.1/map"></property>
+		<property name="username" value="map"></property>
+		<property name="password" value="map123"></property>
+		<property name="validationQuery" value="SELECT 1" />
+	</bean>
+
+	<!-- Hibernate Session Factory -->
+	<bean id="mySessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="packagesToScan">
+			<array>
+				<value>com.neuralnoise.map</value>
+			</array>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="persistenceUnitManager"
+		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+		<property name="persistenceXmlLocations">
+			<list>
+				<value>classpath:persistence.xml</value>
+			</list>
+		</property>
+		<property name="defaultDataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="entityManagerFactory" autowire="byType"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitManager" ref="persistenceUnitManager" />
+		<property name="persistenceUnitName" value="entityManager" />
+	</bean>
+
+	<!-- JPA Transaction Manager -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+
+    <import resource="classpath:spring/servlet-context.xml"/>
     
 </beans>

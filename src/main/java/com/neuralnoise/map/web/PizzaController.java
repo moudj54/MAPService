@@ -56,7 +56,7 @@ public class PizzaController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void update(@PathVariable("id") Long id, @RequestBody Pizza pizza) {
+	public void update(@PathVariable("id") Long id, @ModelAttribute Pizza pizza) {
 		log.info("Updating pizza with id {} with {}", id, pizza);
 		Validate.isTrue(id == pizza.getId(), "id doesn't match URL pizza's Id: " + pizza.getId());
 		pizzaService.update(pizza);
@@ -89,33 +89,6 @@ public class PizzaController {
 	public String handleServerErrors(Exception ex) {
 		log.error(ex.getMessage(), ex);
 		return ex.getMessage();
-	}
-	
-	private static final String template = "Ciao, %s!";
-	private final AtomicLong counter = new AtomicLong();
-
-	public static class Message {
-		private final long id;
-		private final String content;
-
-		public Message(long id, String content) {
-			this.id = id;
-			this.content = content;
-		}
-
-		public long getId() {
-			return id;
-		}
-
-		public String getContent() {
-			return content;
-		}
-	}
-
-	@RequestMapping("/hello")
-	public @ResponseBody
-	Message hello(@RequestParam(value = "name", required = false, defaultValue = "World") String name) {
-		return new Message(counter.incrementAndGet(), String.format(template, name));
 	}
 	
 }

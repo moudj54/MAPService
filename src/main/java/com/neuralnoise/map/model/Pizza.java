@@ -42,4 +42,10 @@ public class Pizza implements Serializable {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	
+	@Override
+	public String toString() {
+		return "Pizza [id=" + id + ", name=" + name + ", price=" + price + "]";
+	}
+	
 }

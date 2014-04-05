@@ -19,7 +19,7 @@ public class Assembler {
 	private static final Logger log = LoggerFactory.getLogger(Assembler.class);
 	
 	@Transactional(readOnly = true)
-	User buildUserFromUserEntity(UserEntity userEntity) {
+	public User buildUserFromUserEntity(UserEntity userEntity) {
 
 		String username = userEntity.getName();
 		String digest = userEntity.getDigest();

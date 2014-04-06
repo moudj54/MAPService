@@ -21,12 +21,12 @@ public abstract class AbstractContributedDAO<T extends Serializable, I> extends 
 		super(clazzToSet);
 	}
 	
-	public List<Event> findByName(String name) {
+	public List<T> findByName(String name) {
 		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where e.name = :name");
 		return query.setParameter("name", name).getResultList();
 	}
 	
-	public List<Event> findByContributor(String name) {
+	public List<T> findByContributor(String name) {
 		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where e.contributor.name = :name");
 		return query.setParameter("name", name).getResultList();
 	}

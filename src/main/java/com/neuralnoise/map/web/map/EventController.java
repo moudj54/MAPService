@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.neuralnoise.map.model.map.Event;
 import com.neuralnoise.map.service.map.EventService;
+import com.neuralnoise.map.service.map.util.IEntityService;
 
 @Controller
 @RequestMapping("/event")

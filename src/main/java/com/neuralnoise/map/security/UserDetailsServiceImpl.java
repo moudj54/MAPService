@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neuralnoise.map.data.SecurityDAO;
 import com.neuralnoise.map.model.security.UserEntity;
 import com.neuralnoise.map.service.security.Assembler;
+import com.neuralnoise.map.service.security.SecurityService;
 
 @Service("userDetailsService") 
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -20,20 +21,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 	
 	@Autowired
-	private SecurityDAO securityDAO;
-
-	@Autowired
-	private Assembler assembler;
-
-	@Transactional(readOnly = true)
+	private SecurityService securityService;
+	
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
-
-		log.info("Querying for user {}, dao {}, assembler {}", username, securityDAO, assembler);
-		
-		UserEntity userEntity = securityDAO.getById(username);
-		if (userEntity == null)
-			throw new UsernameNotFoundException("user not found");
-
-		return assembler.buildUserFromUserEntity(userEntity);
+		return securityService.loadUserByUsername(username);
 	}
+	
 }

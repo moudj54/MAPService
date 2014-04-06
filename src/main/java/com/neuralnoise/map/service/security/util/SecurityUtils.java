@@ -1,4 +1,4 @@
-package com.neuralnoise.map.security;
+package com.neuralnoise.map.service.security.util;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

@@ -3,12 +3,15 @@ package com.neuralnoise.map.model;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @MappedSuperclass
 public class NamedEntity extends BaseEntity {
 
 	private static final long serialVersionUID = -964173231862367581L;
 	
 	@Column(name = "name")
+	@NotEmpty
 	private String name;
 
 	public void setName(String name) {

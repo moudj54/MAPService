@@ -1,4 +1,4 @@
-package com.neuralnoise.map.model.domain;
+package com.neuralnoise.map.model.contributed;
 
 import java.util.Calendar;
 
@@ -11,13 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @MappedSuperclass
-public class Event extends DomainEntity {
+public class Event extends ContributedEntity {
+
+	private static final long serialVersionUID = 7121988712295223558L;
 
 	private static final Logger log = LoggerFactory.getLogger(Event.class);
-
-	@Column(name = "description")
-	protected String description;
-
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "start_date")
 	protected Calendar startDate;
@@ -25,14 +24,6 @@ public class Event extends DomainEntity {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "end_date")
 	protected Calendar endDate;
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public Calendar getStartDate() {
 		return startDate;

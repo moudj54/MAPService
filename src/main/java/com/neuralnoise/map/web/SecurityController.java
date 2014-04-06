@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.neuralnoise.map.model.Pizza;
+import com.neuralnoise.map.model.security.UserEntity;
 import com.neuralnoise.map.service.security.SecurityService;
 
 @Controller
@@ -28,17 +29,9 @@ public class SecurityController {
 	
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	UserDetails read() {
-		
+	UserEntity current() {
 		log.info("Returning user details ..");
-		
-		UserDetails userDetails = null;
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			userDetails = (UserDetails) auth.getPrincipal();
-		}
-		
-		return userDetails;
+		return securityService.current();
 	}
 	
 }

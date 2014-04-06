@@ -15,48 +15,48 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.neuralnoise.map.model.map.AbstractContributedEntity;
 import com.neuralnoise.map.service.map.util.IEntityService;
 
-public class AbstractEntityController<Event extends AbstractContributedEntity, EventService extends IEntityService<Event>> {
+public class AbstractEntityController<T extends AbstractContributedEntity, S extends IEntityService<T>> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractEntityController.class);
 	
 	@Autowired
-	protected EventService eventService;
+	protected S service;
 	
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public Event create(@ModelAttribute Event event) {
-		log.info("Creating new event {}", event);
-		return eventService.create(event);
+	public T create(@ModelAttribute T entity) {
+		log.info("Creating new entity {}", entity);
+		return service.create(entity);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<Event> list() {
-		log.info("Listing events");
-		return eventService.getAll();
+	List<T> list() {
+		log.info("Listing entities");
+		return service.getAll();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	Event read(@PathVariable("id") Long id) {
-		log.info("Reading event with id {}", id);
-		Event event = eventService.getById(id);
-		Validate.isTrue(event != null, "Unable to find event with id: " + id);
-		return event;
+	T read(@PathVariable("id") Long id) {
+		log.info("Reading entity with id {}", id);
+		T entity = service.getById(id);
+		Validate.isTrue(entity != null, "Unable to find entity with id: " + id);
+		return entity;
 	}
 	
 	@RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<Event> lookupByName(@PathVariable("name") String name) {
-		log.info("Reading events with name {}", name);
-		return eventService.findByName(name);
+	List<T> lookupByName(@PathVariable("name") String name) {
+		log.info("Reading entities with name {}", name);
+		return service.findByName(name);
 	}
 	
 	@RequestMapping(value = "/contributor/{name}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	List<Event> lookupByContributor(@PathVariable("name") String name) {
-		log.info("Reading events with contributor {}", name);
-		return eventService.findByContributor(name);
+	List<T> lookupByContributor(@PathVariable("name") String name) {
+		log.info("Reading entities with contributor {}", name);
+		return service.findByContributor(name);
 	}
 	
 }

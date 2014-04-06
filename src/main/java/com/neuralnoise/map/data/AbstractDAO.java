@@ -34,7 +34,8 @@ public abstract class AbstractDAO<T extends Serializable, I> {
         return e;
     }
  
-    public List<T> getAll() {
+    @SuppressWarnings("unchecked")
+	public List<T> getAll() {
         return getEntityManager().createQuery("from " + clazz.getName()).getResultList();
     }
  

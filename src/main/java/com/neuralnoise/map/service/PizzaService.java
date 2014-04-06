@@ -2,8 +2,6 @@ package com.neuralnoise.map.service;
 
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
-
 import com.neuralnoise.map.model.Pizza;
 
 public interface PizzaService {

@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.neuralnoise.map.model.Pizza;
-import com.neuralnoise.map.model.contributed.Event;
+import com.neuralnoise.map.model.map.Event;
 import com.neuralnoise.map.service.map.EventService;
 
 @Controller

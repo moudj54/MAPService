@@ -5,8 +5,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.neuralnoise.map.model.Pizza;
-import com.neuralnoise.map.model.contributed.Event;
+import com.neuralnoise.map.model.map.Event;
 
 @Service
 public interface EventService {

@@ -1,4 +1,4 @@
-package com.neuralnoise.map.model.contributed;
+package com.neuralnoise.map.model.map;
 
 import javax.persistence.MappedSuperclass;
 

@@ -24,7 +24,7 @@ public class PizzaServiceImpl implements PizzaService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Pizza getById(Long id) throws DataAccessException {
+	public Pizza getById(Long id) {
 		return pizzaDAO.getById(id);
 	}
 

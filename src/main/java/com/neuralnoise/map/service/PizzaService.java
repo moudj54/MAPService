@@ -8,7 +8,7 @@ import com.neuralnoise.map.model.Pizza;
 
 public interface PizzaService {
 
-	public Pizza getById(Long id) throws DataAccessException;
+	public Pizza getById(Long id);
 
 	public Pizza create(Pizza pizza);
 

@@ -1,6 +1,7 @@
 package com.neuralnoise.map.model.contributed;
 
 import javax.persistence.Column;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
@@ -18,8 +19,8 @@ public abstract class ContributedEntity extends NamedEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(ContributedEntity.class);
 
-	@Column(name = "contributor")
 	@NotNull
+	@ManyToOne
 	protected UserEntity contributor;
 
 	@Column(name = "description")

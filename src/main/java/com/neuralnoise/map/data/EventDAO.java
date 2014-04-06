@@ -22,4 +22,9 @@ public class EventDAO extends AbstractDAO<Event, Long> {
 		return query.setParameter("name", name).getResultList();
 	}
 	
+	public List<Event> findByContributor(String name) {
+		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where e.contributor.name = :name");
+		return query.setParameter("name", name).getResultList();
+	}
+	
 }

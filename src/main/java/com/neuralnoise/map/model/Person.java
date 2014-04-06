@@ -1,14 +1,17 @@
 package com.neuralnoise.map.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@MappedSuperclass
-public class Person extends BaseEntity {
+@Entity
+@Table(name = "person")
+public class Person extends AbstractBaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Person.class);
 	

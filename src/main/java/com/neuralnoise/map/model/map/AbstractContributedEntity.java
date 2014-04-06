@@ -8,15 +8,15 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.neuralnoise.map.model.NamedEntity;
+import com.neuralnoise.map.model.AbstractNamedEntity;
 import com.neuralnoise.map.model.security.UserEntity;
 
 @MappedSuperclass
-public abstract class ContributedEntity extends NamedEntity {
+public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 
 	private static final long serialVersionUID = -4161533353336890677L;
 
-	private static final Logger log = LoggerFactory.getLogger(ContributedEntity.class);
+	private static final Logger log = LoggerFactory.getLogger(AbstractContributedEntity.class);
 
 	@NotNull
 	@ManyToOne

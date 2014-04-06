@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @MappedSuperclass
-public class Artisan extends ContributedEntity {
+public class Artisan extends AbstractContributedEntity {
 
 	private static final long serialVersionUID = -3414460840023103502L;
 

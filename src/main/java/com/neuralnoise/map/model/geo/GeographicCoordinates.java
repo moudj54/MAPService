@@ -8,11 +8,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.neuralnoise.map.model.BaseEntity;
+import com.neuralnoise.map.model.AbstractBaseEntity;
 
 @Entity
 @Table(name = "geographic_coordinates")
-public class GeographicCoordinates extends BaseEntity {
+public class GeographicCoordinates extends AbstractBaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(GeographicCoordinates.class);
 

@@ -15,7 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "event")
-public class Event extends ContributedEntity {
+public class Event extends AbstractContributedEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Event.class);
 	

@@ -6,10 +6,10 @@ import javax.persistence.MappedSuperclass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.neuralnoise.map.model.BaseEntity;
+import com.neuralnoise.map.model.AbstractBaseEntity;
 
 @MappedSuperclass
-public class Address extends BaseEntity {
+public class Address extends AbstractBaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Address.class);
 

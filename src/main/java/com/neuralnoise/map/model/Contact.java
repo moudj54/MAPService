@@ -1,7 +1,9 @@
 package com.neuralnoise.map.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 
@@ -10,8 +12,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@MappedSuperclass
-public class Contact extends BaseEntity {
+@Entity
+@Table(name = "contact")
+public class Contact extends AbstractBaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Contact.class);
 	

@@ -11,9 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @MappedSuperclass
-public class BaseEntity implements Serializable {
+public abstract class AbstractBaseEntity implements Serializable {
 
-	private static final Logger log = LoggerFactory.getLogger(BaseEntity.class);
+	private static final Logger log = LoggerFactory.getLogger(AbstractBaseEntity.class);
 	
 	private static final long serialVersionUID = 1134332795854462829L;
 

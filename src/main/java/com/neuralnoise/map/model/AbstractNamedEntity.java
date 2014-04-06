@@ -6,7 +6,7 @@ import javax.persistence.MappedSuperclass;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @MappedSuperclass
-public class NamedEntity extends BaseEntity {
+public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 
 	private static final long serialVersionUID = -964173231862367581L;
 	

@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.neuralnoise.map.data.AbstractDAO;
-import com.neuralnoise.map.model.map.Event;
 
 @Repository
 public abstract class AbstractContributedDAO<T extends Serializable, I> extends AbstractDAO<T, I> {

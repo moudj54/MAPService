@@ -2,11 +2,7 @@ package com.neuralnoise.map.service.map.util;
 
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Service;
-
 import com.neuralnoise.map.model.map.AbstractContributedEntity;
-import com.neuralnoise.map.model.map.Event;
 
 public interface IEntityService<T extends AbstractContributedEntity> {
 

@@ -12,6 +12,8 @@ public interface IEntityService<T extends AbstractContributedEntity> {
 	
 	public List<T> getAll();
 	
+	public void deleteById(Long id);
+	
 	public List<T> findByName(String name);
 	
 	public List<T> findByContributor(String name);

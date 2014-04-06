@@ -29,7 +29,10 @@ public class Assembler {
 		Collection<GrantedAuthority> authorities = Lists.newLinkedList();
 		
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		
+		if (userEntity.isAdmin()) {
+			authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		}
 
 		User user = new User(username, digest, true, true, true, true, authorities);
 		return user;

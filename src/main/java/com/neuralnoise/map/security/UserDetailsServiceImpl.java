@@ -8,11 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.neuralnoise.map.data.SecurityDAO;
-import com.neuralnoise.map.model.security.UserEntity;
-import com.neuralnoise.map.service.security.Assembler;
 import com.neuralnoise.map.service.security.SecurityService;
 
 @Service("userDetailsService") 

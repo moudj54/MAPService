@@ -27,14 +27,10 @@ public class SecurityServiceImpl implements SecurityService, UserDetailsService 
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		log.info("Checking user {}, dao {}, assembler {}", username, securityDAO, assembler);
-		
+		log.info("Checking user {}", username);
 		UserEntity ue = securityDAO.getById(username);
-		log.info("ue: {}", ue);
-		
 		if (ue == null)
 			 throw new UsernameNotFoundException("User \"" + username + "\" not found");
-		
 		return assembler.buildUserFromUserEntity(ue);
 	}
 }

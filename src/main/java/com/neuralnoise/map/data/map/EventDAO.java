@@ -1,4 +1,4 @@
-package com.neuralnoise.map.data;
+package com.neuralnoise.map.data.map;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.neuralnoise.map.data.AbstractDAO;
 import com.neuralnoise.map.model.contributed.Event;
 
 @Repository

@@ -9,7 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neuralnoise.map.data.EventDAO;
+import com.neuralnoise.map.data.map.EventDAO;
 import com.neuralnoise.map.model.Pizza;
 import com.neuralnoise.map.model.contributed.Event;
 import com.neuralnoise.map.model.security.UserEntity;

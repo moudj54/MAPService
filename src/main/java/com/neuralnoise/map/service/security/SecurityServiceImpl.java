@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neuralnoise.map.data.SecurityDAO;
+import com.neuralnoise.map.data.security.SecurityDAO;
 import com.neuralnoise.map.model.security.UserEntity;
 
 @Service("securityService")

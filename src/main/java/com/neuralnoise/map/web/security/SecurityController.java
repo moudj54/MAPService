@@ -1,4 +1,4 @@
-package com.neuralnoise.map.web;
+package com.neuralnoise.map.web.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

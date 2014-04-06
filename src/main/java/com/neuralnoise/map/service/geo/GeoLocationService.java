@@ -1,4 +1,4 @@
-package com.neuralnoise.map.service;
+package com.neuralnoise.map.service.geo;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.neuralnoise.map.web;
+package com.neuralnoise.map.web.geo;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.neuralnoise.map.model.geo.GeographicCoordinates;
-import com.neuralnoise.map.service.GeoLocationService;
+import com.neuralnoise.map.service.geo.GeoLocationService;
 
 @Controller
 @RequestMapping("/geoLocation")

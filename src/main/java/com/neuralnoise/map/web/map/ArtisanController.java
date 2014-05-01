@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.neuralnoise.map.model.map.Artisan;
 import com.neuralnoise.map.service.map.ArtisanService;
-import com.neuralnoise.map.web.map.util.AbstractEntityController;
+import com.neuralnoise.map.web.map.util.AbstractContributedEntityController;
 
 @Controller
 @RequestMapping("/artisan")
-public class ArtisanController extends AbstractEntityController<Artisan, ArtisanService> {
+public class ArtisanController extends AbstractContributedEntityController<Artisan, ArtisanService> {
 
 	private static final Logger log = LoggerFactory.getLogger(ArtisanController.class);
 	

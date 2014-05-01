@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.neuralnoise.map.model.map.Organization;
 import com.neuralnoise.map.service.map.OrganizationService;
-import com.neuralnoise.map.web.map.util.AbstractEntityController;
+import com.neuralnoise.map.web.map.util.AbstractContributedEntityController;
 
 @Controller
 @RequestMapping("/organization")
-public class OrganizationController extends AbstractEntityController<Organization, OrganizationService> {
+public class OrganizationController extends AbstractContributedEntityController<Organization, OrganizationService> {
 
 	private static final Logger log = LoggerFactory.getLogger(OrganizationController.class);
 	

@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.neuralnoise.map.model.map.Event;
 import com.neuralnoise.map.service.map.EventService;
-import com.neuralnoise.map.web.map.util.AbstractEntityController;
+import com.neuralnoise.map.web.map.util.AbstractContributedEntityController;
 
 @Controller
 @RequestMapping("/event")
-public class EventController extends AbstractEntityController<Event, EventService> {
+public class EventController extends AbstractContributedEntityController<Event, EventService> {
 
 	private static final Logger log = LoggerFactory.getLogger(EventController.class);
 	

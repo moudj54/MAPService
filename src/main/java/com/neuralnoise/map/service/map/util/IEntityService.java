@@ -2,9 +2,9 @@ package com.neuralnoise.map.service.map.util;
 
 import java.util.List;
 
-import com.neuralnoise.map.model.map.AbstractContributedEntity;
+import com.neuralnoise.map.model.AbstractBaseEntity;
 
-public interface IEntityService<T extends AbstractContributedEntity> {
+public interface IEntityService<T extends AbstractBaseEntity> {
 
 	public T getById(Long id);
 	
@@ -13,9 +13,5 @@ public interface IEntityService<T extends AbstractContributedEntity> {
 	public List<T> getAll();
 	
 	public void deleteById(Long id);
-	
-	public List<T> findByName(String name);
-	
-	public List<T> findByContributor(String name);
 	
 }

@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.neuralnoise.map.model.map.Museum;
 import com.neuralnoise.map.service.map.MuseumService;
-import com.neuralnoise.map.web.map.util.AbstractEntityController;
+import com.neuralnoise.map.web.map.util.AbstractContributedEntityController;
 
 @Controller
 @RequestMapping("/museum")
-public class MuseumController extends AbstractEntityController<Museum, MuseumService> {
+public class MuseumController extends AbstractContributedEntityController<Museum, MuseumService> {
 
 	private static final Logger log = LoggerFactory.getLogger(MuseumController.class);
 	

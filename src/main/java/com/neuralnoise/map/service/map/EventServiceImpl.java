@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.neuralnoise.map.data.map.EventDAO;
 import com.neuralnoise.map.model.map.Event;
-import com.neuralnoise.map.service.map.util.AbstractEntityServiceImpl;
+import com.neuralnoise.map.service.map.util.AbstractContributedEntityServiceImpl;
 
 @Service
-public class EventServiceImpl extends AbstractEntityServiceImpl<Event, EventDAO> implements EventService {
+public class EventServiceImpl extends AbstractContributedEntityServiceImpl<Event, EventDAO> implements EventService {
 
 	private static final Logger log = LoggerFactory.getLogger(EventServiceImpl.class);
 	

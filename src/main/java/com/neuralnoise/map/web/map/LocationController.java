@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.neuralnoise.map.model.geo.Location;
 import com.neuralnoise.map.service.map.LocationService;
@@ -21,11 +20,17 @@ public class LocationController extends AbstractEntityController<Location, Locat
 
 	public class JSONLocation {
 
+		private final Long id;
 		private final String geometry, name;
 
-		public JSONLocation(String geometry, String name) {
+		public JSONLocation(Long id, String geometry, String name) {
+			this.id = id;
 			this.geometry = geometry;
 			this.name = name;
+		}
+
+		public Long getId() {
+			return id;
 		}
 
 		public String getGeometry() {
@@ -35,13 +40,14 @@ public class LocationController extends AbstractEntityController<Location, Locat
 		public String getName() {
 			return name;
 		}
+
 	}
 
 	@RequestMapping(params = { "latitude", "longitude", "address" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public JSONLocation create(@RequestParam(value = "latitude") double latitude, @RequestParam(value = "longitude") double longitude, @RequestParam(value = "address") String address) {
 		Location location = service.create(latitude, longitude, address);
-		return new JSONLocation(location.getLocation().toText(), location.getName());
+		return new JSONLocation(location.getId(), location.getLocation().toText(), location.getName());
 	}
 
 }

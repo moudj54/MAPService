@@ -30,6 +30,7 @@
 
 		<!-- Hibernate / JPA -->
 		<hibernate.version>4.3.1.Final</hibernate.version>
+		<hibernate-spatial.version>4.3-SNAPSHOT</hibernate-spatial.version>
 
 		<!-- Bean validation -->
 		<hibernate-validator.version>4.3.1.Final</hibernate-validator.version>
@@ -75,6 +76,7 @@
 		<dbcp.version>1.4</dbcp.version>
 		<mysql.version>5.1.22</mysql.version>
 		<postgresql.version>9.1-901.jdbc4</postgresql.version>
+		<postgis.version>1.5.2</postgis.version>
 		<jackson.version>1.8.5</jackson.version>
 		
 		<!-- GeoLocation -->
@@ -278,6 +280,12 @@
 			<version>${postgresql.version}</version>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<dependency>
+            <groupId>org.postgis</groupId>
+            <artifactId>postgis-jdbc</artifactId>
+            <version>${postgis.version}</version>
+        </dependency>
 
 		<!-- GeoLocation -->
 		<dependency>
@@ -326,6 +334,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+        <!-- Hibernate Spatial -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-spatial</artifactId>
+            <version>${hibernate-spatial.version}</version>
+        </dependency>
 
 		<!-- Webjars (static dependencies distributed as JAR files) -->
 		<dependency>
@@ -544,5 +559,16 @@
 		</plugins>
 
 	</build>
+
+	<repositories>
+		<repository>
+			<id>OSGEO GeoTools repo</id>
+			<url>http://download.osgeo.org/webdav/geotools</url>
+		</repository>
+		<repository>
+			<id>Hibernate Spatial repo</id>
+			<url>http://www.hibernatespatial.org/repository</url>
+		</repository>
+	</repositories>
 
 </project>

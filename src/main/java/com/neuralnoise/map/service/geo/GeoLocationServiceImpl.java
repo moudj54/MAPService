@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.neuralnoise.geo.GeoLocationUtils;
-import com.neuralnoise.map.model.geo.GeographicCoordinates;
+import com.neuralnoise.map.model.geo.Location;
 
 @Service
 public class GeoLocationServiceImpl implements GeoLocationService {
@@ -20,12 +20,12 @@ public class GeoLocationServiceImpl implements GeoLocationService {
 	public GeoLocationServiceImpl() { }
 
 	@Override
-	public List<GeographicCoordinates> lookupNominatim(String address) throws IOException {
+	public List<Location> lookupNominatim(String address) throws IOException {
 		return GeoLocationUtils.queryNominatim(address, LANGUAGE_DEFAULT);
 	}
 
 	@Override
-	public List<GeographicCoordinates> lookupGoogle(String address) throws IOException {
+	public List<Location> lookupGoogle(String address) throws IOException {
 		return GeoLocationUtils.queryGoogle(address, LANGUAGE_DEFAULT);
 	}
 

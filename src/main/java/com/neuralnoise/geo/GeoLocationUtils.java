@@ -16,7 +16,7 @@ import com.google.code.geocoder.model.GeocoderRequest;
 import com.google.code.geocoder.model.GeocoderResult;
 import com.google.code.geocoder.model.LatLng;
 import com.google.common.collect.Lists;
-import com.neuralnoise.map.model.geo.GeographicCoordinates;
+import com.neuralnoise.map.model.geo.Location;
 
 import fr.dudie.nominatim.client.JsonNominatimClient;
 import fr.dudie.nominatim.model.Address;
@@ -27,7 +27,7 @@ public class GeoLocationUtils {
 
 	private GeoLocationUtils() { }
 
-	public static List<GeographicCoordinates> queryNominatim(String address, String language) throws IOException {
+	public static List<Location> queryNominatim(String address, String language) throws IOException {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		Properties props = new Properties();
@@ -40,15 +40,15 @@ public class GeoLocationUtils {
 		JsonNominatimClient nominatimClient = new JsonNominatimClient(httpClient, email);
 		List<Address> addresses = nominatimClient.search(address);
 
-		List<GeographicCoordinates> gcs = Lists.newLinkedList();
+		List<Location> gcs = Lists.newLinkedList();
 
 		for (Address addr : addresses) {
 			String formatted = addr.getDisplayName();
 			
 			double dlat = addr.getLatitude();
 			double dlong = addr.getLongitude();
-
-			GeographicCoordinates gc = new GeographicCoordinates(dlat, dlong, formatted);
+			
+			Location gc = new Location(dlat, dlong, formatted);
 			
 			gcs.add(gc);
 		}
@@ -56,21 +56,21 @@ public class GeoLocationUtils {
 		return gcs;
 	}
 
-	public static List<GeographicCoordinates> queryGoogle(String address, String language) {
+	public static List<Location> queryGoogle(String address, String language) {
 		Geocoder geocoder = new Geocoder();
 		GeocoderRequestBuilder builder = new GeocoderRequestBuilder().setAddress(address).setLanguage(language);
 		
 		GeocoderRequest request = builder.getGeocoderRequest();
 		GeocodeResponse response = geocoder.geocode(request);
 
-		List<GeographicCoordinates> gcs = Lists.newLinkedList();
+		List<Location> gcs = Lists.newLinkedList();
 
 		for (GeocoderResult result : response.getResults()) {
 			GeocoderGeometry geometry = result.getGeometry();
 			LatLng latlng = geometry.getLocation();
 			String formatted = result.getFormattedAddress();
 
-			GeographicCoordinates gc = new GeographicCoordinates(latlng.getLat().doubleValue(), latlng.getLng().doubleValue(), formatted);
+			Location gc = new Location(latlng.getLat().doubleValue(), latlng.getLng().doubleValue(), formatted);
 			gcs.add(gc);
 		}
 		

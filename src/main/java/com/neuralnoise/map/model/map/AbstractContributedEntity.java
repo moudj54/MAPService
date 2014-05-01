@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.neuralnoise.map.model.AbstractNamedEntity;
 import com.neuralnoise.map.model.geo.Address;
-import com.neuralnoise.map.model.geo.GeographicCoordinates;
+import com.neuralnoise.map.model.geo.Location;
 import com.neuralnoise.map.model.security.UserEntity;
 
 @MappedSuperclass
@@ -33,7 +33,7 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 
 	@NotNull
 	@ManyToOne
-	protected GeographicCoordinates coordinates;
+	protected Location coordinates;
 
 	public UserEntity getContributor() {
 		return contributor;
@@ -59,11 +59,11 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 		this.address = address;
 	}
 
-	public GeographicCoordinates getCoordinates() {
+	public Location getCoordinates() {
 		return coordinates;
 	}
 
-	public void setCoordinates(GeographicCoordinates coordinates) {
+	public void setCoordinates(Location coordinates) {
 		this.coordinates = coordinates;
 	}
 	

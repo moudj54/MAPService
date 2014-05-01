@@ -3,12 +3,12 @@ package com.neuralnoise.map.service.geo;
 import java.io.IOException;
 import java.util.List;
 
-import com.neuralnoise.map.model.geo.GeographicCoordinates;
+import com.neuralnoise.map.model.geo.Location;
 
 public interface GeoLocationService {
 
-	public List<GeographicCoordinates> lookupNominatim(String address) throws IOException;
+	public List<Location> lookupNominatim(String address) throws IOException;
 
-	public List<GeographicCoordinates> lookupGoogle(String address) throws IOException;
+	public List<Location> lookupGoogle(String address) throws IOException;
 	
 }

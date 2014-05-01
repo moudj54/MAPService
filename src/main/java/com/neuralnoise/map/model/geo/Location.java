@@ -41,7 +41,7 @@ public class Location extends AbstractBaseEntity {
     }
 
 	public Location(Double latitude, Double longitude, String address) {
-		this((Point) toGeometry("POINT(" + longitude + ", " + latitude + ")"), address);
+		this((Point) toGeometry("POINT(" + longitude + " " + latitude + ")"), address);
 	}
 
 	public Location(Point location, String address) {

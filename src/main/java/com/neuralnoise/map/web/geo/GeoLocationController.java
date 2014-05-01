@@ -19,7 +19,7 @@ public class GeoLocationController {
 
 	@Autowired
 	private GeoLocationService geoLocationService;
-	
+
 	@RequestMapping(value = "/nominatim/{name}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Location> lookupByNameN(@PathVariable("name") String name) throws IOException {
@@ -31,5 +31,5 @@ public class GeoLocationController {
 	List<Location> lookupByNameG(@PathVariable("name") String name) throws IOException {
 		return geoLocationService.lookupGoogle(name);
 	}
-	
+
 }

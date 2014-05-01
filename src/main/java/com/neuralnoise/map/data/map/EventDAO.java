@@ -13,9 +13,9 @@ import com.neuralnoise.map.model.map.Event;
 public class EventDAO extends AbstractContributedDAO<Event, Long> {
 
 	private static final Logger log = LoggerFactory.getLogger(EventDAO.class);
-	
+
 	public EventDAO() {
 		super(Event.class);
 	}
-	
+
 }

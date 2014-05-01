@@ -14,5 +14,5 @@ import com.neuralnoise.map.web.map.util.AbstractEntityController;
 public class AddressController extends AbstractEntityController<Address, AddressService> {
 
 	private static final Logger log = LoggerFactory.getLogger(AddressController.class);
-	
+
 }

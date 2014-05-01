@@ -25,7 +25,8 @@ public class GeoLocationUtils {
 
 	private static final String PROPS_PATH = "/nominatim-client.properties";
 
-	private GeoLocationUtils() { }
+	private GeoLocationUtils() {
+	}
 
 	public static List<Location> queryNominatim(String address, String language) throws IOException {
 		HttpClient httpClient = new DefaultHttpClient();
@@ -44,12 +45,12 @@ public class GeoLocationUtils {
 
 		for (Address addr : addresses) {
 			String formatted = addr.getDisplayName();
-			
+
 			double dlat = addr.getLatitude();
 			double dlong = addr.getLongitude();
-			
+
 			Location gc = new Location(dlat, dlong, formatted);
-			
+
 			gcs.add(gc);
 		}
 
@@ -59,7 +60,7 @@ public class GeoLocationUtils {
 	public static List<Location> queryGoogle(String address, String language) {
 		Geocoder geocoder = new Geocoder();
 		GeocoderRequestBuilder builder = new GeocoderRequestBuilder().setAddress(address).setLanguage(language);
-		
+
 		GeocoderRequest request = builder.getGeocoderRequest();
 		GeocodeResponse response = geocoder.geocode(request);
 
@@ -73,7 +74,7 @@ public class GeoLocationUtils {
 			Location gc = new Location(latlng.getLat().doubleValue(), latlng.getLng().doubleValue(), formatted);
 			gcs.add(gc);
 		}
-		
+
 		return gcs;
 	}
 

@@ -18,58 +18,58 @@ import com.neuralnoise.map.service.security.SecurityService;
 public abstract class AbstractEntityServiceImpl<T extends AbstractBaseEntity, D extends AbstractDAO<T, Long>> implements IEntityService<T> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractContributedEntityServiceImpl.class);
-	
+
 	@Autowired
 	protected D entityDAO;
-	
+
 	@Autowired
 	protected AddressDAO addressDAO;
-	
+
 	@Autowired
 	protected LocationDAO locationDAO;
-	
+
 	@Autowired
 	protected SecurityService securityService;
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public T create(T event) {
 		boolean authorized = false;
-		
+
 		UserEntity ue = securityService.current();
 
 		if (ue != null) {
 			authorized = true;
 		}
-		
+
 		if (!authorized) {
 			throw new InsufficientAuthenticationException("Insufficient privileges");
 		}
-		
+
 		return entityDAO.create(event);
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<T> getAll() {
 		return entityDAO.getAll();
 	}
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public void deleteById(Long id) {
 		boolean authorized = false;
-		
+
 		UserEntity ue = securityService.current();
-		
+
 		if (ue != null) {
 			authorized = true;
 		}
-		
+
 		if (!authorized) {
 			throw new InsufficientAuthenticationException("Insufficient privileges");
 		}
-		
+
 		entityDAO.deleteById(id);
 	}
 

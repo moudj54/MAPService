@@ -13,9 +13,9 @@ import com.neuralnoise.map.model.map.Artisan;
 public class ArtisanDAO extends AbstractContributedDAO<Artisan, Long> {
 
 	private static final Logger log = LoggerFactory.getLogger(ArtisanDAO.class);
-	
+
 	public ArtisanDAO() {
 		super(Artisan.class);
 	}
-	
+
 }

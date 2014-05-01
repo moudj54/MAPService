@@ -19,26 +19,26 @@ import com.vividsolutions.jts.io.WKTReader;
 public class Location extends AbstractBaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Location.class);
-	
+
 	private static final long serialVersionUID = 8809624185680983201L;
 
 	@Column(name = "location")
-	@Type(type="org.hibernate.spatial.GeometryType")
+	@Type(type = "org.hibernate.spatial.GeometryType")
 	protected com.vividsolutions.jts.geom.Point location;
 
 	@Column(name = "name")
 	protected String name;
-	
+
 	private static Geometry toGeometry(String wktPoint) {
-        WKTReader fromText = new WKTReader();
-        Geometry geom = null;
-        try {
-            geom = fromText.read(wktPoint);
-        } catch (ParseException e) {
-            throw new RuntimeException("Not a WKT string:" + wktPoint);
-        }
-        return geom;
-    }
+		WKTReader fromText = new WKTReader();
+		Geometry geom = null;
+		try {
+			geom = fromText.read(wktPoint);
+		} catch (ParseException e) {
+			throw new RuntimeException("Not a WKT string:" + wktPoint);
+		}
+		return geom;
+	}
 
 	public Location(Double latitude, Double longitude, String address) {
 		this((Point) toGeometry("POINT(" + longitude + " " + latitude + ")"), address);
@@ -48,7 +48,7 @@ public class Location extends AbstractBaseEntity {
 		this.setLocation(location);
 		this.setName(address);
 	}
-	
+
 	public Point getLocation() {
 		return location;
 	}
@@ -56,7 +56,7 @@ public class Location extends AbstractBaseEntity {
 	public void setLocation(Point location) {
 		this.location = location;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

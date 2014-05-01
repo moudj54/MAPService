@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 
 import com.neuralnoise.map.service.security.SecurityService;
 
-@Service("userDetailsService") 
+@Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
-	
+
 	@Autowired
 	private SecurityService securityService;
-	
+
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
 		return securityService.loadUserByUsername(username);
 	}
-	
+
 }

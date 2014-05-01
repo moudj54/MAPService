@@ -13,9 +13,9 @@ import com.neuralnoise.map.model.geo.Address;
 public class AddressDAO extends AbstractDAO<Address, Long> {
 
 	private static final Logger log = LoggerFactory.getLogger(AddressDAO.class);
-	
+
 	public AddressDAO() {
 		super(Address.class);
 	}
-	
+
 }

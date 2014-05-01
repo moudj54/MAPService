@@ -16,17 +16,17 @@ import org.slf4j.LoggerFactory;
 public class Contact extends AbstractBaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Contact.class);
-	
+
 	private static final long serialVersionUID = 2961146264024085913L;
-	
+
 	@Column(name = "email")
-    @NotEmpty(message = "Email address cannot be empty")
-    @Email(message = "Invalid email address, e.g. valid email address: example@gmail.com")
+	@NotEmpty(message = "Email address cannot be empty")
+	@Email(message = "Invalid email address, e.g. valid email address: example@gmail.com")
 	protected String email;
 
-    @Size(min = 10, max = 12)
-    @Digits(fraction = 0, integer = 12, message = "Incorrect Format, valid e.g. 121212121212")
-    @Column(name = "phone_number")
+	@Size(min = 10, max = 12)
+	@Digits(fraction = 0, integer = 12, message = "Incorrect Format, valid e.g. 121212121212")
+	@Column(name = "phone_number")
 	protected String phoneNumber;
 
 	public String getEmail() {

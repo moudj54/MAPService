@@ -12,5 +12,5 @@ import com.neuralnoise.map.service.map.util.AbstractContributedEntityServiceImpl
 public class EventServiceImpl extends AbstractContributedEntityServiceImpl<Event, EventDAO> implements EventService {
 
 	private static final Logger log = LoggerFactory.getLogger(EventServiceImpl.class);
-	
+
 }

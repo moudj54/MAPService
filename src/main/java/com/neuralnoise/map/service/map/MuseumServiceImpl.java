@@ -12,5 +12,5 @@ import com.neuralnoise.map.service.map.util.AbstractContributedEntityServiceImpl
 public class MuseumServiceImpl extends AbstractContributedEntityServiceImpl<Museum, MuseumDAO> implements MuseumService {
 
 	private static final Logger log = LoggerFactory.getLogger(MuseumServiceImpl.class);
-	
+
 }

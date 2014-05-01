@@ -18,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Event extends AbstractContributedEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Event.class);
-	
+
 	private static final long serialVersionUID = 7121988712295223558L;
 
 	@Temporal(TemporalType.DATE)

@@ -10,5 +10,5 @@ public interface GeoLocationService {
 	public List<Location> lookupNominatim(String address) throws IOException;
 
 	public List<Location> lookupGoogle(String address) throws IOException;
-	
+
 }

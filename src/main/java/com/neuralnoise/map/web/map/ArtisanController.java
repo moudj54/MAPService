@@ -14,5 +14,5 @@ import com.neuralnoise.map.web.map.util.AbstractContributedEntityController;
 public class ArtisanController extends AbstractContributedEntityController<Artisan, ArtisanService> {
 
 	private static final Logger log = LoggerFactory.getLogger(ArtisanController.class);
-	
+
 }

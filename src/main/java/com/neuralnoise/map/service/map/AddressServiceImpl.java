@@ -12,5 +12,5 @@ import com.neuralnoise.map.service.map.util.AbstractEntityServiceImpl;
 public class AddressServiceImpl extends AbstractEntityServiceImpl<Address, AddressDAO> implements AddressService {
 
 	private static final Logger log = LoggerFactory.getLogger(AddressServiceImpl.class);
-	
+
 }

@@ -23,7 +23,7 @@ public class UserEntity implements Serializable {
 	@Column(name = "digest")
 	@NotEmpty
 	protected String digest;
-	
+
 	@Column(name = "admin")
 	@NotEmpty
 	protected boolean admin;
@@ -43,7 +43,7 @@ public class UserEntity implements Serializable {
 	public void setDigest(String digest) {
 		this.digest = digest;
 	}
-	
+
 	public boolean isAdmin() {
 		return admin;
 	}
@@ -51,5 +51,5 @@ public class UserEntity implements Serializable {
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
-	
+
 }

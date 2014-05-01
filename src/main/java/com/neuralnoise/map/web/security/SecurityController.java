@@ -16,15 +16,15 @@ import com.neuralnoise.map.service.security.SecurityService;
 public class SecurityController {
 
 	private static final Logger log = LoggerFactory.getLogger(SecurityController.class);
-	
+
 	@Autowired
 	private SecurityService securityService;
-	
+
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	UserEntity current() {
 		log.info("Returning user details ..");
 		return securityService.current();
 	}
-	
+
 }

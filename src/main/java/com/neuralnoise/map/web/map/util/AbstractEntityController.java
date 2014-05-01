@@ -20,17 +20,17 @@ import com.neuralnoise.map.service.map.util.IEntityService;
 public class AbstractEntityController<T extends AbstractBaseEntity, S extends IEntityService<T>> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractContributedEntityController.class);
-	
+
 	@Autowired
 	protected S service;
-	
+
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public T create(@ModelAttribute T entity) {
 		log.info("Creating new entity {}", entity);
 		return service.create(entity);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<T> list() {
@@ -46,12 +46,12 @@ public class AbstractEntityController<T extends AbstractBaseEntity, S extends IE
 		Validate.isTrue(entity != null, "Unable to find entity with id: " + id);
 		return entity;
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable("id") Long id) {
 		log.info("Deleting entity with id {}", id);
 		service.deleteById(id);
 	}
-	
+
 }

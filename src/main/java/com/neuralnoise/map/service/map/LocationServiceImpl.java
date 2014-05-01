@@ -20,18 +20,18 @@ public class LocationServiceImpl extends AbstractEntityServiceImpl<Location, Loc
 	@Transactional(readOnly = false)
 	public Location create(double latitude, double longitude, String address) {
 		boolean authorized = false;
-		
+
 		UserEntity ue = securityService.current();
 
 		if (ue != null) {
 			authorized = true;
 		}
-		
+
 		if (!authorized) {
 			throw new InsufficientAuthenticationException("Insufficient privileges");
 		}
-		
+
 		return entityDAO.create(latitude, longitude, address);
 	}
-	
+
 }

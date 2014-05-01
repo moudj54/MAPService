@@ -12,5 +12,5 @@ import com.neuralnoise.map.service.map.util.AbstractContributedEntityServiceImpl
 public class OrganizationServiceImpl extends AbstractContributedEntityServiceImpl<Organization, OrganizationDAO> implements OrganizationService {
 
 	private static final Logger log = LoggerFactory.getLogger(OrganizationServiceImpl.class);
-	
+
 }

@@ -14,5 +14,5 @@ import com.neuralnoise.map.web.map.util.AbstractContributedEntityController;
 public class EventController extends AbstractContributedEntityController<Event, EventService> {
 
 	private static final Logger log = LoggerFactory.getLogger(EventController.class);
-	
+
 }

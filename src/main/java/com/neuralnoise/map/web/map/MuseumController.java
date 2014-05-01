@@ -14,5 +14,5 @@ import com.neuralnoise.map.web.map.util.AbstractContributedEntityController;
 public class MuseumController extends AbstractContributedEntityController<Museum, MuseumService> {
 
 	private static final Logger log = LoggerFactory.getLogger(MuseumController.class);
-	
+
 }

@@ -13,7 +13,7 @@ import com.neuralnoise.map.model.geo.Location;
 public class LocationDAO extends AbstractDAO<Location, Long> {
 
 	private static final Logger log = LoggerFactory.getLogger(LocationDAO.class);
-	
+
 	public LocationDAO() {
 		super(Location.class);
 	}
@@ -22,5 +22,5 @@ public class LocationDAO extends AbstractDAO<Location, Long> {
 		Location entity = new Location(latitude, longitude, address);
 		return create(entity);
 	}
-	
+
 }

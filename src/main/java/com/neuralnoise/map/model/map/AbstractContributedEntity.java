@@ -23,10 +23,10 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 	@NotNull
 	@ManyToOne
 	protected UserEntity contributor;
-	
+
 	@Column(name = "description")
 	protected String description;
-	
+
 	@NotNull
 	@ManyToOne
 	protected Address address;
@@ -50,7 +50,7 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public Address getAddress() {
 		return address;
 	}
@@ -66,5 +66,5 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	
+
 }

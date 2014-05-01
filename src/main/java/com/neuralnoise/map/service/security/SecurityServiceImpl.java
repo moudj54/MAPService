@@ -19,20 +19,20 @@ import com.neuralnoise.map.model.security.UserEntity;
 public class SecurityServiceImpl implements SecurityService {
 
 	private static final Logger log = LoggerFactory.getLogger(SecurityServiceImpl.class);
-	
+
 	@Autowired
 	private SecurityDAO securityDAO;
-	
+
 	@Autowired
 	private Assembler assembler;
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		log.info("Checking user {}", username);
 		UserEntity ue = securityDAO.getById(username);
 		if (ue == null)
-			 throw new UsernameNotFoundException("User \"" + username + "\" not found");
+			throw new UsernameNotFoundException("User \"" + username + "\" not found");
 		return assembler.buildUserFromUserEntity(ue);
 	}
 
@@ -45,11 +45,11 @@ public class SecurityServiceImpl implements SecurityService {
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetails = (UserDetails) auth.getPrincipal();
 			ue = securityDAO.getById(userDetails.getUsername());
-			
+
 			if (ue == null)
-				 throw new UsernameNotFoundException("User \"" + userDetails.getUsername() + "\" not found");
+				throw new UsernameNotFoundException("User \"" + userDetails.getUsername() + "\" not found");
 		}
-		
+
 		return ue;
 	}
 }

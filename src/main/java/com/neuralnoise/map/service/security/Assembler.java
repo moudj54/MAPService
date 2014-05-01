@@ -17,7 +17,7 @@ import com.neuralnoise.map.model.security.UserEntity;
 public class Assembler {
 
 	private static final Logger log = LoggerFactory.getLogger(Assembler.class);
-	
+
 	@Transactional(readOnly = true)
 	public User buildUserFromUserEntity(UserEntity userEntity) {
 
@@ -25,11 +25,11 @@ public class Assembler {
 		String digest = userEntity.getDigest();
 
 		log.info("User ({}, {})", username, digest);
-		
+
 		Collection<GrantedAuthority> authorities = Lists.newLinkedList();
-		
+
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-		
+
 		if (userEntity.isAdmin()) {
 			authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		}

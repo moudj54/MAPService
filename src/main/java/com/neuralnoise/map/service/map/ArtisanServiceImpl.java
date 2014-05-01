@@ -12,5 +12,5 @@ import com.neuralnoise.map.service.map.util.AbstractContributedEntityServiceImpl
 public class ArtisanServiceImpl extends AbstractContributedEntityServiceImpl<Artisan, ArtisanDAO> implements ArtisanService {
 
 	private static final Logger log = LoggerFactory.getLogger(ArtisanServiceImpl.class);
-	
+
 }

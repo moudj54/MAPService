@@ -14,33 +14,33 @@ import com.neuralnoise.map.model.security.UserEntity;
 public abstract class AbstractContributedEntityServiceImpl<T extends AbstractContributedEntity, D extends AbstractContributedDAO<T, Long>> extends AbstractEntityServiceImpl<T, D> implements IContributedEntityService<T> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractContributedEntityServiceImpl.class);
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public T create(T event) {
 		boolean authorized = false;
-		
+
 		UserEntity ue = securityService.current();
 
 		if (ue != null) {
 			authorized = true;
 		}
-		
+
 		if (!authorized) {
 			throw new InsufficientAuthenticationException("Insufficient privileges");
 		}
-		
+
 		event.setContributor(ue);
 		return entityDAO.create(event);
 	}
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public void deleteById(Long id) {
 		boolean authorized = false;
-		
+
 		UserEntity ue = securityService.current();
-		
+
 		if (ue != null) {
 			if (ue.isAdmin()) {
 				authorized = true;
@@ -53,20 +53,20 @@ public abstract class AbstractContributedEntityServiceImpl<T extends AbstractCon
 				}
 			}
 		}
-		
+
 		if (!authorized) {
 			throw new InsufficientAuthenticationException("Insufficient privileges");
 		}
-		
+
 		entityDAO.deleteById(id);
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<T> findByName(String name) {
 		return entityDAO.findByName(name);
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<T> findByContributor(String name) {

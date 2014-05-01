@@ -14,12 +14,12 @@ import com.neuralnoise.map.model.AbstractBaseEntity;
 public class Address extends AbstractBaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Address.class);
-	
+
 	private static final long serialVersionUID = 1719316108553026232L;
 
 	@Column(name = "street")
 	protected String street;
-	
+
 	@Column(name = "postal_code")
 	protected String postalCode;
 
@@ -37,5 +37,4 @@ public class Address extends AbstractBaseEntity {
 		this.street = street;
 	}
 
-	
 }

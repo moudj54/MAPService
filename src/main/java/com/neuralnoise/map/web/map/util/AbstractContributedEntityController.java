@@ -22,12 +22,12 @@ public class AbstractContributedEntityController<T extends AbstractContributedEn
 		log.info("Reading entities with name {}", name);
 		return service.findByName(name);
 	}
-	
+
 	@RequestMapping(value = "/contributor/{name}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<T> lookupByContributor(@PathVariable("name") String name) {
 		log.info("Reading entities with contributor {}", name);
 		return service.findByContributor(name);
 	}
-	
+
 }

@@ -13,5 +13,5 @@ public class Museum extends AbstractContributedEntity {
 	private static final Logger log = LoggerFactory.getLogger(Museum.class);
 
 	private static final long serialVersionUID = 8875525963977986966L;
-	
+
 }

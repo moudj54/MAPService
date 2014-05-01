@@ -13,9 +13,9 @@ import com.neuralnoise.map.model.map.Organization;
 public class OrganizationDAO extends AbstractContributedDAO<Organization, Long> {
 
 	private static final Logger log = LoggerFactory.getLogger(OrganizationDAO.class);
-	
+
 	public OrganizationDAO() {
 		super(Organization.class);
 	}
-	
+
 }

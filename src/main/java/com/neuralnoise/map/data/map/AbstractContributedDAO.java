@@ -16,17 +16,17 @@ import com.neuralnoise.map.model.map.AbstractContributedEntity;
 public abstract class AbstractContributedDAO<T extends AbstractContributedEntity, I> extends AbstractDAO<T, I> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractContributedDAO.class);
-	
+
 	public AbstractContributedDAO(Class<T> clazzToSet) {
 		super(clazzToSet);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<T> findByName(String name) {
 		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where e.name = :name");
 		return query.setParameter("name", name).getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<T> findByContributor(String name) {
 		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where e.contributor.name = :name");
@@ -38,5 +38,5 @@ public abstract class AbstractContributedDAO<T extends AbstractContributedEntity
 		getEntityManager().persist(entity);
 		return entity;
 	}
-	
+
 }

@@ -13,9 +13,9 @@ import com.neuralnoise.map.model.map.Museum;
 public class MuseumDAO extends AbstractContributedDAO<Museum, Long> {
 
 	private static final Logger log = LoggerFactory.getLogger(MuseumDAO.class);
-	
+
 	public MuseumDAO() {
 		super(Museum.class);
 	}
-	
+
 }

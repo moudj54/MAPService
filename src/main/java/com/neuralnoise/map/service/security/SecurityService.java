@@ -8,5 +8,5 @@ import com.neuralnoise.map.model.security.UserEntity;
 public interface SecurityService extends UserDetailsService {
 
 	UserEntity current() throws UsernameNotFoundException;
-	
+
 }

@@ -15,7 +15,7 @@ import com.neuralnoise.map.model.AbstractBaseEntity;
 import com.neuralnoise.map.model.security.UserEntity;
 import com.neuralnoise.map.service.security.SecurityService;
 
-abstract class AbstractEntityServiceImpl<T extends AbstractBaseEntity, D extends AbstractDAO<T, Long>> implements IEntityService<T> {
+public abstract class AbstractEntityServiceImpl<T extends AbstractBaseEntity, D extends AbstractDAO<T, Long>> implements IEntityService<T> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractContributedEntityServiceImpl.class);
 	

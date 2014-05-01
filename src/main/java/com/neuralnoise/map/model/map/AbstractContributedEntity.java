@@ -33,7 +33,7 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 
 	@NotNull
 	@ManyToOne
-	protected Location coordinates;
+	protected Location location;
 
 	public UserEntity getContributor() {
 		return contributor;
@@ -59,12 +59,12 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 		this.address = address;
 	}
 
-	public Location getCoordinates() {
-		return coordinates;
+	public Location getLocation() {
+		return location;
 	}
 
-	public void setCoordinates(Location coordinates) {
-		this.coordinates = coordinates;
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 	
 }

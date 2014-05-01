@@ -27,10 +27,8 @@ public abstract class AbstractDAO<T extends Serializable, I> {
     } 
  
     public T getById(final I id) {
-    	log.info("id: {}", id);
         Preconditions.checkArgument(id != null);
         T e = getEntityManager().find(clazz, id);
-        log.info("Returning {}", e);
         return e;
     }
  
@@ -60,17 +58,11 @@ public abstract class AbstractDAO<T extends Serializable, I> {
         Preconditions.checkState(entity != null);
         delete(entity);
     }
- 
-    /**
-     * @return the entityManager
-     */
+    
     public EntityManager getEntityManager() {
         return entityManager;
     }
  
-    /**
-     * @param entityManager the entityManager to set
-     */
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

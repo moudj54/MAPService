@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
-import org.hibernate.spatial.GeometryType;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +41,7 @@ public class Location extends AbstractBaseEntity {
     }
 	
 	public Location(Double latitude, Double longitude, String address) {
-		this((Point) toGeometry("POINT(" + latitude + ", " + longitude + ")"), address);
+		this((Point) toGeometry("POINT(" + longitude + ", " + latitude + ")"), address);
 	}
 	
 	public Location(Point location, String address) {

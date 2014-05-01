@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neuralnoise.map.data.AddressDAO;
+import com.neuralnoise.map.data.LocationDAO;
 import com.neuralnoise.map.data.map.AbstractContributedDAO;
 import com.neuralnoise.map.model.map.AbstractContributedEntity;
 import com.neuralnoise.map.model.security.UserEntity;
@@ -19,6 +21,12 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractContributedEnt
 	
 	@Autowired
 	private D entityDAO;
+	
+	@Autowired
+	private AddressDAO addressDAO;
+	
+	@Autowired
+	private LocationDAO locationDAO;
 	
 	@Autowired
 	private SecurityService securityService;

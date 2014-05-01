@@ -2,7 +2,6 @@ package com.neuralnoise.map.model.geo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 
 import org.slf4j.Logger;

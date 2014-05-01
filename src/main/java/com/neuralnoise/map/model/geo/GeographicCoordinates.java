@@ -15,6 +15,8 @@ import com.neuralnoise.map.model.AbstractBaseEntity;
 public class GeographicCoordinates extends AbstractBaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(GeographicCoordinates.class);
+	
+	private static final long serialVersionUID = 8809624185680983201L;
 
 	@Column(name = "latitude")
 	@NotEmpty

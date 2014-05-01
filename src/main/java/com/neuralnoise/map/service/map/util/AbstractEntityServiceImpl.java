@@ -26,7 +26,18 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractContributedEnt
 	@Override
 	@Transactional(readOnly = false)
 	public T create(T event) {
+		boolean authorized = false;
+		
 		UserEntity ue = securityService.current();
+
+		if (ue != null) {
+			authorized = true;
+		}
+		
+		if (!authorized) {
+			throw new InsufficientAuthenticationException("Insufficient privileges");
+		}
+		
 		event.setContributor(ue);
 		return entityDAO.create(event);
 	}
@@ -41,7 +52,9 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractContributedEnt
 	@Transactional(readOnly = false)
 	public void deleteById(Long id) {
 		boolean authorized = false;
+		
 		UserEntity ue = securityService.current();
+		
 		if (ue != null) {
 			if (ue.isAdmin()) {
 				authorized = true;
@@ -54,9 +67,11 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractContributedEnt
 				}
 			}
 		}
+		
 		if (!authorized) {
 			throw new InsufficientAuthenticationException("Insufficient privileges");
 		}
+		
 		entityDAO.deleteById(id);
 	}
 	

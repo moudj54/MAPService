@@ -28,8 +28,8 @@ public class Location extends AbstractBaseEntity {
 
 	@Column(name = "name")
 	protected String name;
-
-    private static Geometry toGeometry(String wktPoint) {
+	
+	private static Geometry toGeometry(String wktPoint) {
         WKTReader fromText = new WKTReader();
         Geometry geom = null;
         try {
@@ -39,11 +39,11 @@ public class Location extends AbstractBaseEntity {
         }
         return geom;
     }
-	
+
 	public Location(Double latitude, Double longitude, String address) {
 		this((Point) toGeometry("POINT(" + longitude + ", " + latitude + ")"), address);
 	}
-	
+
 	public Location(Point location, String address) {
 		this.setLocation(location);
 		this.setName(address);

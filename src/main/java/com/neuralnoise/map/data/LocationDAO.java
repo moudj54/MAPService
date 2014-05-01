@@ -17,5 +17,10 @@ public class LocationDAO extends AbstractDAO<Location, Long> {
 	public LocationDAO() {
 		super(Location.class);
 	}
+
+	public Location create(double latitude, double longitude, String address) {
+		Location entity = new Location(latitude, longitude, address);
+		return create(entity);
+	}
 	
 }

@@ -20,7 +20,7 @@ public abstract class AbstractDAO<T extends Serializable, I> {
     protected final Class<T> clazz;
     
 	@PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
  
     public AbstractDAO(final Class<T> clazzToSet) {
         this.clazz = clazzToSet;

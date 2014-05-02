@@ -27,7 +27,7 @@ Create View Location As Construct {
 	?s map:name		?name .
 }
 With
-	?s = 		uri(concat("http://mapp.eu/address/", ?id))
+	?s = 		uri(concat("http://mapp.eu/location/", ?id))
 	?name = 	plainLiteral(?name)
 	?geo =		typedLiteral(?location, ogc:WKTLiteral)
 From

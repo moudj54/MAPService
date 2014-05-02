@@ -1,0 +1,34 @@
+Prefix map: <http://mapp.eu/>
+Prefix foaf: <http://xmlns.com/foaf/0.1/>
+
+Prefix geom: <http://geovocab.org/geometry#>
+Prefix lgdo: <http://linkedgeodata.org/ontology/>
+Prefix ogc: <http://ogp.me/ns/class#>
+
+Create View Address As Construct {
+	?s a 		map:Address .
+	?s map:city 	?city .
+	?s map:country 	?country .
+	?s map:pc 	?postal_code .
+	?s map:street 	?street .
+}
+With
+	?s = 		uri(concat("http://mapp.eu/address/", ?id))
+	?city = 	plainLiteral(?city)
+	?country = 	plainLiteral(?country)
+	?postal_code = 	plainLiteral(?postal_code)
+	?street = 	plainLiteral(?street)
+From
+	address
+
+
+Create View Location As Construct {
+	?s geom:geometry	?geo .
+	?s map:name		?name .
+}
+With
+	?s = 		uri(concat("http://mapp.eu/address/", ?id))
+	?name = 	plainLiteral(?name)
+	?geo =		typedLiteral(?location, ogc:WKTLiteral)
+From
+	location

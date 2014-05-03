@@ -22,6 +22,8 @@ public class LocationDeserializer extends JsonDeserializer<Location> {
 		ObjectCodec oc = jp.getCodec();
 		JsonNode node = oc.readTree(jp);
 		
+		log.info("Node: " + node);
+		
 		final Double latitude = node.get("latitude").getDoubleValue(), longitude = node.get("longitude").getDoubleValue();
 		final String name = node.get("name").getTextValue();
 		

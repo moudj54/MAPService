@@ -23,13 +23,19 @@ public class LocationSerializer extends JsonSerializer<Location> {
 		Point point = value.getLocation();
 		String name = value.getName();
 
+		log.info("Serializing id: " + id + ", point: " + point + ", name: " + name + " ..");
+		
 		jgen.writeStartObject();
 
-		jgen.writeFieldName("id");
-		jgen.writeNumber(id);
+		if (id != null) {
+			jgen.writeFieldName("id");
+			jgen.writeNumber(id);
+		}
 
 		if (point != null) {
 			Double latitude = point.getX(), longitude = point.getY();
+			
+			log.info("Latitude: " + latitude + ", longitude: " + longitude);
 			
 			jgen.writeFieldName("latitude");
 			jgen.writeNumber(latitude);

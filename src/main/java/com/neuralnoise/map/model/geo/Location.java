@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +16,13 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
+import com.neuralnoise.map.model.geo.util.LocationDeserializer;
+import com.neuralnoise.map.model.geo.util.LocationSerializer;
+
 @Entity
 @Table(name = "location")
+@JsonSerialize(using = LocationSerializer.class)
+@JsonDeserialize(using = LocationDeserializer.class)
 public class Location extends AbstractBaseEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Location.class);
@@ -40,11 +47,16 @@ public class Location extends AbstractBaseEntity {
 		return geom;
 	}
 
-	public Location(Double latitude, Double longitude, String address) {
-		this((Point) toGeometry("POINT(" + longitude + " " + latitude + ")"), address);
-	}
+	public Location() { }
 
+	public Location(Double latitude, Double longitude, String address) {
+		this();
+		this.setLocation(latitude, longitude);
+		this.setName(address);
+	}
+	
 	public Location(Point location, String address) {
+		this();
 		this.setLocation(location);
 		this.setName(address);
 	}
@@ -56,6 +68,10 @@ public class Location extends AbstractBaseEntity {
 	public void setLocation(Point location) {
 		this.location = location;
 	}
+	
+	public void setLocation(Double latitude, Double longitude) {
+		this.location = (Point) toGeometry("POINT(" + longitude + " " + latitude + ")");
+	}
 
 	public String getName() {
 		return name;
@@ -63,6 +79,11 @@ public class Location extends AbstractBaseEntity {
 
 	public void setName(String address) {
 		this.name = address;
+	}
+	
+	@Override
+	public String toString() {
+		return "Location [location=" + location + ", name=" + name + ", id=" + id + "]";
 	}
 
 }

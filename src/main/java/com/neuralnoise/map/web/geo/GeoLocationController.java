@@ -23,13 +23,15 @@ public class GeoLocationController {
 	@RequestMapping(value = "/nominatim/{name}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Location> lookupByNameN(@PathVariable("name") String name) throws IOException {
-		return geoLocationService.lookupNominatim(name);
+		List<Location> locations = geoLocationService.lookupNominatim(name);
+		return locations;
 	}
 
 	@RequestMapping(value = "/google/{name}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Location> lookupByNameG(@PathVariable("name") String name) throws IOException {
-		return geoLocationService.lookupGoogle(name);
+		List<Location> locations = geoLocationService.lookupGoogle(name);
+		return locations;
 	}
 
 }

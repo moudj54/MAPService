@@ -18,36 +18,11 @@ public class LocationController extends AbstractEntityController<Location, Locat
 
 	private static final Logger log = LoggerFactory.getLogger(LocationController.class);
 
-	public class JSONLocation {
-
-		private final Long id;
-		private final String geometry, name;
-
-		public JSONLocation(Long id, String geometry, String name) {
-			this.id = id;
-			this.geometry = geometry;
-			this.name = name;
-		}
-
-		public Long getId() {
-			return id;
-		}
-
-		public String getGeometry() {
-			return geometry;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-	}
-
-	@RequestMapping(params = { "latitude", "longitude", "address" }, method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(params = { "latitude", "longitude", "name" }, method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public JSONLocation create(@RequestParam(value = "latitude") double latitude, @RequestParam(value = "longitude") double longitude, @RequestParam(value = "address") String address) {
-		Location location = service.create(latitude, longitude, address);
-		return new JSONLocation(location.getId(), location.getLocation().toText(), location.getName());
+	public Location create(@RequestParam(value = "latitude") double latitude, @RequestParam(value = "longitude") double longitude, @RequestParam(value = "name") String name) {
+		Location location = service.create(latitude, longitude, name);
+		return location;
 	}
 
 }

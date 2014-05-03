@@ -19,7 +19,7 @@ import com.neuralnoise.map.service.map.util.IEntityService;
 
 public class AbstractEntityController<T extends AbstractBaseEntity, S extends IEntityService<T>> {
 
-	private static final Logger log = LoggerFactory.getLogger(AbstractContributedEntityController.class);
+	private static final Logger log = LoggerFactory.getLogger(AbstractEntityController.class);
 
 	@Autowired
 	protected S service;
@@ -28,7 +28,9 @@ public class AbstractEntityController<T extends AbstractBaseEntity, S extends IE
 	@ResponseBody
 	public T create(@ModelAttribute T entity) {
 		log.info("Creating new entity {}", entity);
-		return service.create(entity);
+		T ret = service.create(entity);
+		log.info("Created entity: " + ret);
+		return ret;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")

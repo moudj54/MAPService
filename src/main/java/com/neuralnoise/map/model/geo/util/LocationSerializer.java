@@ -33,7 +33,7 @@ public class LocationSerializer extends JsonSerializer<Location> {
 		}
 
 		if (point != null) {
-			Double latitude = point.getX(), longitude = point.getY();
+			Double latitude = point.getY(), longitude = point.getX();
 			
 			log.info("Latitude: " + latitude + ", longitude: " + longitude);
 			

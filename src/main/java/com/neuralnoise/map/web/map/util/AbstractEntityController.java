@@ -48,7 +48,7 @@ public class AbstractEntityController<T extends AbstractBaseEntity, S extends IE
 		Validate.isTrue(entity != null, "Unable to find entity with id: " + id);
 		return entity;
 	}
-
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable("id") Long id) {

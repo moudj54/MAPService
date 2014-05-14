@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonTypeInfo;
+import org.codehaus.jackson.annotate.JsonTypeInfo.Id;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.Type;
@@ -15,7 +17,6 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
-
 import com.neuralnoise.map.model.geo.util.LocationDeserializer;
 import com.neuralnoise.map.model.geo.util.LocationSerializer;
 
@@ -31,7 +32,8 @@ public class Location extends AbstractBaseEntity {
 
 	@Column(name = "location")
 	@Type(type = "org.hibernate.spatial.GeometryType")
-	protected com.vividsolutions.jts.geom.Point location;
+	//@JsonTypeInfo(use = Id.NAME)
+	protected Point location;
 
 	@Column(name = "name")
 	protected String name;

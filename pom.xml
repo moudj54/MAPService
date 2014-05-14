@@ -21,7 +21,7 @@
 		<spring-framework.version>4.0.1.RELEASE</spring-framework.version>
 		<spring-data-jpa.version>1.4.3.RELEASE</spring-data-jpa.version>
 		<spring-security.version>3.2.0.RELEASE</spring-security.version>
-		
+
 		<!-- Java EE / Java SE dependencies -->
 		<jsp.version>2.2</jsp.version>
 		<jstl.version>1.2</jstl.version>
@@ -78,12 +78,13 @@
 		<postgresql.version>9.1-901.jdbc4</postgresql.version>
 		<postgis.version>1.5.2</postgis.version>
 		<jackson.version>1.8.5</jackson.version>
-		
+		<geojson-jackson.version>1.1</geojson-jackson.version>
+
 		<!-- GeoLocation -->
 		<httpclient.version>4.0</httpclient.version>
 		<nominatim.version>2.0.2</nominatim.version>
 		<geocoder.version>0.15</geocoder.version>
-		
+
 	</properties>
 
 	<dependencies>
@@ -154,26 +155,26 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 		</dependency>
-		
+
 		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
- 
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
- 
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
-		
+
 		<!-- used for EhCacheCacheManager -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -280,12 +281,12 @@
 			<version>${postgresql.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<dependency>
-            <groupId>org.postgis</groupId>
-            <artifactId>postgis-jdbc</artifactId>
-            <version>${postgis.version}</version>
-        </dependency>
+			<groupId>org.postgis</groupId>
+			<artifactId>postgis-jdbc</artifactId>
+			<version>${postgis.version}</version>
+		</dependency>
 
 		<!-- GeoLocation -->
 		<dependency>
@@ -293,7 +294,7 @@
 			<artifactId>httpclient</artifactId>
 			<version>${httpclient.version}</version>
 		</dependency>
-            
+
 		<dependency>
 			<groupId>fr.dudie</groupId>
 			<artifactId>nominatim-api</artifactId>
@@ -335,12 +336,12 @@
 			</exclusions>
 		</dependency>
 
-        <!-- Hibernate Spatial -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-spatial</artifactId>
-            <version>${hibernate-spatial.version}</version>
-        </dependency>
+		<!-- Hibernate Spatial -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-spatial</artifactId>
+			<version>${hibernate-spatial.version}</version>
+		</dependency>
 
 		<!-- Webjars (static dependencies distributed as JAR files) -->
 		<dependency>
@@ -387,6 +388,15 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
+
+		<!-- GeoJSON Jackson serializer, causes troubles with the custom one in the code -->
+<!--
+		<dependency>
+			<groupId>de.grundid.opendatalab</groupId>
+			<artifactId>geojson-jackson</artifactId>
+			<version>${geojson-jackson.version}</version>
+		</dependency>
+-->
 
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>

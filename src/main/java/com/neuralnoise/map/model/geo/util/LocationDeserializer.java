@@ -27,7 +27,7 @@ public class LocationDeserializer extends JsonDeserializer<Location> {
 		final Double latitude = node.get("latitude").getDoubleValue(), longitude = node.get("longitude").getDoubleValue();
 		final String name = node.get("name").getTextValue();
 		
-		log.info("Creating new Location(" + latitude + ", " + longitude + ", " + name + ") ..");
+		log.info("Creating new Location({}, {}, {}) ..", latitude, longitude, name);
 		Location location = new Location(latitude, longitude, name);
 		log.info("Created object: " + location);
 		

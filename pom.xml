@@ -77,8 +77,12 @@
 		<mysql.version>5.1.22</mysql.version>
 		<postgresql.version>9.1-901.jdbc4</postgresql.version>
 		<postgis.version>1.5.2</postgis.version>
-		<jackson.version>1.8.5</jackson.version>
+		
+		<jackson-asl.version>1.9.13</jackson-asl.version>
+		
+		<jackson.version>2.2.2</jackson.version>
 		<geojson-jackson.version>1.1</geojson-jackson.version>
+		<geojson-jackson-asl.version>0.7</geojson-jackson-asl.version>
 
 		<!-- GeoLocation -->
 		<httpclient.version>4.0</httpclient.version>
@@ -386,23 +390,51 @@
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson-asl.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${jackson-asl.version}</version>
+		</dependency>
+
+<!--
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
 
-		<!-- GeoJSON Jackson serializer, causes troubles with the custom one in the code -->
-<!--
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+-->
+		
+		<!-- GeoJSON Jackson (de)serializer -->
+		<!--
 		<dependency>
 			<groupId>de.grundid.opendatalab</groupId>
 			<artifactId>geojson-jackson</artifactId>
 			<version>${geojson-jackson.version}</version>
 		</dependency>
--->
+		-->
 
+		<!--
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-asl</artifactId>
-			<version>${jackson.version}</version>
+			<groupId>com.bedatadriven</groupId>
+			<artifactId>jackson-geojson</artifactId>
+			<version>${geojson-jackson-asl.version}</version>
 		</dependency>
+		-->
 
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -571,6 +603,10 @@
 	</build>
 
 	<repositories>
+		<repository>
+			<id>bedatadriven Open-Source releases</id>
+			<url>http://nexus.bedatadriven.com/content/repositories/oss-releases</url>
+		</repository>
 		<repository>
 			<id>OSGEO GeoTools repo</id>
 			<url>http://download.osgeo.org/webdav/geotools</url>

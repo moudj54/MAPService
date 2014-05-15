@@ -17,6 +17,10 @@
 
 	<!-- Scan classpath for annotations (eg: @Service, @Repository etc) -->
 	<context:component-scan base-package="com.neuralnoise.map" />
+	
+	<!-- GeoJSON module for Jackson -->
+	<context:component-scan base-package="com.neuralnoise.geo" />
+
 	<context:annotation-config />
 
 	<!-- enables scanning for @Transactional annotations -->

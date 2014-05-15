@@ -11,7 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.neuralnoise.map.model.geo.Location;
+import com.neuralnoise.map.model.geo.Point;
 import com.neuralnoise.map.service.geo.GeoLocationService;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.CoordinateSequence;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 
 @Controller
 @RequestMapping("/geoLocation")
@@ -34,4 +40,18 @@ public class GeoLocationController {
 		return locations;
 	}
 
+	@RequestMapping(value = "/GeoJSON", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	Geometry geoJSON() throws IOException {
+
+		Coordinate[] coordArr = { new Coordinate(51.594f, 4.777f) };
+		CoordinateSequence cs = new CoordinateArraySequence(coordArr);
+
+		GeometryFactory factory = new GeometryFactory();
+
+		Geometry point = new Point(cs, factory);
+		return point;
+	}
+
+	
 }

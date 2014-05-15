@@ -20,9 +20,9 @@ import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.Polygon;
 
-public class GeometryDeserializer extends JsonDeserializer<Geometry> {
+public class GeoJSONDeserializer extends JsonDeserializer<Geometry> {
 
-	private static final Logger log = LoggerFactory.getLogger(GeometryDeserializer.class);
+	private static final Logger log = LoggerFactory.getLogger(GeoJSONDeserializer.class);
 	
 	private GeometryFactory gf = new GeometryFactory();
 

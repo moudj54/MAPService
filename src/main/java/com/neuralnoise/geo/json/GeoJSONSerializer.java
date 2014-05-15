@@ -20,9 +20,9 @@ import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 
-public class GeometrySerializer extends JsonSerializer<Geometry> {
+public class GeoJSONSerializer extends JsonSerializer<Geometry> {
 
-	private static final Logger log = LoggerFactory.getLogger(GeometrySerializer.class);
+	private static final Logger log = LoggerFactory.getLogger(GeoJSONSerializer.class);
 	
 	@Override
 	public void serialize(Geometry value, JsonGenerator jgen,
@@ -164,8 +164,6 @@ public class GeometrySerializer extends JsonSerializer<Geometry> {
 
 	private void writePoint(JsonGenerator jgen, Point p)
 			throws JsonGenerationException, IOException {
-		
-		log.info("XXX: C");
 		
 		jgen.writeStartObject();
 		jgen.writeStringField("type", "Point");

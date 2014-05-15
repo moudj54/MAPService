@@ -1,5 +1,7 @@
 package com.neuralnoise.map.model.map;
 
+import java.util.Map;
+
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
@@ -65,6 +67,14 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+	
+	@Override
+	public Map<String, String> getProperties() {
+		Map<String, String> properties = super.getProperties();
+		properties.put("description", description);
+		properties.put("address", address.getStreet());
+		return properties;
 	}
 
 }

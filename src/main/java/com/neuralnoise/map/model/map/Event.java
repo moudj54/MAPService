@@ -1,6 +1,7 @@
 package com.neuralnoise.map.model.map;
 
 import java.util.Calendar;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,6 +48,14 @@ public class Event extends AbstractContributedEntity {
 
 	public void setEndDate(Calendar endDate) {
 		this.endDate = endDate;
+	}
+	
+	@Override
+	public Map<String, String> getProperties() {
+		Map<String, String> properties = super.getProperties();
+		properties.put("from", startDate.toString());
+		properties.put("from", endDate.toString());
+		return properties;
 	}
 
 }

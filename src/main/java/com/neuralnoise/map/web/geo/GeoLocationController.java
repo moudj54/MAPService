@@ -2,6 +2,7 @@ package com.neuralnoise.map.web.geo;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.collect.Maps;
 import com.neuralnoise.map.model.geo.Location;
 import com.neuralnoise.map.model.geo.Point;
 import com.neuralnoise.map.service.geo.GeoLocationService;
+import com.neuralnoise.map.web.util.Feature;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.CoordinateSequence;
-import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 
@@ -42,15 +44,18 @@ public class GeoLocationController {
 
 	@RequestMapping(value = "/GeoJSON", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	Geometry geoJSON() throws IOException {
+	Feature geoJSON() throws IOException {
 
 		Coordinate[] coordArr = { new Coordinate(51.594f, 4.777f) };
 		CoordinateSequence cs = new CoordinateArraySequence(coordArr);
 
 		GeometryFactory factory = new GeometryFactory();
 
-		Geometry point = new Point(cs, factory);
-		return point;
+		Map<String, String> map = Maps.newHashMap();
+		map.put("x", "y");
+		
+		Point point = new Point(cs, factory);
+		return new Feature(map, point);
 	}
 
 	

@@ -7,7 +7,6 @@ import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

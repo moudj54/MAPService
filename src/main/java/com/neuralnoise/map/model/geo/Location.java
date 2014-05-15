@@ -11,12 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.neuralnoise.map.model.AbstractBaseEntity;
+import com.neuralnoise.map.model.geo.util.LocationDeserializer;
+import com.neuralnoise.map.model.geo.util.LocationSerializer;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
-import com.neuralnoise.map.model.geo.util.LocationDeserializer;
-import com.neuralnoise.map.model.geo.util.LocationSerializer;
 
 @Entity
 @Table(name = "location")

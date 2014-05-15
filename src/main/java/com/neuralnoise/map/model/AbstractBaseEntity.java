@@ -1,6 +1,7 @@
 package com.neuralnoise.map.model;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,8 @@ import javax.persistence.MappedSuperclass;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Maps;
 
 @MappedSuperclass
 public abstract class AbstractBaseEntity implements Serializable {
@@ -31,6 +34,12 @@ public abstract class AbstractBaseEntity implements Serializable {
 
 	public boolean isNew() {
 		return (this.id == null);
+	}
+	
+	public Map<String, String> getProperties() {
+		Map<String, String> properties = Maps.newHashMap();
+		properties.put("id", Long.toString(id));
+		return properties;
 	}
 
 }

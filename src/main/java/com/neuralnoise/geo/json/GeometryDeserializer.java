@@ -30,8 +30,6 @@ public class GeometryDeserializer extends JsonDeserializer<Geometry> {
 	public Geometry deserialize(JsonParser jp, DeserializationContext ctxt)
 			throws IOException, JsonProcessingException {
 
-		log.info("XXX: A");
-		
 		ObjectCodec oc = jp.getCodec();
 		JsonNode root = oc.readTree(jp);
 		return parseGeometry(root);

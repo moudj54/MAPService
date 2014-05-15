@@ -28,8 +28,6 @@ public class GeometrySerializer extends JsonSerializer<Geometry> {
 	public void serialize(Geometry value, JsonGenerator jgen,
 			SerializerProvider provider) throws IOException,
 			JsonProcessingException {
-
-		log.info("XXX: B");
 		
 		writeGeometry(jgen, value);
 	}

@@ -80,8 +80,8 @@
 		
 		<jackson-asl.version>1.9.13</jackson-asl.version>
 		
-		<jackson.version>2.2.2</jackson.version>
-		<geojson-jackson.version>1.1</geojson-jackson.version>
+		<jackson2.version>2.2.2</jackson2.version>
+		<geojson-jackson2.version>1.1</geojson-jackson2.version>
 		<geojson-jackson-asl.version>0.7</geojson-jackson-asl.version>
 
 		<!-- GeoLocation -->
@@ -387,6 +387,7 @@
 		</dependency>
 
 		<!-- Jackson JSON Mapper -->
+<!--		
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
@@ -398,33 +399,32 @@
 			<artifactId>jackson-core-asl</artifactId>
 			<version>${jackson-asl.version}</version>
 		</dependency>
+-->
 
-<!--
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>${jackson.version}</version>
+			<version>${jackson2.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>${jackson.version}</version>
+			<version>${jackson2.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
+			<version>${jackson2.version}</version>
 		</dependency>
--->
 		
 		<!-- GeoJSON Jackson (de)serializer -->
 		<!--
 		<dependency>
 			<groupId>de.grundid.opendatalab</groupId>
 			<artifactId>geojson-jackson</artifactId>
-			<version>${geojson-jackson.version}</version>
+			<version>${geojson-jackson2.version}</version>
 		</dependency>
 		-->
 

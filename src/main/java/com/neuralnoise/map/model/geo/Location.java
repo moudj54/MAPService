@@ -14,14 +14,14 @@ import com.neuralnoise.map.model.AbstractNamedEntity;
 import com.neuralnoise.map.model.geo.util.LocationDeserializer;
 import com.neuralnoise.map.model.geo.util.LocationSerializer;
 import com.vividsolutions.jts.geom.Geometry;
-//import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
 @Entity
 @Table(name = "location")
-@JsonSerialize(using = LocationSerializer.class)
-@JsonDeserialize(using = LocationDeserializer.class)
+//@JsonSerialize(using = LocationSerializer.class)
+//@JsonDeserialize(using = LocationDeserializer.class)
 public class Location extends AbstractNamedEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Location.class);
@@ -67,7 +67,7 @@ public class Location extends AbstractNamedEntity {
 	}
 	
 	public void setLocation(Double latitude, Double longitude) {
-		this.location = new Point((com.vividsolutions.jts.geom.Point) toGeometry("POINT(" + longitude + " " + latitude + ")"));
+		this.location = (Point) toGeometry("POINT(" + longitude + " " + latitude + ")");
 	}
 	
 	@Override

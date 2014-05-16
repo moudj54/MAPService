@@ -2,7 +2,7 @@ package com.neuralnoise.map.web.util;
 
 import java.util.Map;
 
-import com.neuralnoise.map.model.geo.Point;
+import com.vividsolutions.jts.geom.Point;
 
 public class Feature {
 

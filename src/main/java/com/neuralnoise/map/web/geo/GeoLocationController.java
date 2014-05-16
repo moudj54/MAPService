@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.neuralnoise.map.model.geo.Location;
-import com.neuralnoise.map.model.geo.Point;
 import com.neuralnoise.map.service.geo.GeoLocationService;
 import com.neuralnoise.map.web.util.Feature;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.CoordinateSequence;
 import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 
 @Controller
@@ -71,5 +71,16 @@ public class GeoLocationController {
 		return new Feature(map, point);
 	}
 
+	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	com.vividsolutions.jts.geom.Point test() throws IOException {
+		Coordinate[] coordArr = { new Coordinate(51.594f, 4.777f) };
+		CoordinateSequence cs = new CoordinateArraySequence(coordArr);
+
+		GeometryFactory factory = new GeometryFactory();
+
+		com.vividsolutions.jts.geom.Point point = new com.vividsolutions.jts.geom.Point(cs, factory);
+		return point;
+	}
 	
 }

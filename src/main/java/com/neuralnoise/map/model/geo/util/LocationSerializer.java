@@ -10,8 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.neuralnoise.map.model.geo.Location;
-//import com.vividsolutions.jts.geom.Point;
-import com.neuralnoise.map.model.geo.Point;
+import com.vividsolutions.jts.geom.Point;
 
 public class LocationSerializer extends JsonSerializer<Location> {
 

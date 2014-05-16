@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -19,9 +20,10 @@ import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 
-public class GeoJSONSerializer extends JsonSerializer<Geometry> {
+@Component
+public class GeometrySerializer extends JsonSerializer<Geometry> {
 
-	private static final Logger log = LoggerFactory.getLogger(GeoJSONSerializer.class);
+	private static final Logger log = LoggerFactory.getLogger(GeometrySerializer.class);
 	
 	@Override
 	public void serialize(Geometry value, JsonGenerator jgen,

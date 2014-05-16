@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,9 +20,10 @@ import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.Polygon;
 
-public class GeoJSONDeserializer extends JsonDeserializer<Geometry> {
+@Component
+public class GeometryDeserializer extends JsonDeserializer<Geometry> {
 
-	private static final Logger log = LoggerFactory.getLogger(GeoJSONDeserializer.class);
+	private static final Logger log = LoggerFactory.getLogger(GeometryDeserializer.class);
 	
 	private GeometryFactory gf = new GeometryFactory();
 

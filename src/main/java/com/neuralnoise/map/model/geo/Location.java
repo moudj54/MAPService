@@ -31,7 +31,7 @@ public class Location extends AbstractNamedEntity {
 	@Column(name = "location")
 	@Type(type = "org.hibernate.spatial.GeometryType")
 	//@JsonTypeInfo(use = Id.NAME)
-	protected Point location;
+	protected Point point;
 
 	private static Geometry toGeometry(String wktPoint) {
 		WKTReader fromText = new WKTReader();
@@ -48,31 +48,31 @@ public class Location extends AbstractNamedEntity {
 
 	public Location(Double latitude, Double longitude, String address) {
 		this();
-		this.setLocation(latitude, longitude);
+		this.setPoint(latitude, longitude);
 		this.setName(address);
 	}
 	
 	public Location(Point location, String address) {
 		this();
-		this.setLocation(location);
+		this.setPoint(location);
 		this.setName(address);
 	}
 
 	public Point getLocation() {
-		return location;
+		return point;
 	}
 
-	public void setLocation(Point location) {
-		this.location = location;
+	public void setPoint(Point point) {
+		this.point = point;
 	}
 	
-	public void setLocation(Double latitude, Double longitude) {
-		this.location = (Point) toGeometry("POINT(" + longitude + " " + latitude + ")");
+	public void setPoint(Double latitude, Double longitude) {
+		this.point = (Point) toGeometry("POINT(" + longitude + " " + latitude + ")");
 	}
 	
 	@Override
 	public String toString() {
-		return "Location [location=" + location + ", name=" + name + ", id=" + id + "]";
+		return "Location [point=" + point + ", name=" + name + ", id=" + id + "]";
 	}
 
 }

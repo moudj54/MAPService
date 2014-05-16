@@ -1,10 +1,5 @@
 package com.neuralnoise.map.model.geo;
 
-/*
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-*/
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.neuralnoise.geo.json.GeoJSONDeserializer;

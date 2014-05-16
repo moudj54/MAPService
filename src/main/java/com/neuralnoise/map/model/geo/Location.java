@@ -17,10 +17,6 @@ import com.vividsolutions.jts.geom.Geometry;
 //import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
-/*
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-*/
 
 @Entity
 @Table(name = "location")

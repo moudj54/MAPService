@@ -38,7 +38,9 @@ public abstract class AbstractBaseEntity implements Serializable {
 	
 	public Map<String, String> getProperties() {
 		Map<String, String> properties = Maps.newHashMap();
-		properties.put("id", Long.toString(id));
+		if (id != null) {
+			properties.put("id", Long.toString(id));
+		}
 		return properties;
 	}
 

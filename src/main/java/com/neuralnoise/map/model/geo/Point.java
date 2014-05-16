@@ -17,5 +17,9 @@ public class Point extends com.vividsolutions.jts.geom.Point {
 	public Point(CoordinateSequence coordinates, GeometryFactory factory) {
 		super(coordinates, factory);
 	}
+	
+	public Point(com.vividsolutions.jts.geom.Point p) {
+		this(p.getCoordinateSequence(), p.getFactory());
+	}
 
 }

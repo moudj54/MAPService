@@ -10,7 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.neuralnoise.map.model.geo.Location;
-import com.vividsolutions.jts.geom.Point;
+//import com.vividsolutions.jts.geom.Point;
+import com.neuralnoise.map.model.geo.Point;
 
 public class LocationSerializer extends JsonSerializer<Location> {
 

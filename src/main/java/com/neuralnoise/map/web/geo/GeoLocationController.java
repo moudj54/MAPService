@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.neuralnoise.map.model.geo.Location;
 import com.neuralnoise.map.model.geo.Point;
@@ -42,6 +43,18 @@ public class GeoLocationController {
 		return locations;
 	}
 
+	@RequestMapping(value = "/g/google/{name}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	List<Feature> lookupByNameGeoJson(@PathVariable("name") String name) throws IOException {
+		List<Location> locations = geoLocationService.lookupGoogle(name);
+		List<Feature> features = Lists.newLinkedList();
+		for (Location location : locations) {
+			features.add(new Feature(location.getProperties(), location.getLocation()));
+		}
+		
+		return features;
+	}
+	
 	@RequestMapping(value = "/GeoJSON", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	Feature geoJSON() throws IOException {

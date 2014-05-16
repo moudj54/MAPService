@@ -72,8 +72,14 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 	@Override
 	public Map<String, String> getProperties() {
 		Map<String, String> properties = super.getProperties();
-		properties.put("description", description);
-		properties.put("address", address.getStreet());
+		if (description != null) {
+			properties.put("description", description);
+		}
+		if (address != null) {
+			if (address.getStreet() != null) {
+				properties.put("address", address.getStreet());
+			}
+		}
 		return properties;
 	}
 

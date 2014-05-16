@@ -10,11 +10,11 @@ import org.hibernate.annotations.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.neuralnoise.map.model.AbstractBaseEntity;
+import com.neuralnoise.map.model.AbstractNamedEntity;
 import com.neuralnoise.map.model.geo.util.LocationDeserializer;
 import com.neuralnoise.map.model.geo.util.LocationSerializer;
 import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.Point;
+//import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
@@ -22,7 +22,7 @@ import com.vividsolutions.jts.io.WKTReader;
 @Table(name = "location")
 @JsonSerialize(using = LocationSerializer.class)
 @JsonDeserialize(using = LocationDeserializer.class)
-public class Location extends AbstractBaseEntity {
+public class Location extends AbstractNamedEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Location.class);
 
@@ -32,9 +32,6 @@ public class Location extends AbstractBaseEntity {
 	@Type(type = "org.hibernate.spatial.GeometryType")
 	//@JsonTypeInfo(use = Id.NAME)
 	protected Point location;
-
-	@Column(name = "name")
-	protected String name;
 
 	private static Geometry toGeometry(String wktPoint) {
 		WKTReader fromText = new WKTReader();
@@ -70,15 +67,7 @@ public class Location extends AbstractBaseEntity {
 	}
 	
 	public void setLocation(Double latitude, Double longitude) {
-		this.location = (Point) toGeometry("POINT(" + longitude + " " + latitude + ")");
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String address) {
-		this.name = address;
+		this.location = new Point((com.vividsolutions.jts.geom.Point) toGeometry("POINT(" + longitude + " " + latitude + ")"));
 	}
 	
 	@Override

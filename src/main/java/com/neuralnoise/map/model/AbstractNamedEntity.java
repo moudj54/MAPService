@@ -14,7 +14,7 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 
 	@Column(name = "name")
 	@NotEmpty
-	private String name;
+	protected String name;
 
 	public void setName(String name) {
 		this.name = name;
@@ -32,7 +32,9 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 	@Override
 	public Map<String, String> getProperties() {
 		Map<String, String> properties = super.getProperties();
-		properties.put("name", name);
+		if (name != null) {
+			properties.put("name", name);
+		}
 		return properties;
 	}
 	

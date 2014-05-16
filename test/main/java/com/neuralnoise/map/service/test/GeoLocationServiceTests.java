@@ -26,8 +26,7 @@ public class GeoLocationServiceTests {
 	private GeoLocationService geoService;
 
 	@Test
-	public void testSayHello() throws IOException {
-		
+	public void testGoogle() throws IOException {
 		log.info("Looking up 'Bari' using Google ..");
 		List<Location> bari = geoService.lookupGoogle("Bari");
 		//Assert.assertEquals("Hello world!", helloService.sayHello());

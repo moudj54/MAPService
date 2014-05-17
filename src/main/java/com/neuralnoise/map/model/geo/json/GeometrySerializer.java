@@ -1,4 +1,4 @@
-package com.neuralnoise.geo.json;
+package com.neuralnoise.map.model.geo.json;
 
 import java.io.IOException;
 

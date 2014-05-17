@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neuralnoise.map.model.AbstractNamedEntity;
 import com.neuralnoise.map.model.geo.Address;
 import com.neuralnoise.map.model.geo.Location;
@@ -43,7 +44,7 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 
 	public void setContributor(UserEntity contributor) {
 		this.contributor = contributor;
-	}
+	}	@JsonIgnore
 
 	public String getDescription() {
 		return description;
@@ -70,6 +71,7 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 	}
 	
 	@Override
+	@JsonIgnore
 	public Map<String, String> getProperties() {
 		Map<String, String> properties = super.getProperties();
 		if (description != null) {

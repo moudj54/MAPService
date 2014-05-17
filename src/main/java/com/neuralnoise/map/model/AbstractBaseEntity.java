@@ -11,6 +11,7 @@ import javax.persistence.MappedSuperclass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Maps;
 
 @MappedSuperclass
@@ -36,6 +37,7 @@ public abstract class AbstractBaseEntity implements Serializable {
 		return (this.id == null);
 	}
 	
+	@JsonIgnore
 	public Map<String, String> getProperties() {
 		Map<String, String> properties = Maps.newHashMap();
 		if (id != null) {

@@ -7,6 +7,8 @@ import javax.persistence.MappedSuperclass;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @MappedSuperclass
 public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 
@@ -30,6 +32,7 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 	}
 
 	@Override
+	@JsonIgnore
 	public Map<String, String> getProperties() {
 		Map<String, String> properties = super.getProperties();
 		if (name != null) {

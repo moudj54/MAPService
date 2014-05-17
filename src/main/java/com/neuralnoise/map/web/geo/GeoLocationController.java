@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,8 @@ import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 @RequestMapping("/geoLocation")
 public class GeoLocationController {
 
+	private static final Logger log = LoggerFactory.getLogger(GeoLocationController.class);
+	
 	@Autowired
 	private GeoLocationService geoLocationService;
 
@@ -39,6 +43,7 @@ public class GeoLocationController {
 	@RequestMapping(value = "/google/{name}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Location> lookupByNameG(@PathVariable("name") String name) throws IOException {
+		log.info("Locating {} ..", name);
 		List<Location> locations = geoLocationService.lookupGoogle(name);
 		return locations;
 	}

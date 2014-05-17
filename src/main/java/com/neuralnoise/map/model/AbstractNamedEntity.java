@@ -12,7 +12,7 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 
 	private static final long serialVersionUID = -964173231862367581L;
 
-	@Column(name = "name")
+	@Column(name = "name", length = 1024)
 	@NotEmpty
 	protected String name;
 

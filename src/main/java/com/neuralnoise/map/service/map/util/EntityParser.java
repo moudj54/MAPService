@@ -1,4 +1,4 @@
-package com.neuralnoise.map.test.util;
+package com.neuralnoise.map.service.map.util;
 
 import java.io.IOException;
 import java.util.List;

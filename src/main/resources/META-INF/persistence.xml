@@ -5,6 +5,9 @@
 	<persistence-unit name="entityManager" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		
+		<class>com.neuralnoise.map.model.Person</class>
+		<class>com.neuralnoise.map.model.Contact</class>
+		
 		<class>com.neuralnoise.map.model.geo.Location</class>
 		<class>com.neuralnoise.map.model.geo.Address</class>
 		

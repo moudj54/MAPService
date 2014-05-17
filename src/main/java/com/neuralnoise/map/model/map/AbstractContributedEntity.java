@@ -26,10 +26,10 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 	@ManyToOne
 	protected UserEntity contributor;
 
-	@Column(name = "description")
+	@Column(name = "description", length = 8192)
 	protected String description;
 
-	@NotNull
+	//@NotNull
 	@ManyToOne
 	protected Address address;
 

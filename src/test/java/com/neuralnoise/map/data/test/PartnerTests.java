@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.neuralnoise.map.data.LocationDAO;
+import com.neuralnoise.map.data.map.AbstractContributedDAO;
+import com.neuralnoise.map.data.map.ArtisanDAO;
+import com.neuralnoise.map.data.map.OrganizationDAO;
 import com.neuralnoise.map.model.geo.Location;
 import com.neuralnoise.map.model.map.AbstractContributedEntity;
 import com.neuralnoise.map.model.map.Artisan;
@@ -25,9 +29,15 @@ import com.neuralnoise.map.service.map.OrganizationService;
 import com.neuralnoise.map.service.map.util.IContributedEntityService;
 import com.neuralnoise.map.test.util.EntityParser;
 import com.neuralnoise.map.test.util.XSSFParser;
+import com.vividsolutions.jts.geom.Point;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring/web-context.xml")
+@ContextConfiguration(
+		locations = {
+			"classpath:META-INF/spring/web-context.xml",
+			"classpath:META-INF/spring/servlet-context.xml"	
+		}
+)
 public class PartnerTests {
 
 	private static final Logger log = LoggerFactory.getLogger(PartnerTests.class);
@@ -36,25 +46,25 @@ public class PartnerTests {
 	private GeoLocationService geoService;
 	
 	@Autowired
-	private LocationService locationService;
+	private LocationDAO locationDAO;
 	
 	@Autowired
-	private ArtisanService artisanService;
+	private ArtisanDAO artisanDAO;
 	
 	@Autowired
-	private OrganizationService organizationService;
+	private OrganizationDAO organizationDAO;
 	
 	private static final String[] RESS = {
 		"/partner01/PARTNER.xlsx", "/art01/schede_v.3.xlsx"
 	};
 
-	private IContributedEntityService<? extends AbstractContributedEntity> getService(AbstractContributedEntity entity) {
-		IContributedEntityService<? extends AbstractContributedEntity> service = null;
+	private AbstractContributedDAO<? extends AbstractContributedEntity, ?> getService(AbstractContributedEntity entity) {
+		AbstractContributedDAO<? extends AbstractContributedEntity, ?> service = null;
 		if (entity != null) {
 			if (entity instanceof Artisan) {
-				service = artisanService;
+				service = artisanDAO;
 			} else if (entity instanceof Organization) {
-				service = organizationService;
+				service = organizationDAO;
 			}
 		}
 		return service;
@@ -66,16 +76,31 @@ public class PartnerTests {
 			String path = ClassLoader.class.getResource(res).getPath();
 			List<Map<String, String>> content = XSSFParser.parse(new File(path));
 
+			for (Location location : locationDAO.getAll()) {
+				locationDAO.deleteById(location.getId());
+			}
+			
+			for (Artisan artisan : artisanDAO.getAll()) {
+				artisanDAO.deleteById(artisan.getId());
+			}
+			
+			for (Organization organization : organizationDAO.getAll()) {
+				organizationDAO.deleteById(organization.getId());
+			}
+			
 			for (Map<String, String> map : content) {
 				AbstractContributedEntity entity = EntityParser.parse(map, geoService);
 				
 				log.info("Memorizing entity: " + entity);
 				
-				IContributedEntityService<? extends AbstractContributedEntity> service = getService(entity);
+				AbstractContributedDAO<? extends AbstractContributedEntity, ?> service = getService(entity);
 
-				if (service != null) {
+				if (service != null && entity.getLocation() != null) {
 					Location location = entity.getLocation();
-					location = locationService.create(location);
+					Point point = location.getPoint();
+					
+					log.info("Memorizing location: " + location);
+					location = locationDAO.create(point.getX(), point.getY(), location.getName());
 
 					if (service instanceof ArtisanService) {
 						((ArtisanService) service).create((Artisan) entity);

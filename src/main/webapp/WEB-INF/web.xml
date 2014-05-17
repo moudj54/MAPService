@@ -16,7 +16,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-				classpath:spring/servlet-context.xml
+				classpath:META-INF/spring/servlet-context.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
@@ -55,8 +55,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath:spring/web-context.xml
-			classpath:spring/spring-security.xml
+			classpath:META-INF/spring/web-context.xml
+			classpath:META-INF/spring/spring-security.xml
 		</param-value>
 	</context-param>
 

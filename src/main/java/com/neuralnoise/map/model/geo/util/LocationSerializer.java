@@ -20,7 +20,7 @@ public class LocationSerializer extends JsonSerializer<Location> {
 	public void serialize(Location value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
 
 		Long id = value.getId();
-		Point point = value.getLocation();
+		Point point = value.getPoint();
 		String name = value.getName();
 
 		log.info("Serializing id: " + id + ", point: " + point + ", name: " + name + " ..");

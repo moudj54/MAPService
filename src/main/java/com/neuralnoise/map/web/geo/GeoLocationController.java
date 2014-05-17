@@ -49,7 +49,7 @@ public class GeoLocationController {
 		List<Location> locations = geoLocationService.lookupGoogle(name);
 		List<Feature> features = Lists.newLinkedList();
 		for (Location location : locations) {
-			features.add(new Feature(location.getProperties(), location.getLocation()));
+			features.add(new Feature(location.getProperties(), location.getPoint()));
 		}
 		
 		return features;

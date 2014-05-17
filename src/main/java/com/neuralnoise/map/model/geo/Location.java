@@ -24,7 +24,7 @@ public class Location extends AbstractNamedEntity {
 
 	private static final long serialVersionUID = 8809624185680983201L;
 
-	@Column(name = "location")
+	@Column(name = "point")
 	@Type(type = "org.hibernate.spatial.GeometryType")
 	//@JsonTypeInfo(use = Id.NAME)
 	protected Point point;
@@ -54,7 +54,7 @@ public class Location extends AbstractNamedEntity {
 		this.setName(address);
 	}
 
-	public Point getLocation() {
+	public Point getPoint() {
 		return point;
 	}
 

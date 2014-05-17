@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neuralnoise.map.data.LocationDAO;
 import com.neuralnoise.map.model.geo.Location;
 import com.neuralnoise.map.model.security.UserEntity;
-import com.neuralnoise.map.service.map.util.AbstractEntityServiceImpl;
+import com.neuralnoise.map.service.map.util.AbstractNamedEntityServiceImpl;
 
 @Service
-public class LocationServiceImpl extends AbstractEntityServiceImpl<Location, LocationDAO> implements LocationService {
+public class LocationServiceImpl extends AbstractNamedEntityServiceImpl<Location, LocationDAO> implements LocationService {
 
 	private static final Logger log = LoggerFactory.getLogger(LocationServiceImpl.class);
 

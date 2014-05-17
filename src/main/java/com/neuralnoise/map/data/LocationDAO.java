@@ -10,7 +10,7 @@ import com.neuralnoise.map.model.geo.Location;
 
 @Repository
 @Transactional
-public class LocationDAO extends AbstractDAO<Location, Long> {
+public class LocationDAO extends AbstractNamedDAO<Location, Long> {
 
 	private static final Logger log = LoggerFactory.getLogger(LocationDAO.class);
 

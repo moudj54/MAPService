@@ -11,7 +11,7 @@ import com.neuralnoise.map.data.map.AbstractContributedDAO;
 import com.neuralnoise.map.model.map.AbstractContributedEntity;
 import com.neuralnoise.map.model.security.UserEntity;
 
-public abstract class AbstractContributedEntityServiceImpl<T extends AbstractContributedEntity, D extends AbstractContributedDAO<T, Long>> extends AbstractEntityServiceImpl<T, D> implements IContributedEntityService<T> {
+public abstract class AbstractContributedEntityServiceImpl<T extends AbstractContributedEntity, D extends AbstractContributedDAO<T, Long>> extends AbstractNamedEntityServiceImpl<T, D> implements IContributedEntityService<T> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractContributedEntityServiceImpl.class);
 
@@ -60,13 +60,7 @@ public abstract class AbstractContributedEntityServiceImpl<T extends AbstractCon
 
 		entityDAO.deleteById(id);
 	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public List<T> findByName(String name) {
-		return entityDAO.findByName(name);
-	}
-
+	
 	@Override
 	@Transactional(readOnly = true)
 	public List<T> findByContributor(String name) {

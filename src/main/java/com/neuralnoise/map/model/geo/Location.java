@@ -8,11 +8,7 @@ import org.hibernate.annotations.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.neuralnoise.map.model.AbstractNamedEntity;
-import com.neuralnoise.map.model.geo.util.LocationDeserializer;
-import com.neuralnoise.map.model.geo.util.LocationSerializer;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;

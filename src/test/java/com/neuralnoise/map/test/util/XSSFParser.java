@@ -1,4 +1,4 @@
-package com.neuralnoise.map.service.test.util;
+package com.neuralnoise.map.test.util;
 
 import java.io.File;
 import java.io.FileInputStream;

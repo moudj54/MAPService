@@ -82,5 +82,11 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 		}
 		return properties;
 	}
+	
+	@Override
+	public String toString() {
+		return "AbstractContributedEntity [contributor=" + contributor + ", description=" + description + ", address=" + address + ", location=" + location + ", name=" + name + ", id=" + id + "]";
+	}
+
 
 }

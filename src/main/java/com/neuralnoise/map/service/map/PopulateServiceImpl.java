@@ -17,7 +17,6 @@ import com.neuralnoise.map.data.LocationDAO;
 import com.neuralnoise.map.data.map.AbstractContributedDAO;
 import com.neuralnoise.map.data.map.ArtisanDAO;
 import com.neuralnoise.map.data.map.OrganizationDAO;
-import com.neuralnoise.map.data.security.SecurityDAO;
 import com.neuralnoise.map.model.geo.Location;
 import com.neuralnoise.map.model.map.AbstractContributedEntity;
 import com.neuralnoise.map.model.map.Artisan;

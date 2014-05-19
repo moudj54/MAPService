@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ public class GeoLocationController {
 	@Autowired
 	private GeoLocationService geoLocationService;
 
+	/*
 	@RequestMapping(value = "/nominatim/{name}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Location> lookupByNameN(@PathVariable("name") String name) throws IOException {
@@ -56,8 +59,26 @@ public class GeoLocationController {
 		for (Location location : locations) {
 			features.add(new Feature(location.getProperties(), location.getPoint()));
 		}
-		
 		return features;
+	}
+	*/
+	
+	@RequestMapping(value = "/nominatim", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	List<Location> nominatim(HttpServletRequest request) throws IOException {
+		final String address = request.getParameter("address");
+		log.info("Locating {} ..", address);
+		List<Location> locations = geoLocationService.lookupNominatim(address);
+		return locations;
+	}
+
+	@RequestMapping(value = "/google", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	List<Location> google(HttpServletRequest request) throws IOException {
+		final String address = request.getParameter("address");
+		log.info("Locating {} ..", address);
+		List<Location> locations = geoLocationService.lookupGoogle(address);
+		return locations;
 	}
 	
 	@RequestMapping(value = "/GeoJSON", method = RequestMethod.GET, produces = "application/json")

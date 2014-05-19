@@ -49,10 +49,6 @@ public class PopulateServiceImpl implements PopulateService {
 	
 	@Autowired
 	private OrganizationDAO organizationDAO;
-	
-	private static final String[] RESS = {
-		"/partner01/PARTNER.xlsx", "/art01/schede_v.3.xlsx"
-	};
 
 	private AbstractContributedDAO<? extends AbstractContributedEntity, ?> getService(AbstractContributedEntity entity) {
 		AbstractContributedDAO<? extends AbstractContributedEntity, ?> service = null;
@@ -68,12 +64,12 @@ public class PopulateServiceImpl implements PopulateService {
 
 	@Transactional(readOnly = false)
 	public void populate(String path) throws IOException {
-		
-		UserEntity admin = securityService.current();
-		if (admin == null || !admin.isAdmin()) {
+
+		UserEntity user = securityService.current();
+		if (user == null || !user.isAdmin()) {
 			throw new InsufficientAuthenticationException("Insufficient privileges");
 		}
-		
+
 		List<Map<String, String>> content = XSSFParser.parse(new File(path));
 
 		/*
@@ -96,22 +92,37 @@ public class PopulateServiceImpl implements PopulateService {
 			AbstractContributedDAO<? extends AbstractContributedEntity, ?> service = getService(entity);
 
 			if (service != null && entity.getLocation() != null) {
-				log.info("Memorizing entity: " + entity);
 
-				Location location = entity.getLocation();
+				List<? extends AbstractContributedEntity> existingEntities = service.findByName(entity.getName());
+				AbstractContributedEntity existingEntity = (existingEntities.size() > 0 ? existingEntities.get(0) : null);
+				
+				if (existingEntity != null) {
+					log.info("Existing entity: " + existingEntity);
+				} else {
+					log.info("Memorizing entity: " + entity);
 
-				log.info("Memorizing location: " + location);
-				location = locationDAO.create(location);
+					Location location = entity.getLocation();
 
-				entity.setContributor(admin);
-				entity.setLocation(location);
-
-				if (service instanceof ArtisanDAO) {
-					Artisan artisan = ((ArtisanDAO) service).create((Artisan) entity);
-					log.info("Artisan: " + artisan);
-				} else if (service instanceof OrganizationDAO) {
-					Organization organization = ((OrganizationDAO) service).create((Organization) entity);
-					log.info("Organization: " + organization);
+					List<Location> existingLocations = locationDAO.findByName(location.getName());
+					Location existingLocation = (existingLocations.size() > 0 ? existingLocations.get(0) : null);
+					
+					if (existingLocation == null) {
+						log.info("Memorizing location: " + location);
+						location = locationDAO.create(location);
+					} else {
+						// Let's save locations and entities in different transactions
+						entity.setContributor(user);
+						//entity.setLocation(location);
+						entity.setLocation(existingLocation);
+						
+						if (service instanceof ArtisanDAO) {
+							Artisan artisan = ((ArtisanDAO) service).create((Artisan) entity);
+							log.info("Artisan: " + artisan);
+						} else if (service instanceof OrganizationDAO) {
+							Organization organization = ((OrganizationDAO) service).create((Organization) entity);
+							log.info("Organization: " + organization);
+						}
+					}
 				}
 			}
 		}

@@ -35,7 +35,7 @@ public class EntityParser {
 			entity = new Artisan();
 		}
 		
-		Pattern organizationPattern = Pattern.compile("Azienda|azienda");
+		Pattern organizationPattern = Pattern.compile("Azienda|azienda|Agroalimentare|agroalimentare");
 		Matcher organizationMatcher = organizationPattern.matcher(category);
 		
 		if (entity == null && organizationMatcher.find()) {
@@ -51,6 +51,11 @@ public class EntityParser {
 		if (description != null && entity != null) {
 			entity.setDescription(description);
 		}
+
+		if (entity == null) {
+			log.warn("Map: " + map + ", entity: " + null);
+		}
+		
 		
 		final String address = map.get("indirizzo"), city = map.get("city");
 		if ((address != null || city != null) && entity != null) {

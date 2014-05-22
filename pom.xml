@@ -25,7 +25,8 @@
 		<!-- Java EE / Java SE dependencies -->
 		<jsp.version>2.2</jsp.version>
 		<jstl.version>1.2</jstl.version>
-		<tomcat.servlet.version>7.0.30</tomcat.servlet.version>
+		<tomcat.servlet.version>8.0.5</tomcat.servlet.version>
+		
 		<jaxb-impl.version>2.2.7</jaxb-impl.version>
 
 		<!-- Hibernate / JPA -->
@@ -36,7 +37,7 @@
 		<hibernate-validator.version>4.3.1.Final</hibernate-validator.version>
 
 		<!-- Database access -->
-		<tomcat-jdbc.version>7.0.42</tomcat-jdbc.version>
+		<tomcat-jdbc.version>8.0.5</tomcat-jdbc.version>
 		<ehcache.version>2.6.8</ehcache.version>
 		<hsqldb.version>2.3.1</hsqldb.version>
 
@@ -46,9 +47,6 @@
 		<!-- Logging -->
 		<logback.version>1.1.0</logback.version>
 		<slf4j.version>1.7.5</slf4j.version>
-
-		<!-- RSS -->
-		<rome.version>1.0</rome.version>
 
 		<!-- Test -->
 		<junit.version>4.11</junit.version>
@@ -65,7 +63,7 @@
 
 		<!-- Apache Commons -->
 		<commons.version>3.2</commons.version>
-		
+
 		<!-- Apache POI -->
 		<apache-poi.version>3.9</apache-poi.version>
 
@@ -80,15 +78,14 @@
 		<mysql.version>5.1.22</mysql.version>
 		<postgresql.version>9.1-901.jdbc4</postgresql.version>
 		<postgis.version>1.5.2</postgis.version>
-		
+
 		<jackson-asl.version>1.9.13</jackson-asl.version>
 		<jackson2.version>2.3.2</jackson2.version>
-		
+
 		<!-- GeoLocation -->
 		<httpclient.version>4.0</httpclient.version>
 		<nominatim.version>2.0.2</nominatim.version>
 		<geocoder.version>0.15</geocoder.version>
-
 	</properties>
 
 	<dependencies>
@@ -98,12 +95,30 @@
 			<artifactId>usertype.core</artifactId>
 			<version>${jadira-usertype-core.version}</version>
 		</dependency>
+		
+		<!-- Tomcat -->
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-servlet-api</artifactId>
 			<version>${tomcat.servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
+<!--
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+   			<artifactId>tomcat-embed-websocket</artifactId>
+   			<version>${tomcat.servlet.version}</version>
+		</dependency>
+-->
+
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+			<version>${tomcat-jdbc.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		
+		
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
@@ -155,6 +170,19 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring-framework.version}</version>
 		</dependency>
+
+		<!-- Messaging -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-messaging</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
@@ -206,13 +234,6 @@
 			<version>${spring-framework.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jdbc</artifactId>
-			<version>${tomcat-jdbc.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-
 		<!-- Logging with SLF4J & LogBack -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -225,13 +246,6 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 			<scope>runtime</scope>
-		</dependency>
-
-		<!-- used for Atom -->
-		<dependency>
-			<groupId>rome</groupId>
-			<artifactId>rome</artifactId>
-			<version>${rome.version}</version>
 		</dependency>
 
 		<!-- Date and Time -->
@@ -371,7 +385,7 @@
 			<version>${spring-framework.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -386,20 +400,18 @@
 			<version>${hamcrest.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- Used to populate the database from XSLX files-->
+
+		<!-- Used to populate the database from XSLX files -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>${apache-poi.version}</version>
-			<!-- <scope>test</scope> -->
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>${apache-poi.version}</version>
-			<!-- <scope>test</scope> -->
 		</dependency>
 
 		<dependency>
@@ -448,7 +460,6 @@
 			<artifactId>datatables-servlet2</artifactId>
 			<version>${dandelion.datatables.version}</version>
 		</dependency>
-
 	</dependencies>
 
 	<dependencyManagement>
@@ -504,7 +515,6 @@
 		</testResources>
 
 		<plugins>
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
@@ -525,7 +535,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -605,14 +614,9 @@
 				</configuration>
 			</plugin>
 		</plugins>
-
 	</build>
 
 	<repositories>
-		<repository>
-			<id>bedatadriven Open-Source releases</id>
-			<url>http://nexus.bedatadriven.com/content/repositories/oss-releases</url>
-		</repository>
 		<repository>
 			<id>OSGEO GeoTools repo</id>
 			<url>http://download.osgeo.org/webdav/geotools</url>

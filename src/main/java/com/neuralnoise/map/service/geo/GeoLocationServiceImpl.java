@@ -21,13 +21,20 @@ public class GeoLocationServiceImpl implements GeoLocationService {
 	}
 
 	@Override
-	public List<Location> lookupNominatim(String address) throws IOException {
-		return GeoLocationUtils.queryNominatim(address, LANGUAGE_DEFAULT);
-	}
-
-	@Override
-	public List<Location> lookupGoogle(String address) throws IOException {
-		return GeoLocationUtils.queryGoogle(address, LANGUAGE_DEFAULT);
+	public List<Location> lookup(String address, ServiceType serviceType) throws IOException {
+		List<Location> locations = null;
+		switch (serviceType) {
+		case GOOGLE: {
+			locations = GeoLocationUtils.queryGoogle(address, LANGUAGE_DEFAULT);
+		} break;
+		case NOMINATIM: {
+			locations = GeoLocationUtils.queryNominatim(address, LANGUAGE_DEFAULT);
+		} break;
+		default: {
+			throw new IllegalArgumentException("Unsupported service type: " + serviceType);
+		}
+		}
+		return locations;
 	}
 
 }

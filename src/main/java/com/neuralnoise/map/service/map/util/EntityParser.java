@@ -1,6 +1,5 @@
 package com.neuralnoise.map.service.map.util;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -14,6 +13,7 @@ import com.neuralnoise.map.model.map.AbstractContributedEntity;
 import com.neuralnoise.map.model.map.Artisan;
 import com.neuralnoise.map.model.map.Organization;
 import com.neuralnoise.map.service.geo.GeoLocationService;
+import com.neuralnoise.map.service.geo.GeoLocationService.ServiceType;
 
 public class EntityParser {
 
@@ -21,7 +21,7 @@ public class EntityParser {
 	
 	private EntityParser() { }
 	
-	public static AbstractContributedEntity parse(Map<String, String> map, GeoLocationService geoService) throws IOException {
+	public static AbstractContributedEntity parse(Map<String, String> map, GeoLocationService geoService) throws Exception {
 		AbstractContributedEntity entity = null;
 		
 		final String category = map.get("categoria");
@@ -61,8 +61,8 @@ public class EntityParser {
 		if ((address != null || city != null) && entity != null) {
 			String str = (address != null ? address + " " : "") + (city != null ? city : "");
 			str += ", Puglia";
-			List<Location> locations = geoService.lookupGoogle(str);
-			locations.addAll(geoService.lookupNominatim(str));
+			List<Location> locations = geoService.lookup(str, ServiceType.GOOGLE);
+			locations.addAll(geoService.lookup(str, ServiceType.NOMINATIM));
 			
 			if (locations.size() > 0) {
 				entity.setLocation(locations.get(0));

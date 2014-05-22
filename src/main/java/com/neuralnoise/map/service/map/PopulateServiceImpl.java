@@ -1,7 +1,6 @@
 package com.neuralnoise.map.service.map;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -63,7 +62,7 @@ public class PopulateServiceImpl implements PopulateService {
 	}
 
 	@Transactional(readOnly = false)
-	public void populate(String path) throws IOException {
+	public void populate(String path) throws Exception {
 
 		UserEntity user = securityService.current();
 		if (user == null || !user.isAdmin()) {

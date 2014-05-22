@@ -1,7 +1,6 @@
 package com.neuralnoise.map.web.map;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.neuralnoise.map.model.map.AbstractContributedEntity;
 import com.neuralnoise.map.web.util.Feature;
 

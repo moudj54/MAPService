@@ -2,7 +2,6 @@ package com.neuralnoise.map.service.test;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.neuralnoise.map.model.geo.Location;
 import com.neuralnoise.map.service.geo.GeoLocationService;
+import com.neuralnoise.map.service.geo.GeoLocationService.ServiceType;
 import com.vividsolutions.jts.geom.Point;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,9 +27,9 @@ public class GeoLocationServiceTests {
 	private GeoLocationService geoService;
 
 	@Test
-	public void testGoogle() throws IOException {
+	public void testGoogle() throws Exception {
 		log.info("Looking up 'Bari' using Google ..");
-		List<Location> locations = geoService.lookupGoogle("Bari, Puglia");
+		List<Location> locations = geoService.lookup("Bari, Puglia", ServiceType.GOOGLE);
 		for (Location location : locations) {
 			log.info("Location: " + location);
 			final double x = 16.8718715, y = 41.1171432;
@@ -40,9 +40,9 @@ public class GeoLocationServiceTests {
 	}
 	
 	@Test
-	public void testNominatim() throws IOException {
+	public void testNominatim() throws Exception {
 		log.info("Looking up 'Bari' using Nominatim ..");
-		List<Location> locations = geoService.lookupNominatim("Bari, Puglia");
+		List<Location> locations = geoService.lookup("Bari, Puglia", ServiceType.NOMINATIM);
 		for (Location location : locations) {
 			log.info("Location: " + location);
 			final double x = 16.8718715, y = 41.1171432;

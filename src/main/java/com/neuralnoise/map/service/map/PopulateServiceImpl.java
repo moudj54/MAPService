@@ -143,6 +143,9 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 	public void test() {
 		MessageChannel topicChannel = applicationContext.getBean("topicChannel", MessageChannel.class);
 		topicChannel.send(MessageBuilder.withPayload("ssssssssssup").build());
+		
+		MessageChannel errorChannel = applicationContext.getBean("errorChannel", MessageChannel.class);
+		errorChannel.send(MessageBuilder.withPayload("sending something to errorChannel ..").build());
 	}
 
     @Override

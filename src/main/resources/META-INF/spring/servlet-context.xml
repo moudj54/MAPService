@@ -37,24 +37,28 @@
 	<!-- MAP -->
 	<context:component-scan base-package="com.neuralnoise.map" />
 
-    <!-- Define a channel to communicate out to a JMS Destination -->
-    <integration:channel id="topicChannel"/>
-    
-        <!-- Define an adaptor that route topicChannel messages to the myTopic topic -->
-    <int-jms:outbound-channel-adapter connection-factory="jmsFactory" channel="topicChannel" destination-name="topic.myTopic" pub-sub-domain="true" />
+	<!-- Define a channel to communicate out to a JMS Destination -->
+	<integration:channel id="topicChannel" />
 
-    <!-- Define the ActiveMQ connection factory -->
-    <bean id="jmsFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
-    	<property name="brokerURL" value="tcp://localhost:61616"/>
-    </bean>
+	<!-- Define an adaptor that route topicChannel messages to the myTopic topic -->
+	<int-jms:outbound-channel-adapter
+		connection-factory="jmsFactory" channel="topicChannel"
+		destination-name="topic.myTopic" pub-sub-domain="true" />
+
+	<!-- Define the ActiveMQ connection factory -->
+	<bean id="jmsFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61616" />
+	</bean>
 
 	<bean class="com.neuralnoise.integration.HelloServiceImpl" name="helloServiceImpl"></bean>
 
-	<!-- A Spring Integration adapter that routes messages sent to the helloWorldChannel to the bean named "helloServiceImpl"'s hello() method -->
-	<integration:service-activator input-channel="topicChannel" ref="helloServiceImpl" method="hello" />
+	<!-- A Spring Integration adapter that routes messages sent to the helloWorldChannel 
+		to the bean named "helloServiceImpl"'s hello() method -->
+	<integration:service-activator
+		input-channel="topicChannel" ref="helloServiceImpl" method="hello" />
 
 	<context:annotation-config />
-	
+
 	<!-- enables scanning for @Transactional annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	

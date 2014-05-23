@@ -28,21 +28,20 @@
 	</mvc:annotation-driven>
 
 	<!-- Scan classpath for annotations (eg: @Service, @Repository etc) -->
-	<context:component-scan base-package="com.neuralnoise.map" />
-
-	<!-- GeoJSON module for Jackson -->
-	<context:component-scan base-package="com.neuralnoise.geo" />
 
 	<!-- Integration -->
 	<context:component-scan base-package="com.neuralnoise.messaging" />
 
-	<!-- A Spring Integration channel -->
-	<integration:channel id="helloWorldChannel" />
+	<!-- MAP -->
+	<context:component-scan base-package="com.neuralnoise.map" />
+
+    <!-- Define a channel to communicate out to a JMS Destination -->
+    <integration:channel id="topicChannel"/>
 
 	<bean class="com.neuralnoise.integration.HelloServiceImpl" name="helloServiceImpl"></bean>
 
 	<!-- A Spring Integration adapter that routes messages sent to the helloWorldChannel to the bean named "helloServiceImpl"'s hello() method -->
-	<integration:service-activator input-channel="helloWorldChannel" ref="helloServiceImpl" method="hello" />
+	<integration:service-activator input-channel="topicChannel" ref="helloServiceImpl" method="hello" />
 
 	<context:annotation-config />
 	

@@ -6,7 +6,14 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.MessageChannel;
+import org.springframework.integration.support.MessageBuilder;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +34,7 @@ import com.neuralnoise.map.service.map.util.XSSFParser;
 import com.neuralnoise.map.service.security.SecurityService;
 
 @Service
-public class PopulateServiceImpl implements PopulateService {
+public class PopulateServiceImpl implements PopulateService, ApplicationContextAware {
 
 	private static final Logger log = LoggerFactory.getLogger(PopulateServiceImpl.class);
 	
@@ -126,5 +133,22 @@ public class PopulateServiceImpl implements PopulateService {
 			}
 		}
 	}
+
+	//@Autowired
+	//private MessageChannel topicChannel;
+	
+	private ApplicationContext applicationContext;
+	
+	@Override
+	public void test() {
+		MessageChannel topicChannel = applicationContext.getBean("topicChannel", MessageChannel.class);
+		topicChannel.send(MessageBuilder.withPayload("ssssssssssup").build());
+	}
+
+    @Override
+    public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
+    	log.info("setting context");
+    	this.applicationContext = applicationContext;
+    }
 
 }

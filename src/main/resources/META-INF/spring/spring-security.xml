@@ -6,20 +6,11 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
  
- 	<http auto-config="true">
-		<intercept-url pattern="/**" access="ROLE_USER" />
+ 	<http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/populate/*" access="hasIpAddress('127.0.0.1/32')" />
 	</http>
- 
- <!--
-	<authentication-manager>
-	  <authentication-provider>
-	    <user-service>
-		<user name="user" password="password" authorities="ROLE_USER" />
-	    </user-service>
-	  </authentication-provider>
-	</authentication-manager>
--->
-
+	
 	<beans:bean id="userDetailsService" class="com.neuralnoise.map.security.UserDetailsServiceImpl" />
 
 	<beans:bean id="daoAuthenticationProvider"
@@ -41,7 +32,6 @@
 			<password-encoder hash="md5" />
 		</authentication-provider>
 	</authentication-manager>
-
  
 </beans:beans>
 

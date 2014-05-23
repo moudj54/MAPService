@@ -56,6 +56,8 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 	@Autowired
 	private OrganizationDAO organizationDAO;
 
+	private ApplicationContext applicationContext;
+	
 	private AbstractContributedDAO<? extends AbstractContributedEntity, ?> getService(AbstractContributedEntity entity) {
 		AbstractContributedDAO<? extends AbstractContributedEntity, ?> service = null;
 		if (entity != null) {
@@ -68,6 +70,20 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 		return service;
 	}
 
+	
+	@Transactional(readOnly = false)
+	public void clean() throws Exception {
+		for (Location location : locationDAO.getAll()) {
+			locationDAO.deleteById(location.getId());
+		}
+		for (Artisan artisan : artisanDAO.getAll()) {
+			artisanDAO.deleteById(artisan.getId());
+		}
+		for (Organization organization : organizationDAO.getAll()) {
+			organizationDAO.deleteById(organization.getId());
+		}	
+	}
+	
 	@Transactional(readOnly = false)
 	public void populate(String path) throws Exception {
 
@@ -78,20 +94,6 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 
 		List<Map<String, String>> content = XSSFParser.parse(new File(path));
 
-		/*
-		for (Location location : locationDAO.getAll()) {
-			locationDAO.deleteById(location.getId());
-		}
-		
-		for (Artisan artisan : artisanDAO.getAll()) {
-			artisanDAO.deleteById(artisan.getId());
-		}
-		
-		for (Organization organization : organizationDAO.getAll()) {
-			organizationDAO.deleteById(organization.getId());
-		}
-		*/
-		
 		for (Map<String, String> map : content) {
 			AbstractContributedEntity entity = EntityParser.parse(map, geoService);
 
@@ -133,11 +135,6 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 			}
 		}
 	}
-
-	//@Autowired
-	//private MessageChannel topicChannel;
-	
-	private ApplicationContext applicationContext;
 	
 	@Override
 	public void test() {

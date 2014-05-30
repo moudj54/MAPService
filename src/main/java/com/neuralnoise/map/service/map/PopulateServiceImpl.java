@@ -1,6 +1,7 @@
 package com.neuralnoise.map.service.map;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -10,14 +11,15 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neuralnoise.integration.Request;
+import com.neuralnoise.integration.RequestsGateway;
 import com.neuralnoise.map.data.AddressDAO;
 import com.neuralnoise.map.data.LocationDAO;
 import com.neuralnoise.map.data.map.AbstractContributedDAO;
@@ -37,27 +39,27 @@ import com.neuralnoise.map.service.security.SecurityService;
 public class PopulateServiceImpl implements PopulateService, ApplicationContextAware {
 
 	private static final Logger log = LoggerFactory.getLogger(PopulateServiceImpl.class);
-	
+
 	@Autowired
 	private GeoLocationService geoService;
-	
+
 	@Autowired
 	private SecurityService securityService;
-	
+
 	@Autowired
 	private AddressDAO addressDAO;
-	
+
 	@Autowired
 	private LocationDAO locationDAO;
-	
+
 	@Autowired
 	private ArtisanDAO artisanDAO;
-	
+
 	@Autowired
 	private OrganizationDAO organizationDAO;
 
 	private ApplicationContext applicationContext;
-	
+
 	private AbstractContributedDAO<? extends AbstractContributedEntity, ?> getService(AbstractContributedEntity entity) {
 		AbstractContributedDAO<? extends AbstractContributedEntity, ?> service = null;
 		if (entity != null) {
@@ -70,7 +72,6 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 		return service;
 	}
 
-	
 	@Transactional(readOnly = false)
 	public void clean() throws Exception {
 		for (Location location : locationDAO.getAll()) {
@@ -81,9 +82,9 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 		}
 		for (Organization organization : organizationDAO.getAll()) {
 			organizationDAO.deleteById(organization.getId());
-		}	
+		}
 	}
-	
+
 	@Transactional(readOnly = false)
 	public void populate(String path) throws Exception {
 
@@ -103,7 +104,7 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 
 				List<? extends AbstractContributedEntity> existingEntities = service.findByName(entity.getName());
 				AbstractContributedEntity existingEntity = (existingEntities.size() > 0 ? existingEntities.get(0) : null);
-				
+
 				if (existingEntity != null) {
 					log.info("Existing entity: " + existingEntity);
 				} else {
@@ -113,16 +114,17 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 
 					List<Location> existingLocations = locationDAO.findByName(location.getName());
 					Location existingLocation = (existingLocations.size() > 0 ? existingLocations.get(0) : null);
-					
+
 					if (existingLocation == null) {
 						log.info("Memorizing location: " + location);
 						location = locationDAO.create(location);
 					} else {
-						// Let's save locations and entities in different transactions
+						// Let's save locations and entities in different
+						// transactions
 						entity.setContributor(user);
-						//entity.setLocation(location);
+						// entity.setLocation(location);
 						entity.setLocation(existingLocation);
-						
+
 						if (service instanceof ArtisanDAO) {
 							Artisan artisan = ((ArtisanDAO) service).create((Artisan) entity);
 							log.info("Artisan: " + artisan);
@@ -135,20 +137,17 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 			}
 		}
 	}
-	
+
 	@Override
 	public void test() {
-		MessageChannel topicChannel = applicationContext.getBean("topicChannel", MessageChannel.class);
-		topicChannel.send(MessageBuilder.withPayload("ssssssssssup").build());
-		
-		MessageChannel errorChannel = applicationContext.getBean("errorChannel", MessageChannel.class);
-		errorChannel.send(MessageBuilder.withPayload("sending something to errorChannel ..").build());
+		RequestsGateway gateway = (RequestsGateway) applicationContext.getBean("requestsGateway");
+		//gateway.sendMessage("XXX - MY PAYLOAD");
+		gateway.sendMessage(new Request("", "XXX - MY PAYLOAD"));
 	}
 
-    @Override
-    public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
-    	log.info("setting context");
-    	this.applicationContext = applicationContext;
-    }
+	@Override
+	public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+	}
 
 }

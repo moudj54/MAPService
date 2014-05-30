@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Repository and Service layers -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:security="http://www.springframework.org/schema/security"  xmlns:integration="http://www.springframework.org/schema/integration"
-	xmlns:int-jme="http://www.springframework.org/schema/integration" xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:security="http://www.springframework.org/schema/security" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
-	<!-- Enable @Controller annotation support -->
-	<!-- <mvc:annotation-driven /> -->
+	<context:annotation-config />
 
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
-			<bean
-				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 				<property name="objectMapper">
 					<bean class="com.neuralnoise.util.CustomObjectMapper"></bean>
 				</property>
@@ -29,35 +25,36 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
-	<!-- Scan classpath for annotations (eg: @Service, @Repository etc) -->
-
-	<!-- Integration -->
-	<context:component-scan base-package="com.neuralnoise.messaging" />
-
-	<!-- MAP -->
-	<context:component-scan base-package="com.neuralnoise.map" />
-
-	<!-- Define a channel to communicate out to a JMS Destination -->
-	<integration:channel id="topicChannel" />
-
-	<!-- Define an adaptor that route topicChannel messages to the myTopic topic -->
-	<int-jms:outbound-channel-adapter
-		connection-factory="jmsFactory" channel="topicChannel"
-		destination-name="topic.myTopic" pub-sub-domain="true" />
+	<context:component-scan base-package="com.neuralnoise" />
 
 	<!-- Define the ActiveMQ connection factory -->
-	<bean id="jmsFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+	<bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
 		<property name="brokerURL" value="tcp://localhost:61616" />
 	</bean>
+	
+	<!-- Main reference: http://gordondickens.com/wordpress/2011/04/19/dont-use-jmstemplate-in-spring/ -->
+	
+	<!-- Pickup the @Gateway annotation -->
+    <int:annotation-config />
 
-	<bean class="com.neuralnoise.integration.HelloServiceImpl" name="helloServiceImpl"></bean>
+	<int:poller id="poller" default="true" fixed-delay="1000" />
 
-	<!-- A Spring Integration adapter that routes messages sent to the helloWorldChannel 
-		to the bean named "helloServiceImpl"'s hello() method -->
-	<integration:service-activator
-		input-channel="topicChannel" ref="helloServiceImpl" method="hello" />
+	<!-- Define the channel (pipe) connecting the endpoints -->
+	<int:channel id="requestsChannel" />
+	
+	<!-- Configure the Gateway to Send on the channel -->
+	<int:gateway id="requestsGateway" service-interface="com.neuralnoise.integration.RequestsGateway" default-request-channel="requestsChannel" />
 
-	<context:annotation-config />
+	<bean id="queue.requests" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="COLLECTOR.REQUESTS" />
+	</bean>
+
+	<!-- Send message to JMS -->
+	<int-jms:outbound-channel-adapter channel="requestsChannel" destination="queue.requests"/>
+	
+<!--
+	<int:object-to-json-transformer input-channel="requestsChannel"/>
+-->
 
 	<!-- enables scanning for @Transactional annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager" />

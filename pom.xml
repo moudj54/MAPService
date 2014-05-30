@@ -18,10 +18,10 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<!-- Spring -->
-		<spring-framework.version>4.0.1.RELEASE</spring-framework.version>
+		<spring-framework.version>4.0.5.RELEASE</spring-framework.version>
 		<spring-data-jpa.version>1.4.3.RELEASE</spring-data-jpa.version>
 		<spring-security.version>3.2.0.RELEASE</spring-security.version>
-		<spring.integration.version>2.2.5.RELEASE</spring.integration.version>
+		<spring.integration.version>3.0.1.RELEASE</spring.integration.version>
 
 		<!-- Integration -->
 		<activemq.version>5.7.0</activemq.version>
@@ -83,7 +83,6 @@
 		<postgresql.version>9.1-901.jdbc4</postgresql.version>
 		<postgis.version>1.5.2</postgis.version>
 
-		<jackson-asl.version>1.9.13</jackson-asl.version>
 		<jackson2.version>2.3.2</jackson2.version>
 
 		<!-- GeoLocation -->

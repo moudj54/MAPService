@@ -37,23 +37,38 @@
 	<!-- Pickup the @Gateway annotation -->
     <int:annotation-config />
 
-	<int:poller id="poller" default="true" fixed-delay="1000" />
-
 	<!-- Define the channel (pipe) connecting the endpoints -->
-	<int:channel id="requestsChannel" />
-	<int:channel id="requestsChannelJSON" />
+	<int:channel id="requests" />
+	<int:channel id="requestsJSON" />
 	
 	<!-- Configure the Gateway to Send on the channel -->
-	<int:gateway id="requestsGateway" service-interface="com.neuralnoise.integration.RequestsGateway" default-request-channel="requestsChannel" />
+	<int:gateway id="requestsGateway" service-interface="com.neuralnoise.integration.RequestsGateway" default-request-channel="requests" />
 
 	<bean id="queue.requests" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg value="COLLECTOR.REQUESTS" />
 	</bean>
 
 	<!-- Send message to JMS -->
-	<int-jms:outbound-channel-adapter channel="requestsChannelJSON" destination="queue.requests"/>
-	<int:object-to-json-transformer input-channel="requestsChannel" output-channel="requestsChannelJSON" content-type="text/x-json"/>
+	<int-jms:outbound-channel-adapter channel="requestsJSON" destination="queue.requests"/>
+	<int:object-to-json-transformer input-channel="requests" output-channel="requestsJSON" content-type="text/x-json"/>
+
+	<int:channel id="answers" />
+	<int:channel id="answersJSON" />
+
+	<bean id="queue.answers" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="COLLECTOR.ANSWERS" />
+	</bean>
 	
+	<int-jms:inbound-gateway request-channel="answers" request-destination="queue.answers"/>
+
+	<!-- The chain of processing -->
+	<int:chain input-channel="answers">
+		<int:json-to-object-transformer type="com.neuralnoise.integration.Request" />
+		<int:service-activator method="handle">
+			<bean class="com.neuralnoise.integration.AnswerHandler" />
+		</int:service-activator>
+	</int:chain>
+
 	<!-- enables scanning for @Transactional annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	

@@ -16,8 +16,6 @@ import com.vividsolutions.jts.io.WKTReader;
 
 @Entity
 @Table(name = "location")
-//@JsonSerialize(using = LocationSerializer.class)
-//@JsonDeserialize(using = LocationDeserializer.class)
 public class Location extends AbstractNamedEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Location.class);
@@ -26,7 +24,6 @@ public class Location extends AbstractNamedEntity {
 
 	@Column(name = "point")
 	@Type(type = "org.hibernate.spatial.GeometryType")
-	//@JsonTypeInfo(use = Id.NAME)
 	protected Point point;
 
 	private static Geometry toGeometry(String wktPoint) {

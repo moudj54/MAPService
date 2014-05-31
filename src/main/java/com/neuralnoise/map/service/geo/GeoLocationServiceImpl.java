@@ -17,8 +17,7 @@ public class GeoLocationServiceImpl implements GeoLocationService {
 
 	public static final String LANGUAGE_DEFAULT = "en";
 
-	public GeoLocationServiceImpl() {
-	}
+	public GeoLocationServiceImpl() { }
 
 	@Override
 	public List<Location> lookup(String address, ServiceType serviceType) throws IOException {

@@ -18,12 +18,17 @@
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+<!--
 				<property name="objectMapper">
 					<bean class="com.neuralnoise.util.CustomObjectMapper"></bean>
 				</property>
+-->
+				<property name="objectMapper" ref="customObjectMapper" />
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+	
+	<bean id="customObjectMapper" class="com.neuralnoise.util.CustomObjectMapper" />
 
 	<context:component-scan base-package="com.neuralnoise" />
 
@@ -59,7 +64,11 @@
 		<constructor-arg value="COLLECTOR.ANSWERS" />
 	</bean>
 	
-	<int-jms:inbound-gateway request-channel="answers" request-destination="queue.answers"/>
+	<int-jms:inbound-gateway request-channel="answers" request-destination="queue.answers" />
+
+<!--
+	<bean id="jsonObjectMapper" class="com.neuralnoise.util.CustomObjectMapper" factory-method="getMapper"/>
+-->
 
 	<!-- The chain of processing -->
 	<int:chain input-channel="answers">

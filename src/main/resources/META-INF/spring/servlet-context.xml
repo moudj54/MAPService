@@ -41,6 +41,7 @@
 
 	<!-- Define the channel (pipe) connecting the endpoints -->
 	<int:channel id="requestsChannel" />
+	<int:channel id="requestsChannelJSON" />
 	
 	<!-- Configure the Gateway to Send on the channel -->
 	<int:gateway id="requestsGateway" service-interface="com.neuralnoise.integration.RequestsGateway" default-request-channel="requestsChannel" />
@@ -50,12 +51,9 @@
 	</bean>
 
 	<!-- Send message to JMS -->
-	<int-jms:outbound-channel-adapter channel="requestsChannel" destination="queue.requests"/>
+	<int-jms:outbound-channel-adapter channel="requestsChannelJSON" destination="queue.requests"/>
+	<int:object-to-json-transformer input-channel="requestsChannel" output-channel="requestsChannelJSON" content-type="text/x-json"/>
 	
-<!--
-	<int:object-to-json-transformer input-channel="requestsChannel"/>
--->
-
 	<!-- enables scanning for @Transactional annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	

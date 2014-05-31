@@ -315,13 +315,11 @@
 			<artifactId>httpclient</artifactId>
 			<version>${httpclient.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>fr.dudie</groupId>
 			<artifactId>nominatim-api</artifactId>
 			<version>${nominatim.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.google.code.geocoder-java</groupId>
 			<artifactId>geocoder-java</artifactId>

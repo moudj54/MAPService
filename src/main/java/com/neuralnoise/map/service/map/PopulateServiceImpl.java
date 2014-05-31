@@ -18,8 +18,8 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neuralnoise.integration.Request;
 import com.neuralnoise.integration.RequestsGateway;
+import com.neuralnoise.integration.util.CRequest;
 import com.neuralnoise.map.data.AddressDAO;
 import com.neuralnoise.map.data.LocationDAO;
 import com.neuralnoise.map.data.map.AbstractContributedDAO;
@@ -141,8 +141,12 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 	@Override
 	public void test() {
 		RequestsGateway gateway = (RequestsGateway) applicationContext.getBean("requestsGateway");
-		//gateway.sendMessage("XXX - MY PAYLOAD");
-		gateway.sendMessage(new Request("", "XXX - MY PAYLOAD"));
+
+		CRequest request = new CRequest();
+		request.setResource("cresource");
+		request.setAdapter("cadapter");
+		
+		gateway.sendMessage(request);
 	}
 
 	@Override

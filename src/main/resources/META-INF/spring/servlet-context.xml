@@ -63,7 +63,7 @@
 
 	<!-- The chain of processing -->
 	<int:chain input-channel="answers">
-		<int:json-to-object-transformer type="com.neuralnoise.integration.Request" />
+		<int:json-to-object-transformer type="com.neuralnoise.integration.util.CAnswer" />
 		<int:service-activator method="handle">
 			<bean class="com.neuralnoise.integration.AnswerHandler" />
 		</int:service-activator>

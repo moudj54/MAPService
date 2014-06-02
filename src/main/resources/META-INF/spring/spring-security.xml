@@ -13,13 +13,11 @@
 	
 	<beans:bean id="userDetailsService" class="com.neuralnoise.map.security.UserDetailsServiceImpl" />
 
-	<beans:bean id="daoAuthenticationProvider"
-		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+	<beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
 		<beans:property name="userDetailsService" ref="userDetailsService" />
 	</beans:bean>
 
-	<beans:bean id="authenticationManager"
-		class="org.springframework.security.authentication.ProviderManager">
+	<beans:bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
 		<beans:property name="providers">
 			<beans:list>
 				<beans:ref local="daoAuthenticationProvider" />

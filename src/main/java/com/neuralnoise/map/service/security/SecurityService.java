@@ -7,6 +7,11 @@ import com.neuralnoise.map.model.security.UserEntity;
 
 public interface SecurityService extends UserDetailsService {
 
-	UserEntity current() throws UsernameNotFoundException;
+	public UserEntity current() throws UsernameNotFoundException;
 
+	public UserEntity getById(String name);
+	
+	// XXX: temporary
+	public void login(String userName, String password);
+	
 }

@@ -34,7 +34,7 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 	@ManyToOne
 	protected Address address;
 
-	@NotNull
+	//@NotNull
 	@ManyToOne
 	protected Location location;
 
@@ -89,6 +89,5 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 	public String toString() {
 		return "AbstractContributedEntity [contributor=" + contributor + ", description=" + description + ", address=" + address + ", location=" + location + ", name=" + name + ", id=" + id + "]";
 	}
-
 
 }

@@ -58,4 +58,9 @@ public class Event extends AbstractContributedEntity {
 		return properties;
 	}
 
+	@Override
+	public String toString() {
+		return "Event [startDate=" + startDate + ", endDate=" + endDate + ", contributor=" + contributor + ", description=" + description + ", address=" + address + ", location=" + location + ", name=" + name + ", id=" + id + "]";
+	}
+	
 }

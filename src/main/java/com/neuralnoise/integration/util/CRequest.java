@@ -6,7 +6,7 @@ public class CRequest implements Serializable {
 
 	private static final long serialVersionUID = 5019596129437896095L;
 
-	protected String resource, adapter;
+	protected String resource, adapterName;
 
 	public CRequest() { }
 	
@@ -18,17 +18,17 @@ public class CRequest implements Serializable {
 		this.resource = resource;
 	}
 	
-	public String getAdapter() {
-		return adapter;
+	public String getAdapterName() {
+		return adapterName;
 	}
 
-	public void setAdapter(String adapter) {
-		this.adapter = adapter;
+	public void setAdapterName(String adapterName) {
+		this.adapterName = adapterName;
 	}
 	
 	@Override
 	public String toString() {
-		return "CRequest [resource=" + resource + ", adapter=" + adapter + "]";
+		return "CRequest [resource=" + resource + ", adapterName=" + adapterName + "]";
 	}
 	
 }

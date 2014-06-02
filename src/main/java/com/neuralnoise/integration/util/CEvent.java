@@ -36,10 +36,10 @@ public class CEvent extends CNamedEntry {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "CEvent [startDate=" + startDate + ", endDate=" + endDate + ", location=" + location + "]";
+		return "CEvent [startDate=" + startDate + ", endDate=" + endDate + ", location=" + location + ", content=" + content + "]";
 	}
 	
 }

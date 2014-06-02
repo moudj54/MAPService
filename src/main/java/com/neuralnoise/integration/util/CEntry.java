@@ -1,10 +1,11 @@
 package com.neuralnoise.integration.util;
 
 public class CEntry {
-	
+
 	protected String content;
-	
-	public CEntry() { }
+
+	public CEntry() {
+	}
 
 	public String getContent() {
 		return content;
@@ -13,5 +14,5 @@ public class CEntry {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
 }

@@ -9,8 +9,6 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neuralnoise.map.data.AbstractDAO;
-import com.neuralnoise.map.data.AddressDAO;
-import com.neuralnoise.map.data.LocationDAO;
 import com.neuralnoise.map.model.AbstractBaseEntity;
 import com.neuralnoise.map.model.security.UserEntity;
 import com.neuralnoise.map.service.security.SecurityService;
@@ -21,12 +19,6 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractBaseEntity, D 
 
 	@Autowired
 	protected D entityDAO;
-
-	@Autowired
-	protected AddressDAO addressDAO;
-
-	@Autowired
-	protected LocationDAO locationDAO;
 
 	@Autowired
 	protected SecurityService securityService;

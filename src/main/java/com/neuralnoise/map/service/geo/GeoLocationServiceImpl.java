@@ -17,7 +17,8 @@ public class GeoLocationServiceImpl implements GeoLocationService {
 
 	public static final String LANGUAGE_DEFAULT = "en";
 
-	public GeoLocationServiceImpl() { }
+	public GeoLocationServiceImpl() {
+	}
 
 	@Override
 	public List<Location> lookup(String address, ServiceType serviceType) throws IOException {
@@ -25,10 +26,12 @@ public class GeoLocationServiceImpl implements GeoLocationService {
 		switch (serviceType) {
 		case GOOGLE: {
 			locations = GeoLocationUtils.queryGoogle(address, LANGUAGE_DEFAULT);
-		} break;
+		}
+			break;
 		case NOMINATIM: {
 			locations = GeoLocationUtils.queryNominatim(address, LANGUAGE_DEFAULT);
-		} break;
+		}
+			break;
 		default: {
 			throw new IllegalArgumentException("Unsupported service type: " + serviceType);
 		}

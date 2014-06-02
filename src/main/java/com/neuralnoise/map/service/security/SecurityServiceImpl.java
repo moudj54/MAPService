@@ -57,24 +57,24 @@ public class SecurityServiceImpl implements SecurityService, ApplicationContextA
 		}
 		return ue;
 	}
-	
+
 	// XXX: temporary
 	@Transactional(readOnly = true)
 	public void login(String userName, String password) {
-	    UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(userName, password);
-	    ProviderManager authenticationManager = (ProviderManager) applicationContext.getBean("authenticationManager");
-	    Authentication authentication = authenticationManager.authenticate(authRequest);
-	    SecurityContext securityContext = SecurityContextHolder.getContext();
-	    securityContext.setAuthentication(authentication);
+		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(userName, password);
+		ProviderManager authenticationManager = (ProviderManager) applicationContext.getBean("authenticationManager");
+		Authentication authentication = authenticationManager.authenticate(authRequest);
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		securityContext.setAuthentication(authentication);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public UserEntity getById(String name) {
 		return securityDAO.getById(name);
 	}
-	
+
 	private ApplicationContext applicationContext;
-	
+
 	@Override
 	public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;

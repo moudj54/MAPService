@@ -17,10 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neuralnoise.integration.RequestsGateway;
 import com.neuralnoise.integration.util.CRequest;
-import com.neuralnoise.map.data.map.ArtisanDAO;
-import com.neuralnoise.map.data.map.OrganizationDAO;
-import com.neuralnoise.map.model.geo.Address;
-import com.neuralnoise.map.model.geo.Location;
 import com.neuralnoise.map.model.map.AbstractContributedEntity;
 import com.neuralnoise.map.model.map.Artisan;
 import com.neuralnoise.map.model.map.Event;
@@ -38,22 +34,14 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 
 	private static final Logger log = LoggerFactory.getLogger(PopulateServiceImpl.class);
 
-	/* 
+	/*
 	 * Utility services: geoLocation and Security
 	 */
 	@Autowired
 	private GeoLocationService geoLocationService;
 	@Autowired
 	private SecurityService securityService;
-	
-	/*
-	 * Primitive Types used to describe Domain Entities
-	 */
-	@Autowired
-	private AddressService addressService;
-	@Autowired
-	private LocationService locationService;
-	
+
 	/*
 	 * Domain Entities (Artisans, Organizations, Museums, Events)
 	 */
@@ -65,7 +53,7 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 	private MuseumService museumService;
 	@Autowired
 	private EventService eventService;
-	
+
 	private ApplicationContext applicationContext;
 
 	private IContributedEntityService<? extends AbstractContributedEntity> getService(AbstractContributedEntity entity) {
@@ -95,47 +83,35 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 			museumService.deleteById(museum.getId());
 		for (Event event : eventService.getAll())
 			eventService.deleteById(event.getId());
-		
-		for (Location location : locationService.getAll())
-			locationService.deleteById(location.getId());
-		for (Address address : addressService.getAll())
-			addressService.deleteById(address.getId());
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void populate(String path) throws Exception {
 		UserEntity user = securityService.current();
-		if (user == null || !user.isAdmin()) {
+		
+		if (user == null || !user.isAdmin())
 			throw new InsufficientAuthenticationException("Insufficient privileges");
-		}
+		
 		List<Map<String, String>> content = XSSFParser.parse(new File(path));
+		
 		for (Map<String, String> map : content) {
 			AbstractContributedEntity entity = EntityParser.parse(map, geoLocationService);
 			IContributedEntityService<? extends AbstractContributedEntity> service = getService(entity);
+
+			log.info("Service: " + service);
+			
 			if (service != null && entity.getLocation() != null) {
 				List<? extends AbstractContributedEntity> existingEntities = service.findByName(entity.getName());
-				AbstractContributedEntity existingEntity = (existingEntities.size() > 0 ? existingEntities.get(0) : null);
-				if (existingEntity != null) {
-					log.info("Existing entity: " + existingEntity);
-				} else {
+
+				if (existingEntities.isEmpty()) {
 					log.info("Memorizing entity: " + entity);
-					Location location = entity.getLocation();
-					List<Location> existingLocations = locationService.findByName(location.getName());
-					Location existingLocation = (existingLocations.size() > 0 ? existingLocations.get(0) : null);
-					if (existingLocation == null) {
-						log.info("Memorizing location: " + location);
-						location = locationService.create(location);
-					} else {
-						entity.setContributor(user);
-						entity.setLocation(existingLocation);
-						if (service instanceof ArtisanDAO) {
-							Artisan artisan = ((ArtisanDAO) service).create((Artisan) entity);
-							log.info("Artisan: " + artisan);
-						} else if (service instanceof OrganizationDAO) {
-							Organization organization = ((OrganizationDAO) service).create((Organization) entity);
-							log.info("Organization: " + organization);
-						}
+					entity.setContributor(user);
+					if (service instanceof ArtisanService) {
+						Artisan artisan = ((ArtisanService) service).create((Artisan) entity);
+						log.info("Artisan: " + artisan);
+					} else if (service instanceof OrganizationService) {
+						Organization organization = ((OrganizationService) service).create((Organization) entity);
+						log.info("Organization: " + organization);
 					}
 				}
 			}
@@ -156,11 +132,13 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 	 * every day at 10 AM, from http://www.cronmaker.com/
 	 */
 	@Override
-	@Scheduled(cron="0 0 10 1/1 * ? *")
+	@Scheduled(cron = "0 0 10 1/1 * ? *")
 	public void collect() {
 		request("PugliaEvents", "http://www.pugliaevents.it/it/feeds/category/4");
 		request("PugliaEvents", "http://www.pugliaevents.it/it/feeds/category/7");
 		request("PugliaEvents", "http://www.pugliaevents.it/it/feeds/category/9");
+
+		//request("Test", "Test resource");
 	}
 
 	@Override

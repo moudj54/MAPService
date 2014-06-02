@@ -53,7 +53,7 @@ public class AbstractEntityController<T extends AbstractBaseEntity, S extends IE
 		response.setStatus(HttpStatus.FOUND.value());
 		return entity;
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable("id") Long id, HttpServletResponse response) {

@@ -23,10 +23,10 @@ import com.neuralnoise.map.service.geo.GeoLocationService.ServiceType;
 public class GeoLocationController {
 
 	private static final Logger log = LoggerFactory.getLogger(GeoLocationController.class);
-	
+
 	@Autowired
 	private GeoLocationService geoLocationService;
-	
+
 	@RequestMapping(value = "/nominatim", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<Location> nominatim(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -46,5 +46,5 @@ public class GeoLocationController {
 		response.setStatus(HttpStatus.OK.value());
 		return locations;
 	}
-	
+
 }

@@ -18,11 +18,6 @@
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-<!--
-				<property name="objectMapper">
-					<bean class="com.neuralnoise.util.CustomObjectMapper"></bean>
-				</property>
--->
 				<property name="objectMapper" ref="customObjectMapper" />
 			</bean>
 		</mvc:message-converters>
@@ -44,7 +39,13 @@
 
 	<!-- Define the channel (pipe) connecting the endpoints -->
 	<int:channel id="requests" />
-	<int:channel id="requestsJSON" />
+	<int:channel id="requestsJSON">
+		<int:interceptors>
+			<int:wire-tap channel="logRequestsJSON"/>
+		</int:interceptors>
+	</int:channel>
+	
+	<int:logging-channel-adapter id="logRequestsJSON" log-full-message="true" level="ERROR" />
 	
 	<!-- Configure the Gateway to Send on the channel -->
 	<int:gateway id="requestsGateway" service-interface="com.neuralnoise.integration.RequestsGateway" default-request-channel="requests" />
@@ -57,8 +58,21 @@
 	<int-jms:outbound-channel-adapter channel="requestsJSON" destination="queue.requests"/>
 	<int:object-to-json-transformer input-channel="requests" output-channel="requestsJSON" content-type="text/x-json"/>
 
-	<int:channel id="answers" />
-	<int:channel id="answersJSON" />
+	<int:channel id="answers">
+		<int:interceptors>
+			<int:wire-tap channel="logAnswers"/>
+		</int:interceptors>
+	</int:channel>
+	<int:logging-channel-adapter id="logAnswers" log-full-message="true" level="ERROR" />
+	
+<!--	
+	<int:channel id="answersJSON">
+		<int:interceptors>
+			<int:wire-tap channel="logAnswersJSON"/>
+		</int:interceptors>
+	</int:channel>
+	<int:logging-channel-adapter id="logAnswersJSON" log-full-message="true" level="ERROR" />
+-->
 
 	<bean id="queue.answers" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg value="COLLECTOR.ANSWERS" />
@@ -66,13 +80,11 @@
 	
 	<int-jms:inbound-gateway request-channel="answers" request-destination="queue.answers" />
 
-<!--
 	<bean id="jsonObjectMapper" class="com.neuralnoise.util.CustomObjectMapper" factory-method="getMapper"/>
--->
 
 	<!-- The chain of processing -->
 	<int:chain input-channel="answers">
-		<int:json-to-object-transformer type="com.neuralnoise.integration.util.CAnswer" />
+		<int:json-to-object-transformer type="com.neuralnoise.integration.util.CAnswer" object-mapper="jsonObjectMapper" />
 		<int:service-activator method="handle">
 			<bean class="com.neuralnoise.integration.AnswerHandler" />
 		</int:service-activator>

@@ -1,31 +1,39 @@
 package com.neuralnoise.map.model.geo;
 
+import java.io.Serializable;
+import java.util.Map;
+
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.neuralnoise.map.model.AbstractNamedEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Maps;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
-@Entity
-@Table(name = "location")
-public class Location extends AbstractNamedEntity {
+@Embeddable
+//@Entity
+public class Location implements Serializable {
 
 	private static final Logger log = LoggerFactory.getLogger(Location.class);
 
 	private static final long serialVersionUID = 8809624185680983201L;
 
+	@Column(name = "address", length = 1024)
+	@NotEmpty
+	protected String address;
+
 	@Column(name = "point")
 	@Type(type = "org.hibernate.spatial.GeometryType")
 	protected Point point;
-
+	
 	private static Geometry toGeometry(String wktPoint) {
 		WKTReader fromText = new WKTReader();
 		Geometry geom = null;
@@ -41,16 +49,23 @@ public class Location extends AbstractNamedEntity {
 
 	public Location(Double latitude, Double longitude, String address) {
 		this();
+		this.setAddress(address);
 		this.setPoint(latitude, longitude);
-		this.setName(address);
 	}
-	
+
 	public Location(Point location, String address) {
 		this();
 		this.setPoint(location);
-		this.setName(address);
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
 	public Point getPoint() {
 		return point;
 	}
@@ -58,14 +73,18 @@ public class Location extends AbstractNamedEntity {
 	public void setPoint(Point point) {
 		this.point = point;
 	}
-	
+
 	public void setPoint(Double latitude, Double longitude) {
 		this.point = (Point) toGeometry("POINT(" + longitude + " " + latitude + ")");
 	}
-	
-	@Override
-	public String toString() {
-		return "Location [point=" + point + ", name=" + name + ", id=" + id + "]";
-	}
 
+	@JsonIgnore
+	public Map<String, String> getProperties() {
+		Map<String, String> properties = Maps.newHashMap();
+		if (address != null) {
+			properties.put("address", address);
+		}
+		return properties;
+	}
+	
 }

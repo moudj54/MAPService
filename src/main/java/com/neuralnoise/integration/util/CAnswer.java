@@ -10,8 +10,9 @@ public class CAnswer implements Serializable {
 	protected CRequest request;
 	protected List<CEvent> events;
 
-	public CAnswer() { }
-	
+	public CAnswer() {
+	}
+
 	public CRequest getRequest() {
 		return request;
 	}
@@ -19,7 +20,7 @@ public class CAnswer implements Serializable {
 	public void setRequest(CRequest request) {
 		this.request = request;
 	}
-	
+
 	public List<CEvent> getEvents() {
 		return events;
 	}
@@ -27,10 +28,10 @@ public class CAnswer implements Serializable {
 	public void setEvents(List<CEvent> events) {
 		this.events = events;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "CAnswer [request=" + request + ", events=" + events + "]";
 	}
-	
+
 }

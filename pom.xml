@@ -83,7 +83,9 @@
 		<postgresql.version>9.1-901.jdbc4</postgresql.version>
 		<postgis.version>1.5.2</postgis.version>
 
+		<!-- JSON serialization -->
 		<jackson2.version>2.3.2</jackson2.version>
+		<jackson2.joda.version>2.3.1</jackson2.joda.version>
 
 		<!-- GeoLocation -->
 		<httpclient.version>4.0</httpclient.version>
@@ -92,12 +94,6 @@
 	</properties>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>org.jadira.usertype</groupId>
-			<artifactId>usertype.core</artifactId>
-			<version>${jadira-usertype-core.version}</version>
-		</dependency>
 
 		<!-- Tomcat -->
 		<dependency>
@@ -267,7 +263,12 @@
 			<artifactId>joda-time-jsptags</artifactId>
 			<version>${jodatime-jsptags.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.jadira.usertype</groupId>
+			<artifactId>usertype.core</artifactId>
+			<version>${jadira-usertype-core.version}</version>
+		</dependency>
+		
 		<!-- Guava -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -429,6 +430,11 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-joda</artifactId>
+			<version>${jackson2.joda.version}</version>
 		</dependency>
 
 		<dependency>

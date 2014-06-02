@@ -1,6 +1,7 @@
 package com.neuralnoise.map.web.map;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
+import com.neuralnoise.map.model.geo.Location;
 import com.neuralnoise.map.model.map.AbstractContributedEntity;
 import com.neuralnoise.map.service.map.ArtisanService;
 import com.neuralnoise.map.service.map.EventService;
@@ -27,61 +29,60 @@ import com.neuralnoise.map.web.util.Feature;
 public class EntityController {
 
 	private static final Logger log = LoggerFactory.getLogger(EntityController.class);
-	
+
 	@Autowired
 	private ArtisanService artisanService;
-	
+
 	@Autowired
 	private EventService eventService;
-	
+
 	@Autowired
 	private MuseumService museumService;
-	
+
 	@Autowired
 	private OrganizationService organizationService;
-	
+
 	private static boolean isParameter(HttpServletRequest request, String name) {
 		final String parameter = request.getParameter(name);
 		return (parameter != null) && Boolean.parseBoolean(parameter);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<AbstractContributedEntity> get(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		log.info("Request: " + request.getParameterMap());
-		
+
 		boolean isArtisans = isParameter(request, "artisans");
 		boolean isEvents = isParameter(request, "events");
 		boolean isMuseums = isParameter(request, "museums");
 		boolean isOrganizations = isParameter(request, "organizations");
-		
-		log.info("Artisans: {}, Events: {}, Museums: {}, Organizations: {}",
-				isArtisans, isEvents, isMuseums, isOrganizations);
+
+		log.info("Artisans: {}, Events: {}, Museums: {}, Organizations: {}", isArtisans, isEvents, isMuseums, isOrganizations);
 
 		List<AbstractContributedEntity> entities = Lists.newLinkedList();
 
 		if (isArtisans) {
 			entities.addAll(artisanService.getAll());
 		}
-		
+
 		if (isEvents) {
 			entities.addAll(eventService.getAll());
 		}
-		
+
 		if (isMuseums) {
 			entities.addAll(museumService.getAll());
 		}
-		
+
 		if (isOrganizations) {
 			entities.addAll(organizationService.getAll());
 		}
-		
+
 		response.setStatus(HttpStatus.OK.value());
-		
+
 		return entities;
 	}
-	
+
 	// XXX - memento: remove
 	@RequestMapping(value = "/feature", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
@@ -89,7 +90,11 @@ public class EntityController {
 		List<AbstractContributedEntity> entities = get(request, response);
 		List<Feature> features = Lists.newLinkedList();
 		for (AbstractContributedEntity entity : entities) {
-			Feature feature = new Feature(entity.getProperties(), entity.getLocation().getPoint());
+			log.info("Entity is: " + entity);
+			Location location = entity.getLocation();
+			
+			Map<String, String> properties = entity.getProperties();
+			Feature feature = new Feature(properties, (location != null ? location.getPoint() : null));
 			features.add(feature);
 		}
 		return features;

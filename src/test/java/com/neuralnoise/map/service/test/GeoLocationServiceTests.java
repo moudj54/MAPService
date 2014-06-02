@@ -46,7 +46,7 @@ public class GeoLocationServiceTests {
 		for (Location location : locations) {
 			log.info("Location: " + location);
 			final double x = 16.8718715, y = 41.1171432;
-			if (location.getName().equals("Bari, BA, PUG, Italia")) {
+			if (location.getAddress().equals("Bari, BA, PUG, Italia")) {
 				Point point = location.getPoint();
 				assertTrue(Math.abs(x - point.getX()) < 1e-2);
 				assertTrue(Math.abs(y - point.getY()) < 1e-2);

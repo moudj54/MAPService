@@ -1,34 +1,34 @@
 package com.neuralnoise.integration.util;
 
-import java.util.Calendar;
+import org.joda.time.DateTime;
 
 import com.neuralnoise.integration.geo.Location;
 
 public class CEvent extends CNamedEntry {
 
-	protected Calendar startDate, endDate;
+	protected DateTime startDate, endDate;
 	protected Location location;
 
 	public CEvent() {
 		super();
 	}
 
-	public Calendar getStartDate() {
+	public DateTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Calendar startDate) {
+	public void setStartDate(DateTime startDate) {
 		this.startDate = startDate;
 	}
 
-	public Calendar getEndDate() {
+	public DateTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Calendar endDate) {
+	public void setEndDate(DateTime endDate) {
 		this.endDate = endDate;
 	}
-	
+
 	public Location getLocation() {
 		return location;
 	}
@@ -41,5 +41,5 @@ public class CEvent extends CNamedEntry {
 	public String toString() {
 		return "CEvent [startDate=" + startDate + ", endDate=" + endDate + ", location=" + location + ", content=" + content + "]";
 	}
-	
+
 }

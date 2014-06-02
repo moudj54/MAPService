@@ -20,10 +20,10 @@ import com.neuralnoise.map.service.map.PopulateService;
 public class PopulateController {
 
 	private static final Logger log = LoggerFactory.getLogger(PopulateController.class);
-	
+
 	@Autowired
 	private PopulateService service;
-	
+
 	@RequestMapping(params = { "path" }, method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public void populate(@RequestParam("path") String path, HttpServletResponse response) throws Exception {
@@ -31,7 +31,7 @@ public class PopulateController {
 		service.populate(path);
 		response.setStatus(HttpStatus.OK.value());
 	}
-	
+
 	@RequestMapping(value = "request", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public void request(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -40,19 +40,19 @@ public class PopulateController {
 		service.request(adapterName, resource);
 		response.setStatus(HttpStatus.OK.value());
 	}
-	
+
 	@RequestMapping(value = "collect", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public void collect(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		service.collect();
 		response.setStatus(HttpStatus.OK.value());
 	}
-	
+
 	@RequestMapping(value = "clean", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public void clean(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		service.clean();
 		response.setStatus(HttpStatus.OK.value());
 	}
-	
+
 }

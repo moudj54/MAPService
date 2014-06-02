@@ -60,7 +60,7 @@ public abstract class AbstractContributedEntityServiceImpl<T extends AbstractCon
 
 		entityDAO.deleteById(id);
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<T> findByContributor(String name) {

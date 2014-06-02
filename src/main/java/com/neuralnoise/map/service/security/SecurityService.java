@@ -10,8 +10,8 @@ public interface SecurityService extends UserDetailsService {
 	public UserEntity current() throws UsernameNotFoundException;
 
 	public UserEntity getById(String name);
-	
+
 	// XXX: temporary
 	public void login(String userName, String password);
-	
+
 }

@@ -16,7 +16,7 @@ public class UserEntitySerializer extends JsonSerializer<UserEntity> {
 		jgen.writeStringField("name", value.getName());
 		jgen.writeBooleanField("admin", value.isAdmin());
 		jgen.writeEndObject();
-		
+
 	}
 
 }

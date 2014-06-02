@@ -36,7 +36,7 @@ public abstract class AbstractBaseEntity implements Serializable {
 	public boolean isNew() {
 		return (this.id == null);
 	}
-	
+
 	@JsonIgnore
 	public Map<String, String> getProperties() {
 		Map<String, String> properties = Maps.newHashMap();

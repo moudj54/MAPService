@@ -40,5 +40,5 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 		}
 		return properties;
 	}
-	
+
 }

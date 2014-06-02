@@ -52,7 +52,8 @@ public abstract class AbstractDAO<T extends Serializable, I> {
 	public void delete(final T entity) {
 		Preconditions.checkNotNull(entity);
 		getEntityManager().remove(entity);
-		//getEntityManager().remove(getEntityManager().contains(entity) ? entity : getEntityManager().merge(entity));
+		// getEntityManager().remove(getEntityManager().contains(entity) ?
+		// entity : getEntityManager().merge(entity));
 	}
 
 	public void deleteById(final I entityId) {

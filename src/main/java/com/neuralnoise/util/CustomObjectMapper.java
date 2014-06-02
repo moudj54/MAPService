@@ -4,6 +4,7 @@ import org.springframework.integration.support.json.Jackson2JsonObjectMapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.neuralnoise.map.model.geo.json.GeometryDeserializer;
 import com.neuralnoise.map.model.geo.json.GeometrySerializer;
 import com.neuralnoise.map.model.security.UserEntity;
@@ -16,13 +17,14 @@ public class CustomObjectMapper extends ObjectMapper {
 
 	public CustomObjectMapper() {
 		SimpleModule module = new SimpleModule("MAPJSONModule");
-		
+
 		module.addSerializer(Geometry.class, new GeometrySerializer());
 		module.addSerializer(UserEntity.class, new UserEntitySerializer());
-		
+
 		module.addDeserializer(Geometry.class, new GeometryDeserializer());
-		
+
 		this.registerModule(module);
+		this.registerModule(new JodaModule());
 	}
 
 	public static Jackson2JsonObjectMapper getMapper() {
@@ -31,6 +33,7 @@ public class CustomObjectMapper extends ObjectMapper {
 		module.addSerializer(Geometry.class, new GeometrySerializer());
 		module.addDeserializer(Geometry.class, new GeometryDeserializer());
 		mapper.registerModule(module);
+		mapper.registerModule(new JodaModule());
 		return new Jackson2JsonObjectMapper(mapper);
 	}
 

@@ -6,8 +6,10 @@ import com.neuralnoise.map.model.geo.Location;
 
 public interface GeoLocationService {
 
-	public enum ServiceType { GOOGLE, NOMINATIM };
-	
+	public enum ServiceType {
+		GOOGLE, NOMINATIM
+	};
+
 	public List<Location> lookup(String address, ServiceType serviceType) throws Exception;
 
 }

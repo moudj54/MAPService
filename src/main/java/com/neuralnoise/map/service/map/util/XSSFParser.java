@@ -20,9 +20,10 @@ import com.google.common.collect.Maps;
 public class XSSFParser {
 
 	private static final Logger log = LoggerFactory.getLogger(XSSFParser.class);
-	
-	private XSSFParser() { }
-	
+
+	private XSSFParser() {
+	}
+
 	public static List<Map<String, String>> parse(File file) throws IOException {
 		FileInputStream fis = new FileInputStream(file);
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);
@@ -73,7 +74,7 @@ public class XSSFParser {
 		for (Map<String, String> map : content) {
 			log.info("Content: " + map);
 		}
-		
+
 		return content;
 	}
 

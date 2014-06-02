@@ -1,6 +1,5 @@
 package com.neuralnoise.map.model.map;
 
-import java.util.Calendar;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -10,6 +9,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,45 +23,49 @@ public class Event extends AbstractContributedEntity {
 
 	private static final long serialVersionUID = 7121988712295223558L;
 
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@Temporal(TemporalType.DATE)
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "start_date")
 	@NotNull
-	protected Calendar startDate;
+	//@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	protected DateTime startDate;
 
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@Temporal(TemporalType.DATE)
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "end_date")
 	@NotNull
-	protected Calendar endDate;
+	//@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	protected DateTime endDate;
 
-	public Calendar getStartDate() {
+	public DateTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Calendar startDate) {
+	public void setStartDate(DateTime startDate) {
 		this.startDate = startDate;
 	}
 
-	public Calendar getEndDate() {
+	public DateTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Calendar endDate) {
+	public void setEndDate(DateTime endDate) {
 		this.endDate = endDate;
-	}
-	
-	@Override
-	public Map<String, String> getProperties() {
-		Map<String, String> properties = super.getProperties();
-		properties.put("from", startDate.toString());
-		properties.put("from", endDate.toString());
-		return properties;
 	}
 
 	@Override
-	public String toString() {
-		return "Event [startDate=" + startDate + ", endDate=" + endDate + ", contributor=" + contributor + ", description=" + description + ", address=" + address + ", location=" + location + ", name=" + name + ", id=" + id + "]";
+	public Map<String, String> getProperties() {
+		Map<String, String> properties = super.getProperties();
+		properties.put("startDate", startDate.toString());
+		properties.put("endDate", endDate.toString());
+		return properties;
 	}
 	
+	@Override
+	public String toString() {
+		return "Event [startDate=" + startDate + ", endDate=" + endDate + ", contributor=" + contributor + ", description=" + description + ", location=" + location + ", name=" + name + ", id=" + id + "]";
+	}
+
 }

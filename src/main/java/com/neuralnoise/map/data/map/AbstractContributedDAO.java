@@ -25,26 +25,19 @@ public abstract class AbstractContributedDAO<T extends AbstractContributedEntity
 	@SuppressWarnings("unchecked")
 	public List<T> findByContributor(String name) {
 		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where e.contributor.name = :name");
-		return query
-				.setParameter("name", name)
-				.getResultList();
+		return query.setParameter("name", name).getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<T> findNearby(Point centerPoint, Long units) {
-		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where dwithin(e.location.point, :centerPoint, :units) = true", clazz);
-		return query
-				.setParameter("centerPoint", centerPoint)
-				.setParameter("units", units)
-				.getResultList();
+		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where dwithin(e.point, :centerPoint, :units) = true", clazz);
+		return query.setParameter("centerPoint", centerPoint).setParameter("units", units).getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<T> findWithin(Geometry filter, Long units) {
-		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where within(e.location.point, :filter) = true", clazz);
-		return query
-				.setParameter("filter", filter)
-				.getResultList();
+		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where within(e.point, :filter) = true", clazz);
+		return query.setParameter("filter", filter).getResultList();
 	}
-	
+
 }

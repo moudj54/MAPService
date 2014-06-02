@@ -73,7 +73,6 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void clean() throws Exception {
 		for (Artisan artisan : artisanService.getAll())
 			artisanService.deleteById(artisan.getId());
@@ -106,13 +105,17 @@ public class PopulateServiceImpl implements PopulateService, ApplicationContextA
 				if (existingEntities.isEmpty()) {
 					log.info("Memorizing entity: " + entity);
 					entity.setContributor(user);
+					
 					if (service instanceof ArtisanService) {
-						Artisan artisan = ((ArtisanService) service).create((Artisan) entity);
-						log.info("Artisan: " + artisan);
+						((ArtisanService) service).create((Artisan) entity);
 					} else if (service instanceof OrganizationService) {
-						Organization organization = ((OrganizationService) service).create((Organization) entity);
-						log.info("Organization: " + organization);
+						((OrganizationService) service).create((Organization) entity);
+					} else if (service instanceof MuseumService) {
+						((MuseumService) service).create((Museum) entity);
+					} else if (service instanceof EventService) {
+						((EventService) service).create((Event) entity);
 					}
+					
 				}
 			}
 		}

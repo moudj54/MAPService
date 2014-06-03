@@ -40,8 +40,8 @@ Configure Tomcat (tomcat-users.xml):
 Deploy the WARs:
 
 	$ git clone https://github.com/kotfu/tomcat-manager.git
-	$ tomcat-manager.py --user=map --password=xxx http://localhost:8080/manager/text deploy /map service/MAPCollector/target/MAPCollector.war
-	$ tomcat-manager.py --user=map --password=xxx http://localhost:8080/manager/text deploy /collector service/MAPCollector/target/MAPCollector.war
+	$ tomcat-manager.py --user=map --password=xxx http://localhost:8080/manager/text deploy /map services/MAPService/target/map.war
+	$ tomcat-manager.py --user=map --password=xxx http://localhost:8080/manager/text deploy /collector services/MAPCollector/target/MAPCollector.war
 
 Add the 'admin' user:
 

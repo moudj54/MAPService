@@ -19,7 +19,7 @@ Create PostGIS database:
 
 Configure Apache:
 
-# a2enmod mpm_itk proxy proxy_http rewrite
+	# a2enmod mpm_itk proxy proxy_http rewrite
 
 Inside Apache's VirtualHost:
 

@@ -13,5 +13,5 @@ public class Artisan extends AbstractContributedEntity {
 	private static final long serialVersionUID = -3414460840023103502L;
 
 	private static final Logger log = LoggerFactory.getLogger(Artisan.class);
-
+	
 }

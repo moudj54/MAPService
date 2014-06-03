@@ -1,7 +1,9 @@
 package com.neuralnoise.map.model.map;
 
+import java.lang.reflect.Field;
 import java.util.Map;
 
+import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.ManyToOne;
@@ -68,6 +70,13 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 		if (location != null) {
 			properties.putAll(location.getProperties());
 		}
+		
+		log.info("Class: " + this.getClass().getName());
+		Table table = this.getClass().getAnnotation(Table.class);
+		if (table != null) {
+			properties.put("type", table.name());	
+		}
+		
 		return properties;
 	}
 

@@ -53,3 +53,6 @@ Populate the database:
 
 	$ curl -X GET "http://admin:password@127.0.0.1:8080/map/populate?path=tools%2Fart01%2Fschede_v.3.xlsx" 
 	$ curl -X GET "http://admin:password@127.0.0.1:8080/map/populate/collect"
+
+TODO:
+	(1) apache -> nginx

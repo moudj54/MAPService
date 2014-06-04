@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.common.collect.Lists;
 import com.neuralnoise.map.model.geo.Location;
 import com.neuralnoise.map.model.map.AbstractContributedEntity;
+import com.neuralnoise.map.model.map.Event;
 import com.neuralnoise.map.service.map.ArtisanService;
 import com.neuralnoise.map.service.map.EventService;
 import com.neuralnoise.map.service.map.MuseumService;
@@ -46,6 +48,11 @@ public class EntityController {
 		final String parameter = request.getParameter(name);
 		return (parameter != null) && Boolean.parseBoolean(parameter);
 	}
+	
+	private static DateTime dateTimeParameter(HttpServletRequest request, String name) {
+		final String parameter = request.getParameter(name);
+		return (parameter != null ? DateTime.parse(parameter) : null);
+	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
@@ -53,30 +60,33 @@ public class EntityController {
 
 		log.info("Request: " + request.getParameterMap());
 
-		boolean isArtisans = isParameter(request, "artisans");
-		boolean isEvents = isParameter(request, "events");
-		boolean isMuseums = isParameter(request, "museums");
-		boolean isOrganizations = isParameter(request, "organizations");
-
+		boolean isArtisans = isParameter(request, "artisans"), isEvents = isParameter(request, "events"),
+				isMuseums = isParameter(request, "museums"), isOrganizations = isParameter(request, "organizations");
+		
+		DateTime startDate = dateTimeParameter(request, "startDate"), endDate = dateTimeParameter(request, "endDate");
+		
 		log.info("Artisans: {}, Events: {}, Museums: {}, Organizations: {}", isArtisans, isEvents, isMuseums, isOrganizations);
 
 		List<AbstractContributedEntity> entities = Lists.newLinkedList();
 
-		if (isArtisans) {
+		if (isArtisans)
 			entities.addAll(artisanService.getAll());
-		}
 
 		if (isEvents) {
-			entities.addAll(eventService.getAll());
+			List<Event> events = null;
+			if (startDate == null && endDate == null) {
+				events = eventService.getAll();
+			} else {
+				events = eventService.findBetween(startDate, endDate);
+			}
+			entities.addAll(events);
 		}
 
-		if (isMuseums) {
+		if (isMuseums)
 			entities.addAll(museumService.getAll());
-		}
 
-		if (isOrganizations) {
+		if (isOrganizations)
 			entities.addAll(organizationService.getAll());
-		}
 
 		response.setStatus(HttpStatus.OK.value());
 
@@ -89,6 +99,7 @@ public class EntityController {
 	List<Feature> features(HttpServletRequest request, HttpServletResponse response) {
 		List<AbstractContributedEntity> entities = get(request, response);
 		List<Feature> features = Lists.newLinkedList();
+
 		for (AbstractContributedEntity entity : entities) {
 			log.info("Entity is: " + entity);
 			Location location = entity.getLocation();

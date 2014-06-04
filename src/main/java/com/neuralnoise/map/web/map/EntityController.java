@@ -65,7 +65,7 @@ public class EntityController {
 		
 		DateTime startDate = dateTimeParameter(request, "startDate"), endDate = dateTimeParameter(request, "endDate");
 		
-		log.info("Artisans: {}, Events: {}, Museums: {}, Organizations: {}", isArtisans, isEvents, isMuseums, isOrganizations);
+		log.info("Artisans: {}, Events: {}, Museums: {}, Organizations: {}, StartDate: {}, EndDate: {}", isArtisans, isEvents, isMuseums, isOrganizations, startDate, endDate);
 
 		List<AbstractContributedEntity> entities = Lists.newLinkedList();
 

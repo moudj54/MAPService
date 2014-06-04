@@ -16,7 +16,7 @@ From
 	user_entity
 	
 Create View view_artisan As Construct {
-	?s		a					map:Event .
+	?s		a					map:Artisan .
 	?s		map:name			?name .
 	?s		map:description		?description .	
 	?s		geom:geometry		?geo .
@@ -33,7 +33,7 @@ From
 	artisan
 	
 Create View view_organization As Construct {
-	?s		a					map:Event .
+	?s		a					map:Organization .
 	?s		map:name			?name .
 	?s		map:description		?description .	
 	?s		geom:geometry		?geo .
@@ -50,7 +50,7 @@ From
 	organization
 
 Create View view_museum As Construct {
-	?s		a					map:Event .
+	?s		a					map:Museum .
 	?s		map:name			?name .
 	?s		map:description		?description .	
 	?s		geom:geometry		?geo .

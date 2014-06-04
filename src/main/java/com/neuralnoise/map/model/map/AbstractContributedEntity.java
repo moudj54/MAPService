@@ -1,13 +1,12 @@
 package com.neuralnoise.map.model.map;
 
-import java.lang.reflect.Field;
 import java.util.Map;
 
-import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;

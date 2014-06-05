@@ -28,7 +28,7 @@ import com.neuralnoise.map.service.security.SecurityService;
 public class AnswerHandler {
 
 	private static final Logger log = LoggerFactory.getLogger(AnswerHandler.class);
-	
+
 	@Autowired
 	private ArtisanService artisanService;
 	@Autowired
@@ -56,7 +56,7 @@ public class AnswerHandler {
 		}
 		return service;
 	}
-	
+
 	@ServiceActivator
 	public void handle(CAnswer answer) {
 		log.info("Processing the answer for the request: " + answer.getRequest());
@@ -65,78 +65,87 @@ public class AnswerHandler {
 		for (CEvent ce : answer.getEvents()) {
 			log.info("Event: " + ce);
 		}
-		
+
 		securityService.login("admin", "5f4dcc3b5aa765d61d8327deb882cf99");
 
 		for (CEvent ce : answer.getEvents()) {
-			
-			AbstractContributedEntity entity = null;
-			switch (ce.getType()) {
-			case "artisan": {
-				entity = new Artisan();
-			} break;
-			case "organization": {
-				entity = new Organization();
-			} break;
-			case "museum": {
-				entity = new Museum();
-			} break;
-			case "event": {
-				entity = new Event();
-			}
-			}
-			
-			IContributedEntityService<? extends AbstractContributedEntity> service = getService(entity);
-			
-			String name = ce.getName();
+			if (ce != null && ce.getType() != null) {
 
-			boolean found = false;
-			List<? extends AbstractContributedEntity> registeredEvents = service.findByName(name);
-
-			for (AbstractContributedEntity registeredEvent : registeredEvents) {
-				String rd = registeredEvent.getDescription(), prd = (rd == null ? "" : rd.substring(0, 32));
-				String d = ce.getContent(), pd = (d == null ? "" : d.substring(0, 32));
-				if (prd.equals(pd)) {
-					found = true;
+				AbstractContributedEntity entity = null;
+				
+				switch (ce.getType()) {
+				case "artisan": {
+					entity = new Artisan();
 				}
-			}
-
-			if (!found) {
-				log.info("Adding event named: " + name);
-				log.info("Event is: " + ce);
-
-				entity.setName(name);
-				entity.setDescription(ce.getContent());
-
-				entity.setContributor(securityService.getById("admin"));
-
-				if (entity instanceof Event) {
-					Event event = (Event) entity;
-					event.setStartDate(ce.getStartDate());
-					event.setEndDate(ce.getEndDate());
+					break;
+				case "organization": {
+					entity = new Organization();
+				}
+					break;
+				case "museum": {
+					entity = new Museum();
+				}
+					break;
+				case "event": {
+					entity = new Event();
+				}
 				}
 
-				com.neuralnoise.integration.geo.Location cl = ce.getLocation();
-				Location location = null;
+				if (entity != null) {
 
-				if (cl != null) {
-					String lname = cl.getName();
-					Point lpoint = cl.getPoint();
+					IContributedEntityService<? extends AbstractContributedEntity> service = getService(entity);
 
-					location = new Location();
-					location.setAddress(lname);
-					location.setPoint(lpoint.getCoordinates().getLatitude(), lpoint.getCoordinates().getLongitude());
-					entity.setLocation(location);
-				}
+					String name = ce.getName();
 
-				if (service instanceof ArtisanService) {
-					((ArtisanService) service).create((Artisan) entity);
-				} else if (service instanceof OrganizationService) {
-					((OrganizationService) service).create((Organization) entity);
-				} else if (service instanceof MuseumService) {
-					((MuseumService) service).create((Museum) entity);
-				} else if (service instanceof EventService) {
-					((EventService) service).create((Event) entity);
+					boolean found = false;
+					List<? extends AbstractContributedEntity> registeredEvents = service.findByName(name);
+
+					for (AbstractContributedEntity registeredEvent : registeredEvents) {
+						String rd = registeredEvent.getDescription(), prd = (rd == null ? "" : rd.substring(0, Math.min(rd.length(), 32)));
+						String d = ce.getContent(), pd = (d == null ? "" : d.substring(0, Math.min(d.length(), 32)));
+						if (prd.equals(pd)) {
+							found = true;
+						}
+					}
+
+					if (!found) {
+						log.info("Adding event named: " + name);
+						log.info("Event is: " + ce);
+
+						entity.setName(name);
+						entity.setDescription(ce.getContent());
+
+						entity.setContributor(securityService.getById("admin"));
+
+						if (entity instanceof Event) {
+							Event event = (Event) entity;
+							event.setStartDate(ce.getStartDate());
+							event.setEndDate(ce.getEndDate());
+						}
+
+						com.neuralnoise.integration.geo.Location cl = ce.getLocation();
+						Location location = null;
+
+						if (cl != null) {
+							String lname = cl.getName();
+							Point lpoint = cl.getPoint();
+
+							location = new Location();
+							location.setAddress(lname);
+							location.setPoint(lpoint.getCoordinates().getLatitude(), lpoint.getCoordinates().getLongitude());
+							entity.setLocation(location);
+						}
+
+						if (service instanceof ArtisanService) {
+							((ArtisanService) service).create((Artisan) entity);
+						} else if (service instanceof OrganizationService) {
+							((OrganizationService) service).create((Organization) entity);
+						} else if (service instanceof MuseumService) {
+							((MuseumService) service).create((Museum) entity);
+						} else if (service instanceof EventService) {
+							((EventService) service).create((Event) entity);
+						}
+					}
 				}
 			}
 		}

@@ -24,7 +24,7 @@
 		<spring.integration.version>4.0.2.RELEASE</spring.integration.version>
 
 		<!-- Integration -->
-		<activemq.version>5.7.0</activemq.version>
+		<activemq.version>5.9.0</activemq.version>
 
 		<!-- Java EE / Java SE dependencies -->
 		<jsp.version>2.2</jsp.version>
@@ -199,10 +199,20 @@
 		<!-- Include ActiveMQ -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
+			<artifactId>activemq-client</artifactId>
 			<version>${activemq.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-broker</artifactId>
+			<version>${activemq.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-spring</artifactId>
+			<version>${activemq.version}</version>
+		</dependency>
+		
 		<!-- used for EhCacheCacheManager -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -276,7 +286,7 @@
 		<!-- Apache Commons -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
+			<artifactId>commons-lang3</artifactId>			
 			<version>${commons.version}</version>
 		</dependency>
 

@@ -68,9 +68,6 @@
 		<!-- Apache Commons -->
 		<commons.version>3.2</commons.version>
 
-		<!-- Apache POI -->
-		<apache-poi.version>3.9</apache-poi.version>
-
 		<!-- Web dependencies -->
 		<webjars-bootstrap.version>2.3.0</webjars-bootstrap.version>
 		<webjars-jquery-ui.version>1.10.3</webjars-jquery-ui.version>
@@ -401,19 +398,6 @@
 			<artifactId>hamcrest-library</artifactId>
 			<version>${hamcrest.version}</version>
 			<scope>test</scope>
-		</dependency>
-
-		<!-- Used to populate the database from XSLX files -->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>${apache-poi.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>${apache-poi.version}</version>
 		</dependency>
 
 		<dependency>

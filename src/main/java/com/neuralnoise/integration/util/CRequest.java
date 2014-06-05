@@ -8,9 +8,8 @@ public class CRequest implements Serializable {
 
 	protected String resource, adapterName;
 
-	public CRequest() {
-	}
-
+	public CRequest() { }
+	
 	public String getResource() {
 		return resource;
 	}
@@ -18,7 +17,7 @@ public class CRequest implements Serializable {
 	public void setResource(String resource) {
 		this.resource = resource;
 	}
-
+	
 	public String getAdapterName() {
 		return adapterName;
 	}

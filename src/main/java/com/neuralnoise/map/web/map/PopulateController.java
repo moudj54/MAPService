@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.neuralnoise.map.service.map.PopulateService;
@@ -23,14 +22,6 @@ public class PopulateController {
 
 	@Autowired
 	private PopulateService service;
-
-	@RequestMapping(params = { "path" }, method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public void populate(@RequestParam("path") String path, HttpServletResponse response) throws Exception {
-		log.info("Populating the DB from path {} ..", path);
-		service.populate(path);
-		response.setStatus(HttpStatus.OK.value());
-	}
 
 	@RequestMapping(value = "request", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
@@ -45,13 +36,6 @@ public class PopulateController {
 	@ResponseBody
 	public void collect(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		service.collect();
-		response.setStatus(HttpStatus.OK.value());
-	}
-
-	@RequestMapping(value = "clean", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public void clean(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		service.clean();
 		response.setStatus(HttpStatus.OK.value());
 	}
 

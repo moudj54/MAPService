@@ -2,12 +2,10 @@ package com.neuralnoise.map.data.map;
 
 import java.util.List;
 
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -15,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.neuralnoise.map.model.map.Event;
-import com.vividsolutions.jts.geom.Point;
 
 @Repository
 @Transactional

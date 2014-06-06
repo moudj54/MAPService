@@ -34,6 +34,9 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 	@Embedded
 	protected Location location;
 
+	@Column(name = "is_active", columnDefinition = "boolean default true", nullable = false)
+	protected Boolean active = true;
+
 	public UserEntity getContributor() {
 		return contributor;
 	}
@@ -42,7 +45,6 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 		this.contributor = contributor;
 	}
 
-	@JsonIgnore
 	public String getDescription() {
 		return description;
 	}
@@ -59,6 +61,14 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 		this.location = location;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+	
 	@Override
 	@JsonIgnore
 	public Map<String, String> getProperties() {

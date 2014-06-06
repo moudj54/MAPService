@@ -39,5 +39,11 @@ public abstract class AbstractContributedDAO<T extends AbstractContributedEntity
 		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where within(e.point, :filter) = true", clazz);
 		return query.setParameter("filter", filter).getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> findByActivity(boolean activity) {
+		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where e.is_active = :activity");
+		return query.setParameter("activity", activity).getResultList();
+	}
 
 }

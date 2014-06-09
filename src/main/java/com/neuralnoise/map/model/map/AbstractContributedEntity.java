@@ -80,7 +80,7 @@ public abstract class AbstractContributedEntity extends AbstractNamedEntity {
 			properties.putAll(location.getProperties());
 		}
 		
-		log.info("Class: " + this.getClass().getName());
+		//log.info("Class: " + this.getClass().getName());
 		Table table = this.getClass().getAnnotation(Table.class);
 		if (table != null) {
 			properties.put("type", table.name());	

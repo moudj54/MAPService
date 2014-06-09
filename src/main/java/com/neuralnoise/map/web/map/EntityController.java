@@ -90,7 +90,7 @@ public class EntityController {
 		List<Feature> features = Lists.newLinkedList();
 
 		for (AbstractContributedEntity entity : entities) {
-			log.info("Entity is: " + entity);
+			//log.info("Entity is: " + entity);
 			Location location = entity.getLocation();
 			
 			Map<String, String> properties = entity.getProperties();

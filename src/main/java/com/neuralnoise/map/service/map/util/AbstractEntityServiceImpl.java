@@ -27,17 +27,13 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractBaseEntity, D 
 	@Transactional(readOnly = false)
 	public T create(T event) {
 		boolean authorized = false;
-
 		UserEntity ue = securityService.current();
-
 		if (ue != null) {
 			authorized = true;
 		}
-
 		if (!authorized) {
 			throw new InsufficientAuthenticationException("Insufficient privileges");
 		}
-
 		return entityDAO.create(event);
 	}
 
@@ -51,17 +47,13 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractBaseEntity, D 
 	@Transactional(readOnly = false)
 	public void deleteById(Long id) {
 		boolean authorized = false;
-
 		UserEntity ue = securityService.current();
-
 		if (ue != null) {
 			authorized = true;
 		}
-
 		if (!authorized) {
 			throw new InsufficientAuthenticationException("Insufficient privileges");
 		}
-
 		entityDAO.deleteById(id);
 	}
 

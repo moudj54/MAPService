@@ -15,6 +15,15 @@
 
 	<context:annotation-config />
 
+	<context:component-scan base-package="com.neuralnoise" />
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/WEB-INF/pages/" />
+      <property name="suffix" value=".jsp" />
+   </bean>
+   
+   	<mvc:default-servlet-handler />
+
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -24,8 +33,6 @@
 	</mvc:annotation-driven>
 	
 	<bean id="customObjectMapper" class="com.neuralnoise.util.CustomObjectMapper" />
-
-	<context:component-scan base-package="com.neuralnoise" />
 
 	<!-- Define the ActiveMQ connection factory -->
 	<bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
@@ -64,15 +71,6 @@
 		</int:interceptors>
 	</int:channel>
 	<int:logging-channel-adapter id="logAnswers" log-full-message="true" level="ERROR" />
-	
-<!--	
-	<int:channel id="answersJSON">
-		<int:interceptors>
-			<int:wire-tap channel="logAnswersJSON"/>
-		</int:interceptors>
-	</int:channel>
-	<int:logging-channel-adapter id="logAnswersJSON" log-full-message="true" level="ERROR" />
--->
 
 	<bean id="queue.answers" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg value="COLLECTOR.ANSWERS" />

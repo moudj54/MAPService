@@ -72,7 +72,7 @@ public class AnswerHandler {
 			if (ce != null && ce.getType() != null) {
 
 				AbstractContributedEntity entity = null;
-				
+
 				switch (ce.getType()) {
 				case "artisan": {
 					entity = new Artisan();
@@ -98,44 +98,47 @@ public class AnswerHandler {
 					String name = ce.getName();
 
 					boolean found = false;
-					List<? extends AbstractContributedEntity> registeredEvents = service.findByName(name);
+					List<? extends AbstractContributedEntity> registeredEntities = service.findByName(name);
 
-					for (AbstractContributedEntity registeredEvent : registeredEvents) {
-						String rd = registeredEvent.getDescription(), prd = (rd == null ? "" : rd.substring(0, Math.min(rd.length(), 32)));
+					AbstractContributedEntity foundEntity = null;
+					
+					for (AbstractContributedEntity registeredEntity : registeredEntities) {
+						String rd = registeredEntity.getDescription(), prd = (rd == null ? "" : rd.substring(0, Math.min(rd.length(), 32)));
 						String d = ce.getContent(), pd = (d == null ? "" : d.substring(0, Math.min(d.length(), 32)));
 						if (prd.equals(pd)) {
+							foundEntity = registeredEntity;
 							found = true;
 						}
 					}
 
+					log.info("Handling event named: " + name);
+					log.info("Event is: " + ce);
+
+					entity.setName(name);
+					entity.setDescription(ce.getContent());
+
+					entity.setContributor(securityService.getById("admin"));
+
+					if (entity instanceof Event) {
+						Event event = (Event) entity;
+						event.setStartDate(ce.getStartDate());
+						event.setEndDate(ce.getEndDate());
+					}
+
+					com.neuralnoise.integration.geo.Location cl = ce.getLocation();
+					Location location = null;
+
+					if (cl != null) {
+						String lname = cl.getName();
+						Point lpoint = cl.getPoint();
+
+						location = new Location();
+						location.setAddress(lname);
+						location.setPoint(lpoint.getCoordinates().getLatitude(), lpoint.getCoordinates().getLongitude());
+						entity.setLocation(location);
+					}
+
 					if (!found) {
-						log.info("Adding event named: " + name);
-						log.info("Event is: " + ce);
-
-						entity.setName(name);
-						entity.setDescription(ce.getContent());
-
-						entity.setContributor(securityService.getById("admin"));
-
-						if (entity instanceof Event) {
-							Event event = (Event) entity;
-							event.setStartDate(ce.getStartDate());
-							event.setEndDate(ce.getEndDate());
-						}
-
-						com.neuralnoise.integration.geo.Location cl = ce.getLocation();
-						Location location = null;
-
-						if (cl != null) {
-							String lname = cl.getName();
-							Point lpoint = cl.getPoint();
-
-							location = new Location();
-							location.setAddress(lname);
-							location.setPoint(lpoint.getCoordinates().getLatitude(), lpoint.getCoordinates().getLongitude());
-							entity.setLocation(location);
-						}
-
 						if (service instanceof ArtisanService) {
 							((ArtisanService) service).create((Artisan) entity);
 						} else if (service instanceof OrganizationService) {
@@ -144,6 +147,24 @@ public class AnswerHandler {
 							((MuseumService) service).create((Museum) entity);
 						} else if (service instanceof EventService) {
 							((EventService) service).create((Event) entity);
+						}
+					} else {
+						if (service instanceof ArtisanService) {
+							ArtisanService s = (ArtisanService) service;
+							s.deleteById(foundEntity.getId());
+							s.create((Artisan) entity);
+						} else if (service instanceof OrganizationService) {
+							OrganizationService s = (OrganizationService) service;
+							s.deleteById(foundEntity.getId());
+							s.create((Organization) entity);
+						} else if (service instanceof MuseumService) {
+							MuseumService s = (MuseumService) service;
+							s.deleteById(foundEntity.getId());
+							s.create((Museum) entity);
+						} else if (service instanceof EventService) {
+							EventService s = (EventService) service;
+							s.deleteById(foundEntity.getId());
+							s.create((Event) entity);
 						}
 					}
 				}

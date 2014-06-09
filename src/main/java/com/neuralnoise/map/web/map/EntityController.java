@@ -34,13 +34,10 @@ public class EntityController {
 
 	@Autowired
 	private ArtisanService artisanService;
-
 	@Autowired
 	private EventService eventService;
-
 	@Autowired
 	private MuseumService museumService;
-
 	@Autowired
 	private OrganizationService organizationService;
 
@@ -57,21 +54,15 @@ public class EntityController {
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
 	List<AbstractContributedEntity> get(HttpServletRequest request, HttpServletResponse response) {
-
 		log.info("Request: " + request.getParameterMap());
-
 		boolean isArtisans = isParameter(request, "artisans"), isEvents = isParameter(request, "events"),
 				isMuseums = isParameter(request, "museums"), isOrganizations = isParameter(request, "organizations");
-		
 		DateTime startDate = dateTimeParameter(request, "startDate"), endDate = dateTimeParameter(request, "endDate");
-		
 		log.info("Artisans: {}, Events: {}, Museums: {}, Organizations: {}, StartDate: {}, EndDate: {}", isArtisans, isEvents, isMuseums, isOrganizations, startDate, endDate);
-
 		List<AbstractContributedEntity> entities = Lists.newLinkedList();
-
-		if (isArtisans)
+		if (isArtisans) {
 			entities.addAll(artisanService.getAll());
-
+		}
 		if (isEvents) {
 			List<Event> events = null;
 			if (startDate == null && endDate == null) {
@@ -81,15 +72,13 @@ public class EntityController {
 			}
 			entities.addAll(events);
 		}
-
-		if (isMuseums)
+		if (isMuseums) {
 			entities.addAll(museumService.getAll());
-
-		if (isOrganizations)
+		}
+		if (isOrganizations) {
 			entities.addAll(organizationService.getAll());
-
+		}
 		response.setStatus(HttpStatus.OK.value());
-
 		return entities;
 	}
 

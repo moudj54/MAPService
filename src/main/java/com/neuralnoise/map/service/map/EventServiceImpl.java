@@ -20,7 +20,7 @@ public class EventServiceImpl extends AbstractContributedEntityServiceImpl<Event
 
 	@Override
 	public List<Event> findBetween(DateTime startDate, DateTime endDate) {
-		
+		/*
 		boolean authorized = false;
 		UserEntity ue = securityService.current();
 
@@ -31,7 +31,7 @@ public class EventServiceImpl extends AbstractContributedEntityServiceImpl<Event
 		if (!authorized) {
 			throw new InsufficientAuthenticationException("Insufficient privileges");
 		}
-		
+		*/
 		return entityDAO.findBetween(startDate, endDate);
 	}
 

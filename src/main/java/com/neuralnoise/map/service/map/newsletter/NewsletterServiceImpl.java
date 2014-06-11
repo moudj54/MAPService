@@ -28,6 +28,7 @@ public class NewsletterServiceImpl implements NewsletterService {
 	@Override
 	@Transactional(readOnly = false)
 	public Subscription create(Subscription subscription) {
+		/*
 		boolean authorized = false;
 		UserEntity ue = securityService.current();
 		if (ue != null) {
@@ -36,6 +37,7 @@ public class NewsletterServiceImpl implements NewsletterService {
 		if (!authorized) {
 			throw new InsufficientAuthenticationException("Insufficient privileges");
 		}
+		*/
 		return subscriptionDAO.create(subscription);
 	}
 

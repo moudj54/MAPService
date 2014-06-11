@@ -25,11 +25,11 @@ public class Subscription implements Serializable {
 	protected String email;
 
 	@Column(name = "name")
-	@NotEmpty
+	//@NotEmpty
 	protected String name;
 
 	@Column(name = "city")
-	@NotEmpty
+	//@NotEmpty
 	protected String city;
 	
 	public String getEmail() {

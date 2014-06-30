@@ -1,0 +1,283 @@
+Hibernate: 
+    select
+        event0_.id as id1_6_,
+        event0_2_.name as name2_6_,
+        event0_1_.contributor_name as contribu5_2_,
+        event0_1_.description as descript1_2_,
+        event0_1_.address as address2_2_,
+        event0_1_.point as point3_2_,
+        event0_.end_date as end_date1_4_,
+        event0_.start_date as start_da2_4_ 
+    from
+        event event0_ 
+    inner join
+        contributed_entity event0_1_ 
+            on event0_.id=event0_1_.id 
+    inner join
+        named_entity event0_2_ 
+            on event0_.id=event0_2_.id
+Hibernate: 
+    select
+        userentity0_.name as name1_9_0_,
+        userentity0_.admin as admin2_9_0_,
+        userentity0_.digest as digest3_9_0_ 
+    from
+        user_entity userentity0_ 
+    where
+        userentity0_.name=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        contribute0_.name as name2_0_0_,
+        contribute0_.id as id1_3_0_,
+        contribute1_.id as id1_6_1_,
+        contribute1_1_.name as name2_6_1_,
+        contribute1_.contributor_name as contribu5_2_1_,
+        contribute1_.description as descript1_2_1_,
+        contribute1_.address as address2_2_1_,
+        contribute1_.point as point3_2_1_,
+        contribute1_2_.end_date as end_date1_4_1_,
+        contribute1_2_.start_date as start_da2_4_1_,
+        case 
+            when contribute1_2_.id is not null then 2 
+            when contribute1_3_.id is not null then 3 
+            when contribute1_4_.id is not null then 4 
+            when contribute1_5_.id is not null then 5 
+            when contribute1_.id is not null then 1 
+        end as clazz_1_,
+        userentity2_.name as name1_9_2_,
+        userentity2_.admin as admin2_9_2_,
+        userentity2_.digest as digest3_9_2_ 
+    from
+        entity_annotation contribute0_ 
+    inner join
+        contributed_entity contribute1_ 
+            on contribute0_.id=contribute1_.id 
+    left outer join
+        named_entity contribute1_1_ 
+            on contribute1_.id=contribute1_1_.id 
+    left outer join
+        event contribute1_2_ 
+            on contribute1_.id=contribute1_2_.id 
+    left outer join
+        organization contribute1_3_ 
+            on contribute1_.id=contribute1_3_.id 
+    left outer join
+        artisan contribute1_4_ 
+            on contribute1_.id=contribute1_4_.id 
+    left outer join
+        museum contribute1_5_ 
+            on contribute1_.id=contribute1_5_.id 
+    inner join
+        user_entity userentity2_ 
+            on contribute1_.contributor_name=userentity2_.name 
+    where
+        contribute0_.name=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+Hibernate: 
+    select
+        annotation0_.id as id1_6_0_,
+        annotation0_.name as name2_3_0_,
+        annotation1_.name as name1_0_1_,
+        annotation1_.description as descript2_0_1_ 
+    from
+        entity_annotation annotation0_ 
+    inner join
+        annotation annotation1_ 
+            on annotation0_.name=annotation1_.name 
+    where
+        annotation0_.id=?
+

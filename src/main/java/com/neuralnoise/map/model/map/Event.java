@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -14,7 +15,8 @@ import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name = "event")
-public class Event extends AbstractContributedEntity {
+@PrimaryKeyJoinColumn(name="id", referencedColumnName="id")
+public class Event extends ContributedEntity {
 
 	private static final Logger log = LoggerFactory.getLogger(Event.class);
 
@@ -53,8 +55,8 @@ public class Event extends AbstractContributedEntity {
 	}
 
 	@Override
-	public Map<String, String> getProperties() {
-		Map<String, String> properties = super.getProperties();
+	public Map<String, Object> getProperties() {
+		Map<String, Object> properties = super.getProperties();
 		properties.put("startDate", startDate.toString());
 		properties.put("endDate", endDate.toString());
 		return properties;

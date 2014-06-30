@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.neuralnoise.map.model.map.AbstractContributedEntity;
+import com.neuralnoise.map.model.map.ContributedEntity;
 import com.neuralnoise.map.service.map.util.IContributedEntityService;
 
-public class AbstractContributedEntityController<T extends AbstractContributedEntity, S extends IContributedEntityService<T>> extends AbstractEntityController<T, S> {
+public class AbstractContributedEntityController<T extends ContributedEntity, S extends IContributedEntityService<T>> extends AbstractEntityController<T, S> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractContributedEntityController.class);
 

@@ -1,6 +1,7 @@
 package com.neuralnoise.integration;
 
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
+import com.google.common.collect.Sets;
 import com.neuralnoise.integration.geo.Point;
 import com.neuralnoise.integration.util.CAnswer;
 import com.neuralnoise.integration.util.CEvent;
 import com.neuralnoise.map.model.geo.Location;
-import com.neuralnoise.map.model.map.AbstractContributedEntity;
+import com.neuralnoise.map.model.map.Annotation;
 import com.neuralnoise.map.model.map.Artisan;
+import com.neuralnoise.map.model.map.ContributedEntity;
 import com.neuralnoise.map.model.map.Event;
 import com.neuralnoise.map.model.map.Museum;
 import com.neuralnoise.map.model.map.Organization;
@@ -41,8 +44,8 @@ public class AnswerHandler {
 	@Autowired
 	private SecurityService securityService;
 
-	private IContributedEntityService<? extends AbstractContributedEntity> getService(AbstractContributedEntity entity) {
-		IContributedEntityService<? extends AbstractContributedEntity> service = null;
+	private IContributedEntityService<? extends ContributedEntity> getService(ContributedEntity entity) {
+		IContributedEntityService<? extends ContributedEntity> service = null;
 		if (entity != null) {
 			if (entity instanceof Artisan) {
 				service = artisanService;
@@ -71,7 +74,7 @@ public class AnswerHandler {
 		for (CEvent ce : answer.getEvents()) {
 			if (ce != null && ce.getType() != null) {
 
-				AbstractContributedEntity entity = null;
+				ContributedEntity entity = null;
 
 				switch (ce.getType()) {
 				case "artisan": {
@@ -93,16 +96,16 @@ public class AnswerHandler {
 
 				if (entity != null) {
 
-					IContributedEntityService<? extends AbstractContributedEntity> service = getService(entity);
+					IContributedEntityService<? extends ContributedEntity> service = getService(entity);
 
 					String name = ce.getName();
 
 					boolean found = false;
-					List<? extends AbstractContributedEntity> registeredEntities = service.findByName(name);
+					List<? extends ContributedEntity> registeredEntities = service.findByName(name);
 
-					AbstractContributedEntity foundEntity = null;
-					
-					for (AbstractContributedEntity registeredEntity : registeredEntities) {
+					ContributedEntity foundEntity = null;
+
+					for (ContributedEntity registeredEntity : registeredEntities) {
 						String rd = registeredEntity.getDescription(), prd = (rd == null ? "" : rd.substring(0, Math.min(rd.length(), 32)));
 						String d = ce.getContent(), pd = (d == null ? "" : d.substring(0, Math.min(d.length(), 32)));
 						if (prd.equals(pd)) {
@@ -118,7 +121,19 @@ public class AnswerHandler {
 					entity.setDescription(ce.getContent());
 
 					entity.setContributor(securityService.getById("admin"));
-
+					
+					Set<Annotation> annotations = Sets.newHashSet();
+					
+					if (ce.getAnnotations() != null) {
+						for (String annotation : ce.getAnnotations()) {
+							Annotation ann = new Annotation();
+							ann.setId(annotation);
+							annotations.add(ann);
+						}
+					}
+					
+					entity.setAnnotations(annotations);
+					
 					if (entity instanceof Event) {
 						Event event = (Event) entity;
 						event.setStartDate(ce.getStartDate());
@@ -138,34 +153,30 @@ public class AnswerHandler {
 						entity.setLocation(location);
 					}
 
-					if (!found) {
-						if (service instanceof ArtisanService) {
-							((ArtisanService) service).create((Artisan) entity);
-						} else if (service instanceof OrganizationService) {
-							((OrganizationService) service).create((Organization) entity);
-						} else if (service instanceof MuseumService) {
-							((MuseumService) service).create((Museum) entity);
-						} else if (service instanceof EventService) {
-							((EventService) service).create((Event) entity);
-						}
-					} else {
+					if (found) {
 						if (service instanceof ArtisanService) {
 							ArtisanService s = (ArtisanService) service;
 							s.deleteById(foundEntity.getId());
-							s.create((Artisan) entity);
 						} else if (service instanceof OrganizationService) {
 							OrganizationService s = (OrganizationService) service;
 							s.deleteById(foundEntity.getId());
-							s.create((Organization) entity);
 						} else if (service instanceof MuseumService) {
 							MuseumService s = (MuseumService) service;
 							s.deleteById(foundEntity.getId());
-							s.create((Museum) entity);
 						} else if (service instanceof EventService) {
 							EventService s = (EventService) service;
 							s.deleteById(foundEntity.getId());
-							s.create((Event) entity);
 						}
+					}
+
+					if (service instanceof ArtisanService) {
+						((ArtisanService) service).create((Artisan) entity);
+					} else if (service instanceof OrganizationService) {
+						((OrganizationService) service).create((Organization) entity);
+					} else if (service instanceof MuseumService) {
+						((MuseumService) service).create((Museum) entity);
+					} else if (service instanceof EventService) {
+						((EventService) service).create((Event) entity);
 					}
 				}
 			}

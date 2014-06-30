@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -34,13 +36,25 @@ public abstract class AbstractDAO<T extends Serializable, I> {
 
 	@SuppressWarnings("unchecked")
 	public List<T> getAll() {
-		return getEntityManager().createQuery("from " + clazz.getName()).getResultList();
+		// XXX: NOT GOOD - Fetching strategies are ignored if we use the query interface
+		//return getEntityManager().createQuery("from " + clazz.getName()).getResultList();
+	
+		Session session = getEntityManager().unwrap(Session.class);
+		Criteria criteria = session.createCriteria(clazz, "entity");
+		List<T> list = criteria.list();
+		return list;
 	}
 
 	public T create(final T entity) {
-		log.info("Making " + entity + " persistent ..");
+		log.info("Making entity persistent: " + entity);
 		Preconditions.checkNotNull(entity);
 		getEntityManager().persist(entity);
+		return entity;
+	}
+	
+	public T merge(final T entity) {
+		Preconditions.checkNotNull(entity);
+		getEntityManager().merge(entity);
 		return entity;
 	}
 
@@ -52,8 +66,6 @@ public abstract class AbstractDAO<T extends Serializable, I> {
 	public void delete(final T entity) {
 		Preconditions.checkNotNull(entity);
 		getEntityManager().remove(entity);
-		// getEntityManager().remove(getEntityManager().contains(entity) ?
-		// entity : getEntityManager().merge(entity));
 	}
 
 	public void deleteById(final I entityId) {

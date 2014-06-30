@@ -88,6 +88,7 @@
 		<httpclient.version>4.0</httpclient.version>
 		<nominatim.version>2.0.2</nominatim.version>
 		<geocoder.version>0.15</geocoder.version>
+		
 	</properties>
 
 	<dependencies>
@@ -199,7 +200,7 @@
 			<version>${spring.integration.version}</version>
 		</dependency>
 
-		<!-- Include ActiveMQ -->
+		<!-- ActiveMQ -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-client</artifactId>
@@ -215,8 +216,8 @@
 			<artifactId>activemq-spring</artifactId>
 			<version>${activemq.version}</version>
 		</dependency>
-		
-		<!-- used for EhCacheCacheManager -->
+
+		<!-- For EhCacheCacheManager -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>

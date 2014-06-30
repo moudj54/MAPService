@@ -62,7 +62,7 @@
 	</bean>
 
 	<!-- Send message to JMS -->
-	<int-jms:outbound-channel-adapter channel="requestsJSON" destination="queue.requests"/>
+	<int-jms:outbound-channel-adapter channel="requestsJSON" destination="queue.requests" />
 	<int:object-to-json-transformer input-channel="requests" output-channel="requestsJSON" content-type="text/x-json"/>
 
 	<int:channel id="answers">

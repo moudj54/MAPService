@@ -9,11 +9,11 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neuralnoise.map.data.AbstractDAO;
-import com.neuralnoise.map.model.AbstractBaseEntity;
+import com.neuralnoise.map.model.BaseEntity;
 import com.neuralnoise.map.model.security.UserEntity;
 import com.neuralnoise.map.service.security.SecurityService;
 
-public abstract class AbstractEntityServiceImpl<T extends AbstractBaseEntity, D extends AbstractDAO<T, Long>> implements IEntityService<T> {
+public abstract class AbstractEntityServiceImpl<T extends BaseEntity, D extends AbstractDAO<T, Long>> implements IEntityService<T> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractContributedEntityServiceImpl.class);
 

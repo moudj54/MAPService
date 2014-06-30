@@ -19,7 +19,6 @@ import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
 @Embeddable
-//@Entity
 public class Location implements Serializable {
 
 	private static final Logger log = LoggerFactory.getLogger(Location.class);

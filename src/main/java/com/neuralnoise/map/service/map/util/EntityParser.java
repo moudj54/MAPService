@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.neuralnoise.map.model.geo.Location;
-import com.neuralnoise.map.model.map.AbstractContributedEntity;
 import com.neuralnoise.map.model.map.Artisan;
+import com.neuralnoise.map.model.map.ContributedEntity;
 import com.neuralnoise.map.model.map.Organization;
 import com.neuralnoise.map.service.geo.GeoLocationService;
 import com.neuralnoise.map.service.geo.GeoLocationService.ServiceType;
@@ -22,8 +22,8 @@ public class EntityParser {
 	private EntityParser() {
 	}
 
-	public static AbstractContributedEntity parse(Map<String, String> map, GeoLocationService geoService) throws Exception {
-		AbstractContributedEntity entity = null;
+	public static ContributedEntity parse(Map<String, String> map, GeoLocationService geoService) throws Exception {
+		ContributedEntity entity = null;
 
 		final String category = map.get("categoria");
 		if (category == null)

@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.neuralnoise.map.model.AbstractBaseEntity;
+import com.neuralnoise.map.model.BaseEntity;
 import com.neuralnoise.map.service.map.util.IEntityService;
 
-public class AbstractEntityController<T extends AbstractBaseEntity, S extends IEntityService<T>> {
+public class AbstractEntityController<T extends BaseEntity, S extends IEntityService<T>> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractEntityController.class);
 

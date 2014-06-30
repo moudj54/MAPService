@@ -7,9 +7,9 @@ import javax.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.neuralnoise.map.model.AbstractNamedEntity;
+import com.neuralnoise.map.model.NamedEntity;
 
-public class AbstractNamedDAO<T extends AbstractNamedEntity, I> extends AbstractDAO<T, I> {
+public class AbstractNamedDAO<T extends NamedEntity, I> extends AbstractDAO<T, I> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractNamedDAO.class);
 

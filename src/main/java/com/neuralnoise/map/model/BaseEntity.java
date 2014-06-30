@@ -15,9 +15,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Maps;
 
 @MappedSuperclass
-public abstract class AbstractBaseEntity implements Serializable {
+public class BaseEntity implements Serializable {
 
-	private static final Logger log = LoggerFactory.getLogger(AbstractBaseEntity.class);
+	private static final Logger log = LoggerFactory.getLogger(BaseEntity.class);
 
 	private static final long serialVersionUID = 1134332795854462829L;
 
@@ -38,8 +38,8 @@ public abstract class AbstractBaseEntity implements Serializable {
 	}
 
 	@JsonIgnore
-	public Map<String, String> getProperties() {
-		Map<String, String> properties = Maps.newHashMap();
+	public Map<String, Object> getProperties() {
+		Map<String, Object> properties = Maps.newHashMap();
 		if (id != null) {
 			properties.put("id", Long.toString(id));
 		}

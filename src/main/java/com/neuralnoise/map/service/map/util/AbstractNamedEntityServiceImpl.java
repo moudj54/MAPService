@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neuralnoise.map.data.AbstractNamedDAO;
-import com.neuralnoise.map.model.AbstractNamedEntity;
+import com.neuralnoise.map.model.NamedEntity;
 
-public abstract class AbstractNamedEntityServiceImpl<T extends AbstractNamedEntity, D extends AbstractNamedDAO<T, Long>> extends AbstractEntityServiceImpl<T, D> implements INamedEntityService<T> {
+public abstract class AbstractNamedEntityServiceImpl<T extends NamedEntity, D extends AbstractNamedDAO<T, Long>> extends AbstractEntityServiceImpl<T, D> implements INamedEntityService<T> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractNamedEntityServiceImpl.class);
 

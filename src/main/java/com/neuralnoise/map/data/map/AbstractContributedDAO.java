@@ -9,19 +9,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.neuralnoise.map.data.AbstractNamedDAO;
-import com.neuralnoise.map.model.map.AbstractContributedEntity;
+import com.neuralnoise.map.model.map.ContributedEntity;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
 
 @Repository
-public abstract class AbstractContributedDAO<T extends AbstractContributedEntity, I> extends AbstractNamedDAO<T, I> {
+public abstract class AbstractContributedDAO<T extends ContributedEntity, I> extends AbstractNamedDAO<T, I> {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractContributedDAO.class);
 
 	public AbstractContributedDAO(Class<T> clazzToSet) {
 		super(clazzToSet);
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public List<T> findByContributor(String name) {
 		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where e.contributor.name = :name");
@@ -38,12 +38,6 @@ public abstract class AbstractContributedDAO<T extends AbstractContributedEntity
 	public List<T> findWithin(Geometry filter, Long units) {
 		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where within(e.point, :filter) = true", clazz);
 		return query.setParameter("filter", filter).getResultList();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<T> findByActivity(boolean activity) {
-		Query query = getEntityManager().createQuery("from " + clazz.getName() + " e where e.is_active = :activity");
-		return query.setParameter("activity", activity).getResultList();
 	}
 
 }
